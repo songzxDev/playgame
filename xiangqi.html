@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>象棋棋盘</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #div1 {
+            width: 620px;
+            height: 620px;
+            margin: 0 auto;
+            margin-top: 10px;
+            border: 2px solid #f00;
+        }
+
+        #div2 {
+            width: 605px;
+            height: 120px;
+            margin: 20px auto;
+    
+            border: 2px solid #ccc;
+        }
+
+        #div3 {
+            width: 605px;
+            height: 120px;
+            margin: 20px auto;
+            border: 2px solid #ccc;
+        }
+    </style>
+    <script type="text/javascript">
+        function canvas1id() {
+            let canvas = document.getElementById("canvas1");
+            let hb = canvas.getContext("2d");
+            canvas.width = 620; canvas.height = 620;
+            hb.lineWidth = 5;
+            hb.strokeStyle = "#000";
+            hb.strokeRect(30, 30, 560, 560);  //外方框
+            hb.lineWidth = 1;
+
+            for (let i = 1; i < 9; i++) {
+                if (i > 4) {
+                    hb.moveTo(30, i * 60 + 50);
+                    hb.lineTo(590, i * 60 + 50);
+                }
+                else {
+                    hb.moveTo(30, i * 60 + 30);
+                    hb.lineTo(590, i * 60 + 30);
+                }
+            }  //画棋盘横线
+
+            for (let i = 1; i < 8; i++) {
+                hb.moveTo(i * 70 + 30, 30); hb.lineTo(i * 70 + 30, 270); hb.moveTo(i * 70 + 30, 350); hb.lineTo(i * 70 + 30, 590);
+            }  //画棋盘竖线
+
+            hb.moveTo(240, 30); hb.lineTo(380, 150); hb.moveTo(380, 30); hb.lineTo(240, 150);
+            hb.moveTo(240, 590); hb.lineTo(380, 470); hb.moveTo(380, 590); hb.lineTo(240, 470);
+            hb.stroke();  //画交叉线
+
+            hb.font = 'bold 60px arial';
+            hb.fillText("楚河", 80, 330); hb.fillText("汉界", 420, 330);  //写汉字
+
+            canvas2id();
+
+        }
+
+        function canvas2id() {
+            let canvas = document.getElementById("canvas2");
+            let qh = canvas.getContext("2d");
+            canvas.width = 605; canvas.height = 120;
+            qh.lineWidth = 1; qh.strokeStyle = "#000";
+            for (i = 0; i < 8; i++) {
+                qh.arc(40 + 75 * i, 60, 35, 0, 360);
+                qh.moveTo((i + 2) * 75, 60);
+            }
+            qh.stroke();
+            qh.font = 'bold 50px arial';
+            let qz = ["将", "士", "象", "马", "车", "炮", "卒", "卒"];
+            for (i = 0; i < 8; i++) {
+                qh.fillText(qz[i], 15 + 75 * i, 75);
+            }
+            canvas3id();
+
+        }
+
+        function canvas3id() {
+            let canvas = document.getElementById("canvas3");
+            let qh = canvas.getContext("2d");
+            canvas.width = 605; canvas.height = 120;
+            qh.lineWidth = 1; qh.strokeStyle = "#000"; qh.fillStyle="#FF0000";
+            for (i = 0; i < 8; i++) {
+                qh.arc(40 + 75 * i, 60, 35, 0, 360);
+                qh.moveTo((i + 2) * 75, 60);
+            }
+            qh.stroke();
+            qh.font = 'bold 50px arial';
+            let qz = ["帅", "仕", "相", "马", "车", "炮", "兵", "兵"];
+            for (i = 0; i < 8; i++) {
+                qh.fillText(qz[i], 15 + 75 * i, 75);
+            }
+        }
+
+
+    </script>
+
+
+</head>
+
+<body onload="canvas1id()">
+    <div id="div3"><canvas id="canvas3"></canvas></div>
+    <div id="div1"><canvas id="canvas1"></canvas></div>
+    <div id="div2"><canvas id="canvas2"></canvas></div>
+
+    
+</body>
+
+
+
+</html>
