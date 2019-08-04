@@ -36,10 +36,10 @@
     // 2 是白子，1 是黑子，0 是空格
     let checkerMap = [
         [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 2, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 2, 0, 0, 0, 0, 0, 0],
         [0, 0, 1, 2, 2, 0, 0, 0],
-        [0, 0, 0, 2, 1, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 2, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0],
@@ -185,54 +185,15 @@
                 //     render();
                 // });
                 cell.addEventListener("click", event => {
-                    if (checkerMap[i][j] > 0)
-                        return;
-                    let directions = [
-                        {x: -1, y: -1},
-                        {x: -1, y: 0},
-                        {x: -1, y: 1},
-                        {x: 0, y: -1},
-                        {x: 0, y: 1},
-                        {x: 1, y: -1},
-                        {x: 1, y: 0},
-                        {x: 1, y: 1}
-                    ];
-                    let moveSuccess = false;
-                    for (let direction of directions) {
-                        let canMove = false;
-                        let [x, y] = [j, i];
-                        while (true) {
-                            x += direction.x;
-                            y += direction.y;
-                            if (x < 0 || x >= 8 || y < 0 || y >= 8) {
-                                canMove = false;
-                                break;
-                            }
-                            if (checkerMap[y][x] === 3 - color) {
-                                canMove = true;
-                            } else if (checkerMap[y][x] === color) {
-                                break
-                            } else if (checkerMap[y][x] === 0) {
-                                canMove = false;
-                                break;
-                            }
-                        }
-
-                        if (canMove) {
-                            moveSuccess = true;
-                            while (true) {
-                                x -= direction.x;
-                                y -= direction.y;
-
-                                checkerMap[y][x] = color;
-                                if (x === j && y === i)
-                                    break;
-                            }
-                        }
-
-                    }
-                    if (moveSuccess) {
+                    if (chessMove(i, j, false)) {
                         color = 3 - color;
+                        if (checkPass()) {
+                            console.log("pass");
+                            color = 3 - color;
+                            if (checkPass()) {
+                                alert("Game Over!");
+                            }
+                        }
                     }
                     render();
 
@@ -259,6 +220,66 @@
         }
     }
 
+    function chessMove(i, j, checkOnly) {
+        checkOnly = checkOnly || false;
+        if (checkerMap[i][j] > 0)
+            return;
+        let directions = [
+            {x: -1, y: -1},
+            {x: -1, y: 0},
+            {x: -1, y: 1},
+            {x: 0, y: -1},
+            {x: 0, y: 1},
+            {x: 1, y: -1},
+            {x: 1, y: 0},
+            {x: 1, y: 1}
+        ];
+        let moveSuccess = false;
+        for (let direction of directions) {
+            let canMove = false;
+            let [x, y] = [j, i];
+            while (true) {
+                x += direction.x;
+                y += direction.y;
+                if (x < 0 || x >= 8 || y < 0 || y >= 8) {
+                    canMove = false;
+                    break;
+                }
+                if (checkerMap[y][x] === 3 - color) {
+                    canMove = true;
+                } else if (checkerMap[y][x] === color) {
+                    break
+                } else if (checkerMap[y][x] === 0) {
+                    canMove = false;
+                    break;
+                }
+            }
+            moveSuccess = moveSuccess || canMove;
+            if (canMove && !checkOnly) {
+
+                while (true) {
+                    x -= direction.x;
+                    y -= direction.y;
+
+                    checkerMap[y][x] = color;
+                    if (x === j && y === i)
+                        break;
+                }
+            }
+
+        }
+        return moveSuccess;
+    }
+
+    function checkPass() {
+        for (let i = 0; i < 8; i++) {
+            for (let j = 0; j < 8; j++) {
+                if (chessMove(i, j, true))
+                    return false;
+            }
+        }
+        return true;
+    }
 
 </script>
 </body>
