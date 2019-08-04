@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="board" style="display: inline-block"></div>
+<script>
+    let boardDom = document.getElementById('board');
+    let map = [
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 1, 2, 0, 0, 0],
+        [0, 0, 0, 2, 1, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+    ];
+    for (let i = 0; i < 8; i++) {
+        for (let j = 0; j < 8; j++) {
+            let cell = document.createElement('div');
+            cell.style = "vertical-align:middle;width: 30px; height: 30px; background-color: #009100;display:inline-block; margin:1px;";
+
+            if (map[i][j] === 1) {
+                let chess = document.createElement('div');
+                chess.style = "margin:2px;width: 26px; height:26px;border-radius:13px;background-color: #ffffff;";
+                cell.appendChild(chess);
+            }
+            if (map[i][j] === 2) {
+                let chess = document.createElement('div');
+                chess.style = "margin:2px;width: 26px; height:26px;border-radius:13px;background-color: #111111;";
+                cell.appendChild(chess);
+            }
+            boardDom.appendChild(cell);
+
+        }
+        boardDom.appendChild(document.createElement('br'));
+    }
+
+</script>
+</body>
+</html>
