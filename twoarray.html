@@ -3,6 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <title>二维数组实现棋盘</title>
+    <style>
+        .checker-grid {
+            vertical-align: middle;
+            width: 30px;
+            height: 30px;
+            background-color: #009100;
+            display: inline-block;
+            margin: 1px;
+        }
+
+        .chess {
+            margin: 2px;
+            width: 26px;
+            height: 26px;
+            border-radius: 13px;
+        }
+
+        .chess-black {
+            background-color: #111111;
+        }
+
+        .chess-white {
+            background-color: #FFFFFF;
+        }
+    </style>
 </head>
 <body>
 <div id="board"></div>
@@ -19,7 +44,7 @@
         [0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0],
     ];
-    let color = 1;
+    let color = 1; // 1 是黑子
     render();
 
     function render() {
@@ -27,7 +52,7 @@
         for (let i = 0; i < 8; i++) {
             for (let j = 0; j < 8; j++) {
                 let cell = document.createElement('div');
-                cell.style = "vertical-align: middle;width: 30px;height: 30px;background-color: #009100;display: inline-block;margin: 1px;";
+                cell.className = "checker-grid";
                 // cell.addEventListener("click", event => {
                 //     console.log(j, i);
                 //     let canMove = false;
@@ -214,12 +239,16 @@
                 });
                 if (checkerMap[i][j] === 1) {
                     let chess = document.createElement('div');
-                    chess.style = "margin: 2px;width: 26px;height: 26px;border-radius: 13px;background-color: #111111;";
+                    // chess.style = "margin: 2px;width: 26px;height: 26px;border-radius: 13px;background-color: #111111;";
+                    chess.className = 'chess';
+                    chess.classList.add('chess-black');
                     cell.appendChild(chess);
                 }
                 if (checkerMap[i][j] === 2) {
                     let chess = document.createElement('div');
-                    chess.style = "margin: 2px;width: 26px;height: 26px;border-radius: 13px;background-color: #FFFFFF;";
+                    // chess.style = "margin: 2px;width: 26px;height: 26px;border-radius: 13px;background-color: #FFFFFF;";
+                    chess.className = 'chess';
+                    chess.classList.add('chess-white');
                     cell.appendChild(chess);
                 }
                 boardDom.appendChild(cell);
