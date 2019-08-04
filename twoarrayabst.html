@@ -125,8 +125,8 @@
                     this.color = 3 - this.color;
                     if (this.pattern.checkPass(this.color)) {
                         let msg = '';
-                        let countBlank = checkerMap.flat().filter(item => item === 1).length;
-                        let countWhite = checkerMap.flat().filter(item => item === 2).length;
+                        let countBlank = this.pattern.map.flat().filter(item => item === 1).length;
+                        let countWhite = this.pattern.map.flat().filter(item => item === 2).length;
                         if (countBlank > countWhite) {
                             msg = '黑方胜利';
                         } else if (countBlank < countWhite) {
