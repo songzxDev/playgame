@@ -36,8 +36,8 @@
 <script>
 
     class ReversiPattern {
-        constructor() {
-            this.map = [
+        constructor(map) {
+            this.map = map || [
                 [0, 0, 0, 0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0, 0, 0, 0],
@@ -46,7 +46,7 @@
                 [0, 0, 0, 0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0, 0, 0, 0]
-            ];
+            ]
         }
 
         move(i, j, color, checkOnly) {
@@ -110,23 +110,37 @@
             }
             return true;
         }
+
+        clone() {
+            return new ReversiPattern(this.map.map(line => line.slice()));
+        }
     }
 
     class ReversiGame {
         constructor() {
-            this.pattern = new ReversiPattern();
-            this.color = 1;
+            this.patterns = [new ReversiPattern()];
+            this.colors = [1];
+        }
+
+        get pattern() {
+            return this.patterns[this.patterns.length - 1];
+        }
+
+        get color() {
+            return this.colors[this.colors.length - 1];
         }
 
         move(i, j) {
-            if (this.pattern.move(i, j, this.color, false)) {
-                this.color = 3 - this.color;
-                if (this.pattern.checkPass(this.color)) {
-                    this.color = 3 - this.color;
-                    if (this.pattern.checkPass(this.color)) {
+            let pattern = this.pattern.clone();
+            let color = this.color;
+            if (pattern.move(i, j, color, false)) {
+                color = 3 - color;
+                if (pattern.checkPass(color)) {
+                    color = 3 - color;
+                    if (pattern.checkPass(color)) {
                         let msg = '';
-                        let countBlank = this.pattern.map.flat().filter(item => item === 1).length;
-                        let countWhite = this.pattern.map.flat().filter(item => item === 2).length;
+                        let countBlank = pattern.map.flat().filter(item => item === 1).length;
+                        let countWhite = pattern.map.flat().filter(item => item === 2).length;
                         if (countBlank > countWhite) {
                             msg = '黑方胜利';
                         } else if (countBlank < countWhite) {
@@ -137,7 +151,16 @@
                         alert(`Game Over! ${msg}，黑子数目：${countBlank}，白子数目：${countWhite}。`);
                     }
                 }
+                this.patterns.push(pattern);
+                this.colors.push(color);
                 return true;
+            }
+        }
+
+        revert() {
+            if (this.patterns.length > 1) {
+                this.patterns.pop();
+                this.colors.pop();
             }
         }
     }
@@ -169,6 +192,13 @@
                 }
                 this.container.appendChild(document.createElement("br"));
             }
+            let regret = document.createElement('button');
+            regret.innerText = "悔棋";
+            regret.addEventListener('click', event => {
+                this.game.revert();
+                this.render();
+            });
+            this.container.appendChild(regret);
         }
     }
 
