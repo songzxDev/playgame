@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>二维数组实现棋盘</title>
+    <style>
+        .checker-grid {
+            vertical-align: middle;
+            width: 30px;
+            height: 30px;
+            background-color: #009100;
+            display: inline-block;
+            margin: 1px;
+        }
+
+        .chess {
+            margin: 2px;
+            width: 26px;
+            height: 26px;
+            border-radius: 13px;
+        }
+
+        .chess-black {
+            background-color: #111111;
+        }
+
+        .chess-white {
+            background-color: #FFFFFF;
+        }
+    </style>
+</head>
+<body>
+<div id="board"></div>
+
+<div id="board2" style="margin: 20px 0;"></div>
+<script>
+
+    class ReversiPattern {
+        constructor() {
+            this.map = [
+                [0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 2, 1, 0, 0, 0],
+                [0, 0, 0, 1, 2, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0]
+            ];
+        }
+
+        move(i, j, color, checkOnly) {
+            if (this.map[i][j] > 0)
+                return;
+            let directions = [
+                {x: -1, y: -1},
+                {x: -1, y: 0},
+                {x: -1, y: 1},
+                {x: 0, y: -1},
+                {x: 0, y: 1},
+                {x: 1, y: -1},
+                {x: 1, y: 0},
+                {x: 1, y: 1}
+            ];
+            let moveSuccess = false;
+            for (let direction of directions) {
+                let canMove = false;
+                let [x, y] = [j, i];
+                while (true) {
+                    x += direction.x;
+                    y += direction.y;
+                    if (x < 0 || x >= 8 || y < 0 || y >= 8) {
+                        canMove = false;
+                        break;
+                    }
+                    if (this.map[y][x] === 3 - color) {
+                        canMove = true;
+                    } else if (this.map[y][x] === color) {
+                        break
+                    } else if (this.map[y][x] === 0) {
+                        canMove = false;
+                        break;
+                    }
+                }
+
+                moveSuccess = moveSuccess || canMove;
+
+                if (canMove && !checkOnly) {
+                    while (true) {
+                        x -= direction.x;
+                        y -= direction.y;
+
+                        this.map[y][x] = color;
+                        if (x === j && y === i)
+                            break;
+                    }
+                }
+
+            }
+
+            return moveSuccess;
+        }
+
+        checkPass(color) {
+            for (let i = 0; i < 8; i++) {
+                for (let j = 0; j < 8; j++) {
+                    if (this.move(i, j, color, true))
+                        return false;
+                }
+            }
+            return true;
+        }
+    }
+
+    class ReversiGame {
+        constructor() {
+            this.pattern = new ReversiPattern();
+            this.color = 1;
+        }
+
+        move(i, j) {
+            if (this.pattern.move(i, j, this.color, false)) {
+                this.color = 3 - this.color;
+                if (this.pattern.checkPass(this.color)) {
+                    this.color = 3 - this.color;
+                    if (this.pattern.checkPass(this.color)) {
+                        let msg = '';
+                        let countBlank = checkerMap.flat().filter(item => item === 1).length;
+                        let countWhite = checkerMap.flat().filter(item => item === 2).length;
+                        if (countBlank > countWhite) {
+                            msg = '黑方胜利';
+                        } else if (countBlank < countWhite) {
+                            msg = '白方胜利';
+                        } else {
+                            msg = '平局';
+                        }
+                        alert(`Game Over! ${msg}，黑子数目：${countBlank}，白子数目：${countWhite}。`);
+                    }
+                }
+                return true;
+            }
+        }
+    }
+
+    class ReversiView {
+        constructor(container, game) {
+            this.container = container;
+            this.game = game;
+        }
+
+        render() {
+            this.container.innerHTML = '';
+            for (let i = 0; i < 8; i++) {
+                for (let j = 0; j < 8; j++) {
+                    let cell = document.createElement("div");
+                    this.container.appendChild(cell);
+                    cell.className = "checker-grid";
+                    cell.addEventListener("click", event => {
+                        this.game.move(i, j);
+                        this.render();
+                    });
+                    if (this.game.pattern.map[i][j] > 0) {
+                        let disc = document.createElement("div");
+                        disc.className = 'chess';
+                        this.game.pattern.map[i][j] === 1 ? disc.classList.add('chess-black') : disc.classList.add('chess-white');
+                        cell.appendChild(disc);
+                    }
+
+                }
+                this.container.appendChild(document.createElement("br"));
+            }
+        }
+    }
+
+    let boardDom = document.getElementById('board');
+
+    new ReversiView(boardDom, new ReversiGame()).render();
+
+    let boardDom2 = document.getElementById('board2');
+
+    new ReversiView(boardDom2, new ReversiGame()).render();
+
+</script>
+</body>
+</html>
