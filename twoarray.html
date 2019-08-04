@@ -35,14 +35,14 @@
     let boardDom = document.getElementById('board');
     // 2 是白子，1 是黑子，0 是空格
     let checkerMap = [
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 2, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 2, 0, 0, 0],
+        [0, 0, 0, 2, 2, 0, 0, 0],
+        [0, 0, 0, 1, 2, 0, 0, 0],
         [0, 0, 1, 2, 2, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 2, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 2, 0, 0, 0],
+        [0, 0, 0, 2, 2, 0, 0, 0],
+        [0, 0, 0, 0, 2, 0, 0, 0],
+        [0, 0, 0, 0, 2, 0, 0, 0],
     ];
     let color = 1; // 1 是黑子
     render();
@@ -191,7 +191,19 @@
                             console.log("pass");
                             color = 3 - color;
                             if (checkPass()) {
-                                alert("Game Over!");
+                                let msg = '';
+
+                                let countBlank = checkerMap.flat().filter(item => item === 1).length;
+                                let countWhite = checkerMap.flat().filter(item => item === 2).length;
+                                if (countBlank > countWhite) {
+                                    msg = '黑方胜利';
+                                } else if (countBlank < countWhite) {
+                                    msg = '白方胜利';
+                                } else {
+                                    msg = '平局';
+                                }2
+
+                                alert(`Game Over! ${msg}，黑子数目：${countBlank}，白子数目：${countWhite}。`);
                             }
                         }
                     }
