@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>表格实现棋盘</title>
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <style>
+        div#outer {
+            width: 1000px;
+            height: 900px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+            margin: 50px auto;
+        }
+
+        table#checker {
+            margin: auto;
+            width: 800px;
+            height: 800px;
+        }
+
+        table#checker td {
+            background-color: #009100;
+        }
+
+        table#checker td > div {
+            width: 100px;
+            height: 100px;
+        }
+
+        table#checker td:nth-child(1) > div {
+            width: 30px;
+            height: 100px;
+            text-align: center;
+            background-color: #FFFFFF;
+        }
+
+        .my-title {
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .my-chess-btn {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 8px auto;
+            border: none
+        }
+
+        .my-chess-btn-black {
+            background-color: #111111;
+        }
+
+        .my-chess-btn-white {
+            background-color: #FFFFFF;
+        }
+
+        .my-chess-btn-hidden {
+            display: none;
+        }
+
+        .my-chess-btn-show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+<div id="outer">
+    <p class="my-title">黑白棋棋盘（Table 实现）</p>
+    <table border="1" id="checker">
+        <thead>
+        <tr>
+            <th>XY</th>
+            <th>A</th>
+            <th>B</th>
+            <th>C</th>
+            <th>D</th>
+            <th>E</th>
+            <th>F</th>
+            <th>G</th>
+            <th>H</th>
+        </tr>
+        </thead>
+        <tbody>
+        <template v-for="yItem,yIndex in yTitles">
+            <tr :key="'y_'+yIndex+1">
+                <td v-for="xItem,xIndex in xTitles">
+                    <div :key="'y_'+(yIndex+1)+'_x_'+(xIndex+1)" v-if="xIndex > 0">
+                        <button :class="chessShowColor(xIndex, yIndex)"></button>
+                    </div>
+                    <div v-else>{{ yIndex + 1 }}</div>
+                </td>
+            </tr>
+        </template>
+
+        </tbody>
+    </table>
+</div>
+<script>
+
+    let checkerTable = new Vue({
+        el: '#outer',
+        data: {
+            xTitles: ['', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'],
+            yTitles: ['1', '2', '3', '4', '5', '6', '7', '8'],
+        },
+        computed: {},
+        methods: {
+            chessShowColor: function (xIndex, yIndex) {
+                let chessCls = 'my-chess-btn ';
+                let isShow = [4, 5].includes(xIndex) && [3, 4].includes(yIndex) ? 'my-chess-btn-show' : 'my-chess-btn-hidden';
+                let colorCls = '';
+                if (xIndex === 5 && yIndex === 3 || xIndex === 4 && yIndex === 4) {
+                    colorCls = 'my-chess-btn-black '
+                }
+                return chessCls + colorCls + isShow;
+            }
+        }
+    });
+</script>
+</body>
+</html>
