@@ -28,8 +28,11 @@
                 let cell = document.createElement('div');
                 cell.style = "vertical-align: middle;width: 30px;height: 30px;background-color: #009100;display: inline-block;margin: 1px;";
                 cell.addEventListener("click", event => {
+
                     let canMove = false;
                     let [x, y] = [j, i];
+                    console.log(x, y);
+                    // 黑色棋子从左向右方向吃白子
                     while (--x >= 0) {
                         if (checkerMap[y][x] === 2) {
                             canMove = true;
@@ -46,6 +49,62 @@
                     while (canMove && ++x <= j) {
                         checkerMap[y][x] = 1;
                     }
+                    // 黑色棋子从右向左方向吃白子
+                    [x, y] = [j, i];
+                    while (++x <= 7) {
+                        if (checkerMap[y][x] === 2) {
+                            canMove = true;
+                        } else if (checkerMap[y][x] === 1) {
+                            break;
+                        } else if (checkerMap[y][x] === 0) { //空格
+                            canMove = false;
+                            break;
+                        }
+                    }
+                    if (x > 7) {
+                        canMove = false;
+                    }
+                    while (canMove && j <= --x) {
+                        checkerMap[y][x] = 1;
+                    }
+                    // 黑色棋子从上向下方向吃白子
+                    [x, y] = [j, i];
+                    while (--y >= 0) {
+                        if (checkerMap[y][x] === 2) {
+                            canMove = true;
+                        } else if (checkerMap[y][x] === 1) {
+                            break;
+                        } else if (checkerMap[y][x] === 0) { //空格
+                            canMove = false;
+                            break;
+                        }
+                    }
+                    if (y < 0) {
+                        canMove = false;
+                    }
+                    while (canMove && ++y <= i) {
+                        checkerMap[y][x] = 1;
+                    }
+                    // 黑色棋子从下向上方向吃白子
+                    [x, y] = [j, i];
+                    while (++y <= 7) {
+                        if (checkerMap[y][x] === 2) {
+                            canMove = true;
+                        } else if (checkerMap[y][x] === 1) {
+                            break;
+                        } else if (checkerMap[y][x] === 0) { //空格
+                            canMove = false;
+                            break;
+                        }
+                    }
+                    if (y > 7) {
+                        canMove = false;
+                    }
+                    while (canMove && i <= --y) {
+                        checkerMap[y][x] = 1;
+                    }
+
+
                     render();
                 });
                 if (checkerMap[i][j] === 1) {
