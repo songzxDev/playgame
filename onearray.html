@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>一维数组实现棋盘</title>
 </head>
 <body>
 <div id="board"></div>
@@ -16,7 +16,7 @@
         [1, 2, 2, 2, 2, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0]
-    ]
+    ];
     let color = 1;
 
     let container = document.getElementById("board");
@@ -43,36 +43,36 @@
                         {x: 1, y: -1},
                         {x: 1, y: 0},
                         {x: 1, y: 1}
-                    ]
+                    ];
                     let moveSuccess = false;
                     for (let direction of directions) {
-                        let canmove = false;
+                        let canMove = false;
                         let [x, y] = [j, i];
                         while (true) {
                             x += direction.x;
                             y += direction.y;
                             if (x < 0 || x >= 8 || y < 0 || y >= 8) {
-                                canmove = false;
+                                canMove = false;
                                 break;
                             }
-                            if (map[y][x] == 3 - color) {
-                                canmove = true;
-                            } else if (map[y][x] == color) {
+                            if (map[y][x] === 3 - color) {
+                                canMove = true;
+                            } else if (map[y][x] === color) {
                                 break
-                            } else if (map[y][x] == 0) {
-                                canmove = false;
+                            } else if (map[y][x] === 0) {
+                                canMove = false;
                                 break;
                             }
                         }
 
-                        if (canmove) {
+                        if (canMove) {
                             moveSuccess = true;
                             while (true) {
                                 x -= direction.x;
                                 y -= direction.y;
 
                                 map[y][x] = color;
-                                if (x == j && y == i)
+                                if (x === j && y === i)
                                     break;
                             }
                         }
@@ -83,17 +83,17 @@
 
                     render();
 
-                })
-                if (map[i][j] == 1) {
+                });
+                if (map[i][j] === 1) {
                     let disc = document.createElement("div");
                     disc.style = `margin:2px;border-radius:13px;
-                width:26px;height:26px;background-color:black`
+                width:26px;height:26px;background-color:black`;
                     cell.appendChild(disc);
                 }
-                if (map[i][j] == 2) {
+                if (map[i][j] === 2) {
                     let disc = document.createElement("div");
                     disc.style = `margin:2px;border-radius:13px;
-                width:26px;height:26px;background-color:white`
+                width:26px;height:26px;background-color:white`;
                     cell.appendChild(disc);
                 }
             }
