@@ -34,6 +34,12 @@
 
 <div id="board2" style="margin: 20px 0;"></div>
 <script>
+    const MAX_BOARD_NUMBER = 8; // 棋盘是 8 * 8 的阵列
+    let ChessColorType = {
+        emptySpace: 0, // 空格
+        blackPiece: 1, // 黑棋
+        whitePiece: 2, // 白棋
+    };
 
     class ReversiPattern {
         constructor(map) {
@@ -69,7 +75,7 @@
                 while (true) {
                     x += direction.x;
                     y += direction.y;
-                    if (x < 0 || x >= 8 || y < 0 || y >= 8) {
+                    if (x < 0 || x >= MAX_BOARD_NUMBER || y < 0 || y >= MAX_BOARD_NUMBER) {
                         canMove = false;
                         break;
                     }
@@ -102,8 +108,8 @@
         }
 
         checkPass(color) {
-            for (let i = 0; i < 8; i++) {
-                for (let j = 0; j < 8; j++) {
+            for (let i = 0; i < MAX_BOARD_NUMBER; i++) {
+                for (let j = 0; j < MAX_BOARD_NUMBER; j++) {
                     if (this.move(i, j, color, true))
                         return false;
                 }
@@ -139,8 +145,8 @@
                     color = 3 - color;
                     if (pattern.checkPass(color)) {
                         let msg = '';
-                        let countBlank = pattern.map.flat().filter(item => item === 1).length;
-                        let countWhite = pattern.map.flat().filter(item => item === 2).length;
+                        let countBlank = pattern.map.flat().filter(item => item === ChessColorType.blackPiece).length;
+                        let countWhite = pattern.map.flat().filter(item => item === ChessColorType.whitePiece).length;
                         if (countBlank > countWhite) {
                             msg = '黑方胜利';
                         } else if (countBlank < countWhite) {
@@ -173,8 +179,8 @@
 
         render() {
             this.container.innerHTML = '';
-            for (let i = 0; i < 8; i++) {
-                for (let j = 0; j < 8; j++) {
+            for (let i = 0; i < MAX_BOARD_NUMBER; i++) {
+                for (let j = 0; j < MAX_BOARD_NUMBER; j++) {
                     let cell = document.createElement("div");
                     this.container.appendChild(cell);
                     cell.className = "checker-grid";
@@ -185,7 +191,7 @@
                     if (this.game.pattern.map[i][j] > 0) {
                         let disc = document.createElement("div");
                         disc.className = 'chess';
-                        this.game.pattern.map[i][j] === 1 ? disc.classList.add('chess-black') : disc.classList.add('chess-white');
+                        this.game.pattern.map[i][j] === ChessColorType.blackPiece ? disc.classList.add('chess-black') : disc.classList.add('chess-white');
                         cell.appendChild(disc);
                     }
 
