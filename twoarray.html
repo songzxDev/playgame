@@ -2,42 +2,70 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>二维数组实现棋盘</title>
 </head>
 <body>
-<div id="board" style="display: inline-block"></div>
+<div id="board"></div>
 <script>
     let boardDom = document.getElementById('board');
-    let map = [
+    // 2 是白子，1 是黑子，0 是空格
+    let checkerMap = [
         [0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 1, 2, 0, 0, 0],
         [0, 0, 0, 2, 1, 0, 0, 0],
+        [0, 0, 0, 1, 2, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0],
     ];
-    for (let i = 0; i < 8; i++) {
-        for (let j = 0; j < 8; j++) {
-            let cell = document.createElement('div');
-            cell.style = "vertical-align:middle;width: 30px; height: 30px; background-color: #009100;display:inline-block; margin:1px;";
+    render();
 
-            if (map[i][j] === 1) {
-                let chess = document.createElement('div');
-                chess.style = "margin:2px;width: 26px; height:26px;border-radius:13px;background-color: #ffffff;";
-                cell.appendChild(chess);
-            }
-            if (map[i][j] === 2) {
-                let chess = document.createElement('div');
-                chess.style = "margin:2px;width: 26px; height:26px;border-radius:13px;background-color: #111111;";
-                cell.appendChild(chess);
-            }
-            boardDom.appendChild(cell);
+    function render() {
+        boardDom.innerHTML = '';
+        for (let i = 0; i < 8; i++) {
+            for (let j = 0; j < 8; j++) {
+                let cell = document.createElement('div');
+                cell.style = "vertical-align: middle;width: 30px;height: 30px;background-color: #009100;display: inline-block;margin: 1px;";
+                cell.addEventListener("click", event => {
+                    let canMove = false;
+                    let [x, y] = [j, i];
+                    while (--x >= 0) {
+                        if (checkerMap[y][x] === 2) {
+                            canMove = true;
+                        } else if (checkerMap[y][x] === 1) {
+                            break;
+                        } else if (checkerMap[y][x] === 0) { //空格
+                            canMove = false;
+                            break;
+                        }
+                    }
+                    if (x < 0) {
+                        canMove = false;
+                    }
+                    while (canMove && ++x <= j) {
+                        checkerMap[y][x] = 1;
+                    }
+                    render();
+                });
+                if (checkerMap[i][j] === 1) {
+                    let chess = document.createElement('div');
+                    chess.style = "margin: 2px;width: 26px;height: 26px;border-radius: 13px;background-color: #111111;";
+                    cell.appendChild(chess);
+                }
+                if (checkerMap[i][j] === 2) {
+                    let chess = document.createElement('div');
+                    chess.style = "margin: 2px;width: 26px;height: 26px;border-radius: 13px;background-color: #FFFFFF;";
+                    cell.appendChild(chess);
+                }
+                boardDom.appendChild(cell);
 
+            }
+
+            boardDom.appendChild(document.createElement('br'));
         }
-        boardDom.appendChild(document.createElement('br'));
     }
+
 
 </script>
 </body>
