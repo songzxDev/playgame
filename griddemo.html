@@ -15,7 +15,7 @@
 
         .item {
             border: 1px solid #DCDCDC;
-            background-color: #009d00;
+            /*background-color: #009d00;*/
         }
 
         .piece {
@@ -39,9 +39,9 @@
 <body>
 <div id="gridDemo">
     <div class="container">
-        <template v-for="pieceFlag in pieceFlagList">
+        <template v-for="pieceFlag, index in pieceFlagList">
             <div class="item">
-                <div :class="pieceShowColor(pieceFlag)"></div>
+                <div :class="pieceShowColor(pieceFlag)">{{ index }}</div>
             </div>
         </template>
 
@@ -57,12 +57,18 @@
                 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0,
-                0, 0, 0, 2, 1, 0, 0, 0,
-                0, 0, 0, 1, 2, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0,
-            ]
+                0, 0, 0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0, 0, 0,
+            ],
+
+        },
+        computed: {
+            pieceIndexList: function () {
+                return this.pieceFlagList.map((piece, index) => [index, index % 8]);
+            }
         },
         methods: {
             pieceShowColor: function (pieceFlag) {
