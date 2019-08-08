@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .container {
+            display: grid;
+            width: 400px;
+            height: 400px;
+            grid-template-columns: repeat(8, 12.5%);
+            grid-template-rows: repeat(8, 12.5%);
+            border: 1px solid #DCDCDC;
+        }
+
+        .item {
+            border: 1px solid #DCDCDC;
+            background-color: #009d00;
+        }
+
+        .piece {
+            width: 80%;
+            height: 80%;
+            margin: 5px;
+            border-radius: 50%;
+        }
+
+        .piece-black {
+            background-color: #111111;
+        }
+
+        .piece-white {
+            background-color: #FFFFFF;
+        }
+
+    </style>
+</head>
+
+<body>
+<div id="gridDemo">
+    <div class="container">
+        <template v-for="pieceFlag in pieceFlagList">
+            <div class="item">
+                <div :class="pieceShowColor(pieceFlag)"></div>
+            </div>
+        </template>
+
+    </div>
+</div>
+
+<script src="https://songzxdev.github.io/mystatistics/vue.min.js"></script>
+<script>
+    let gridDemo = new Vue({
+        el: '#gridDemo',
+        data: {
+            pieceFlagList: [
+                0, 0, 0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0, 0, 0,
+                0, 0, 0, 2, 1, 0, 0, 0,
+                0, 0, 0, 1, 2, 0, 0, 0,
+                0, 0, 0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0, 0, 0,
+            ]
+        },
+        methods: {
+            pieceShowColor: function (pieceFlag) {
+                let color = "";
+                switch (pieceFlag) {
+                    case 1:
+                        color = "piece piece-black";
+                        break;
+                    case 2:
+                        color = "piece piece-white";
+                        break;
+                    default:
+                        break;
+                }
+                return color;
+            }
+        }
+    });
+</script>
+</body>
+</html>
