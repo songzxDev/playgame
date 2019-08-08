@@ -67,7 +67,7 @@
         },
         computed: {
             pieceIndexList: function () {
-                return this.pieceFlagList.map((piece, index) => [index, index % 8]);
+                return this.pieceFlagList.map((piece, index) => [index, index % 8, (index - index % 8) / 8]);
             }
         },
         methods: {
