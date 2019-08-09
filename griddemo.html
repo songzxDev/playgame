@@ -15,7 +15,7 @@
 
         .item {
             border: 1px solid #DCDCDC;
-            /*background-color: #009d00;*/
+            background-color: #009d00;
         }
 
         .piece {
@@ -41,7 +41,7 @@
     <div class="container">
         <template v-for="pieceFlag, pieceIndex in pieceFlagList">
             <div class="item" @click="handlePieceGridClick(pieceIndex, pieceFlag)">
-                <div :class="pieceShowColor(pieceFlag)">{{ pieceIndex }}</div>
+                <div :class="pieceShowColor(pieceFlag)"></div>
             </div>
         </template>
 
