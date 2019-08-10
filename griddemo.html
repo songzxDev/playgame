@@ -51,61 +51,148 @@
 <script src="https://songzxdev.github.io/mystatistics/vue.min.js"></script>
 <script>
     let gridDemo = new Vue({
-        el: '#gridDemo',
-        data: {
-            pieceFlagList: [
-                0, 0, 0, 0, 0, 0, 0, 0,
-                0, 0, 0, 0, 0, 0, 0, 0,
-                0, 0, 0, 0, 0, 0, 0, 0,
-                0, 0, 0, 2, 1, 0, 0, 0,
-                0, 0, 0, 1, 2, 0, 0, 0,
-                0, 0, 0, 0, 0, 0, 0, 0,
-                0, 0, 0, 0, 0, 0, 0, 0,
-                0, 0, 0, 0, 0, 0, 0, 0,
-            ],
-            directionList: [
-                {x: 0, y: -1}, // 上
-                {x: 0, y: 1}, //下
-                {x: -1, y: 0},//左
-                {x: 1, y: 0}, //右
-                {x: -1, y: -1}, //左上
-                {x: -1, y: 1}, // 左下
-                {x: 1, y: -1},// 右上
-                {x: 1, y: 1},//右下
-            ],
-            pieceFlagDesc: ['空格', '黑棋', '白棋'],
-            turnGo: 1, // 初始化黑棋先走
-        },
-        computed: {
-            pieceIndexList: function () {
-                // 棋子索引，棋子所在行索引，棋子所在列索引
-                return this.pieceFlagList.map((piece, index) => [index,  (index - index % 8) / 8, index % 8]);
-            }
-        },
-        methods: {
-            pieceShowColor: function (pieceFlag) {
-                let color = "";
-                switch (pieceFlag) {
-                    case 1: // 黑棋
-                        color = "piece piece-black";
-                        break;
-                    case 2: // 白棋
-                        color = "piece piece-white";
-                        break;
-                    default:
-                        break;
-                }
-                return color;
+            el: '#gridDemo',
+            data: {
+                pieceFlagList: [
+                    0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 2, 1, 0, 0, 0,
+                    0, 0, 0, 1, 2, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0,
+                ],
+                chessMap: [
+                    [0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 2, 1, 0, 0, 0],
+                    [0, 0, 0, 1, 2, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0]
+                ],
+                directionList: Object.freeze([
+                    {x: 0, y: -1}, // 上
+                    {x: 0, y: 1}, //下
+                    {x: -1, y: 0},//左
+                    {x: 1, y: 0}, //右
+                    {x: -1, y: -1}, //左上
+                    {x: -1, y: 1}, // 左下
+                    {x: 1, y: -1},// 右上
+                    {x: 1, y: 1},//右下
+                ]),
+                pieceFlagDesc: Object.freeze(['空格', '黑棋', '白棋']),
+                turnGo: 1, // 初始化黑棋先走
             },
-            handlePieceGridClick: function (pieceIndex, pieceFlag) {
-                if (pieceFlag > 0) {
-                    console.log('请点击空白的棋盘位置！');
-                } else {
-                    console.log(this.pieceIndexList.find(item => item[0] === pieceIndex));
+            computed: {
+                pieceIndexList: function () {
+                    // 棋子索引，棋子所在行索引，棋子所在列索引
+                    return this.pieceFlagList.map((piece, index) => [index, (index - index % 8) / 8, index % 8]);
+                }
+            },
+            methods: {
+                pieceShowColor: function (pieceFlag) {
+                    let color = "";
+                    switch (pieceFlag) {
+                        case 1: // 黑棋
+                            color = "piece piece-black";
+                            break;
+                        case 2: // 白棋
+                            color = "piece piece-white";
+                            break;
+                        default:
+                            break;
+                    }
+                    return color;
+                },
+                handlePieceGridClick: function (pieceIndex, pieceFlag) {
+                    let indexList = this.pieceIndexList.find(item => item[0] === pieceIndex);
+                    let [i, j] = [indexList[1], indexList[2]];
+                    if (this.chessMove(i, j, false)) {
+                        let color = this.turnGo;
+                        let checkerMap = this.chessMap;
+                        color = 3 - color;
+                        this.turnGo = color;
+                        if (this.checkPass()) {
+                            console.log("pass");
+                            color = 3 - color;
+                            this.turnGo = color;
+                            if (this.checkPass()) {
+                                let msg = '';
+
+                                let countBlank = this.pieceFlagList.filter(item => item === 1).length;
+                                let countWhite = this.pieceFlagList.filter(item => item === 2).length;
+                                if (countBlank > countWhite) {
+                                    msg = '黑方胜利';
+                                } else if (countBlank < countWhite) {
+                                    msg = '白方胜利';
+                                } else {
+                                    msg = '平局';
+                                }
+
+                                alert(`Game Over! ${msg}，黑子数目：${countBlank}，白子数目：${countWhite}。`);
+                            }
+                        }
+                    }
+                },
+                chessMove: function (i, j, checkOnly) {
+                    checkOnly = checkOnly || false;
+                    let checkerMap = this.chessMap;
+                    let color = this.turnGo;
+                    if (checkerMap[i][j] > 0)
+                        return;
+                    let directions = this.directionList;
+                    let moveSuccess = false;
+                    for (let direction of directions) {
+                        let canMove = false;
+                        let [x, y] = [j, i];
+                        while (true) {
+                            x += direction.x;
+                            y += direction.y;
+                            if (x < 0 || x >= 8 || y < 0 || y >= 8) {
+                                canMove = false;
+                                break;
+                            }
+                            if (checkerMap[y][x] === 3 - color) {
+                                canMove = true;
+                            } else if (checkerMap[y][x] === color) {
+                                break
+                            } else if (checkerMap[y][x] === 0) {
+                                canMove = false;
+                                break;
+                            }
+                        }
+                        moveSuccess = moveSuccess || canMove;
+                        if (canMove && !checkOnly) {
+
+                            while (true) {
+                                x -= direction.x;
+                                y -= direction.y;
+
+                                checkerMap[y][x] = color;
+                                if (x === j && y === i)
+                                    break;
+                            }
+                            this.pieceFlagList = checkerMap.flat();
+                        }
+
+                    }
+                    return moveSuccess;
+                },
+                checkPass: function () {
+                    for (let i = 0; i < 8; i++) {
+                        for (let j = 0; j < 8; j++) {
+                            if (this.chessMove(i, j, true))
+                                return false;
+                        }
+                    }
+                    return true;
                 }
             }
-        }
-    });
+        })
+    ;
 </script>
 </body>
 </html>
