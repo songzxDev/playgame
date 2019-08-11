@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>轮播效果</title>
+    <style>
+        div#container {
+            width: 400px;
+            height: 300px;
+            margin: 50px auto;
+        }
+
+        img {
+            display: inline-block;
+            height: auto;
+            max-width: 100%;
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+    <button onclick="handleNextClick">下一张图片</button>
+    <br>
+</div>
+<script>
+    let currPicture = 0;
+
+    function handleNextClick() {
+        let img = document.createElement('img');
+        img.src = `https://songzxdev.github.io/mystatistics/pictures/picture-${currPicture + 1}.jpg`;
+        document.getElementById('container').appendChild(img);
+        currPicture === 3 ? currPicture = 0 : currPicture++;
+    }
+    window.onload = function () {
+        handleNextClick();
+    }
+
+</script>
+</body>
+</html>
