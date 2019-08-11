@@ -71,7 +71,10 @@
                 //     // transform += 100;
                 //     position = nextPosition;
                 // }, 16);
+
+
                 requestAnimationFrame(() => {
+                    // https://developer.mozilla.org/zh-CN/docs/Web/API/Window/requestAnimationFrame
                     requestAnimationFrame(() => {
                         //把current挪出视口
                         current.style.transition = ""; //transition置空，css中的属性就会生效
