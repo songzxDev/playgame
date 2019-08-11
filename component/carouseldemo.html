@@ -7,34 +7,53 @@
         div#container {
             width: 400px;
             height: 300px;
-            margin: 50px auto;
+            /*margin: 50px auto;*/
+            white-space: nowrap;
+            /*overflow: visible;*/
+            overflow: hidden;
+            outline: solid 1px blue;
         }
 
-        img {
+        div#container > img {
             display: inline-block;
-            height: auto;
-            max-width: 100%;
+            height: 100%;
+            width: 100%;
+            transition: ease 0.5s;
         }
     </style>
 </head>
 <body>
 <div id="container">
-    <button onclick="handleNextClick">下一张图片</button>
-    <br>
 </div>
 <script>
-    let currPicture = 0;
+    let funnyList = [1, 2, 3, 4];
+    let pictureData = funnyList.map(item => `https://songzxdev.github.io/mystatistics/pictures/picture-${item}.jpg`);
+    let container = document.getElementById('container');
+    for (let i = 0; i < funnyList.length; i++) {
+        let newImg = document.createElement('img');
+        newImg.src = pictureData[i];
+        newImg.alt = i + 1;
+        newImg.title = `picture-${i + 1}`;
+        container.appendChild(newImg);
 
-    function handleNextClick() {
-        let img = document.createElement('img');
-        img.src = `https://songzxdev.github.io/mystatistics/pictures/picture-${currPicture + 1}.jpg`;
-        document.getElementById('container').appendChild(img);
-        currPicture === 3 ? currPicture = 0 : currPicture++;
     }
-    window.onload = function () {
-        handleNextClick();
-    }
+    let childList = Array.from(container.children);
 
+    for (let i = 0; i < funnyList.length; i++) {
+        let [curr, next] = [childList[i], childList[i + 1]];
+        // console.log(curr, next);
+        if (childList[i + 1]) {
+            next.style.transition = 'ease 0';
+            next.style.transform = `translate(${100 - 100 * (i + 1)}%)`;
+            setTimeout(() => {
+                curr.style.transition = '';
+                curr.style.transform = `translate(${-100 - 100 * i}%)`;
+                next.style.transition = '';
+                next.style.transform = `translate(${-100 * (i + 1)}%)`;
+            }, 1500 * (i + 1));
+        }
+
+    }
 </script>
 </body>
 </html>
