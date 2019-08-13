@@ -51,12 +51,12 @@
             let position = 0;
             let nextFrame = () => {
                 let nextPosition = position + 1;
-
+                // 一个数除以另一个数，要是比另一个数小的话，商为0，余数就是它自己
                 nextPosition = nextPosition % children.length;
                 let current = children[position], next = children[nextPosition];
 
                 // debugger;
-                // 把 next摆放到正确的位置
+                // 把next摆放到正确的位置
                 next.style.transition = 'ease 0';
                 next.style.transform = `translate(${100 - 100 * nextPosition}%)`;
                 // setTimeout(() => {
@@ -74,12 +74,14 @@
                 requestAnimationFrame(() => {
                     // https://developer.mozilla.org/zh-CN/docs/Web/API/Window/requestAnimationFrame
                     requestAnimationFrame(() => {
-                        //把current挪出视口
+                        // 把current挪出视口
                         current.style.transition = ""; //transition置空，css中的属性就会生效
                         current.style.transform = `translate(${-100 - 100 * position}%)`;
-                        //把next挪进视口
+                        // 把next挪进视口
                         next.style.transition = "";
+                        // debugger
                         next.style.transform = `translate(${-100 * nextPosition}%)`;
+                        // console.log(current.style.transform, next.style.transform);
                         position = nextPosition;
                     });
                 });
@@ -98,6 +100,8 @@
     let carousel = new Carousel(document.getElementById("container"));
     carousel.data = pictureData;
     carousel.render();
+
+    // setInterval('console.log(document.getElementsByTagName("img").length)', 3000);
 </script>
 </body>
 </html>
