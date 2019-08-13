@@ -41,26 +41,38 @@
             container.appendChild(newImg);
 
         }
-        let childList = Array.from(container.children);
-        for (let i = 0; i < funnyList.length; i++) {
-            let [curr, next] = [childList[i], childList[i + 1]];
-            // console.log(curr, next);
-            if (childList[i + 1]) {
-                next.style.transition = 'ease 0';
-                next.style.transform = `translate(${100 - 100 * (i + 1)}%)`;
-                setTimeout(() => {
-                    curr.style.transition = '';
-                    curr.style.transform = `translate(${-100 - 100 * i}%)`;
-                    next.style.transition = '';
-                    next.style.transform = `translate(${-100 * (i + 1)}%)`;
-                }, 1500 * (i + 1));
-            }
 
-        }
+        /*  // 轮播时序图
+            document.querySelector('#container img:nth-child(1)').style.transform = 'translate(0%)';
+            document.querySelector('#container img:nth-child(1)').style.transform = 'translate(-100%)';
+            document.querySelector('#container img:nth-child(2)').style.transform = 'translate(-100%)';
+            document.querySelector('#container img:nth-child(2)').style.transform = 'translate(-200%)';
+            document.querySelector('#container img:nth-child(3)').style.transform = 'translate(-200%)';
+            document.querySelector('#container img:nth-child(3)').style.transform = 'translate(-300%)';
+            document.querySelector('#container img:nth-child(4)').style.transform = 'translate(-300%)';
+            document.querySelector('#container img:nth-child(4)').style.transform = 'translate(-400%)';
+            document.querySelector('#container img:nth-child(1)').style.transform = 'translate(0%)';
+         */
+        // let childList = Array.from(container.children);
+        // for (let i = 0; i < funnyList.length; i++) {
+        //     let [curr, next] = [childList[i], childList[i + 1]];
+        //     // console.log(curr, next);
+        //     if (childList[i + 1]) {
+        //         next.style.transition = 'ease 0';
+        //         next.style.transform = `translate(${100 - 100 * (i + 1)}%)`;
+        //         setTimeout(() => {
+        //             curr.style.transition = '';
+        //             curr.style.transform = `translate(${-100 - 100 * i}%)`;
+        //             next.style.transition = '';
+        //             next.style.transform = `translate(${-100 * (i + 1)}%)`;
+        //         }, 1500 * (i + 1));
+        //     }
+        //
+        // }
         // setTimeout(() => play(), 16);
     };
     play();
-    setInterval("play()", 5500);
+    // setInterval("play()", 5500);
 </script>
 </body>
 </html>
