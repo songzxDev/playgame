@@ -32,7 +32,6 @@
 
 
     let play = () => {
-        container.innerHTML = '';
         for (let i = 0; i < funnyList.length; i++) {
             let newImg = document.createElement('img');
             newImg.src = pictureData[i];
@@ -41,7 +40,8 @@
             container.appendChild(newImg);
 
         }
-
+        let childList = Array.from(container.children);
+        let position = 0;
         /*  // 轮播时序图
             document.querySelector('#container img:nth-child(1)').style.transform = 'translate(0%)';
             document.querySelector('#container img:nth-child(1)').style.transform = 'translate(-100%)';
@@ -53,6 +53,29 @@
             document.querySelector('#container img:nth-child(4)').style.transform = 'translate(-400%)';
             document.querySelector('#container img:nth-child(1)').style.transform = 'translate(0%)';
          */
+        let go = () => {
+            let nextPosition = position + 1;
+            nextPosition = nextPosition % childList.length;
+            let [curr, next] = [childList[position], childList[nextPosition]];
+
+            // 把 next摆放到正确的位置
+            next.style.transition = 'ease 0';
+            next.style.transform = `translate(${100 - 100 * nextPosition}%)`;
+            requestAnimationFrame(() => {
+                // https://developer.mozilla.org/zh-CN/docs/Web/API/Window/requestAnimationFrame
+                requestAnimationFrame(() => {
+                    curr.style.transition = ""; // transition置空，css中的属性就会生效
+                    curr.style.transform = `translate(${-100 - 100 * position}%)`;
+                    next.style.transition = "";
+                    next.style.transform = `translate(${-100 * nextPosition}%)`;
+                    position = nextPosition;
+                });
+            });
+            console.log('go');
+            setTimeout(() => go(), 3000);
+        };
+        setTimeout(() => go(), 3000);
+
         // let childList = Array.from(container.children);
         // for (let i = 0; i < funnyList.length; i++) {
         //     let [curr, next] = [childList[i], childList[i + 1]];
