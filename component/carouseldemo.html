@@ -60,14 +60,15 @@
 
             // 把 next摆放到正确的位置
             next.style.transition = 'ease 0';
-            next.style.transform = `translate(${100 - 100 * nextPosition}%)`;
+            // 表示从元素的当前位置延x轴方向，向左移动整个元素宽度的距离
+            next.style.transform = `translate(${100 - 100 * nextPosition}%, 0)`;
             requestAnimationFrame(() => {
                 // https://developer.mozilla.org/zh-CN/docs/Web/API/Window/requestAnimationFrame
                 requestAnimationFrame(() => {
                     curr.style.transition = ""; // transition置空，css中的属性就会生效
-                    curr.style.transform = `translate(${-100 - 100 * position}%)`;
+                    curr.style.transform = `translate(${-100 - 100 * position}%, 0)`;
                     next.style.transition = "";
-                    next.style.transform = `translate(${-100 * nextPosition}%)`;
+                    next.style.transform = `translate(${-100 * nextPosition}%, 0)`;
                     position = nextPosition;
                 });
             });
