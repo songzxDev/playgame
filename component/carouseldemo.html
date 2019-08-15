@@ -72,28 +72,43 @@
                     position = nextPosition;
                 });
             });
-            console.log('go');
             setTimeout(() => go(), 3000);
         };
-        setTimeout(() => go(), 3000);
+        // setTimeout(() => go(), 3000);
 
-        // let childList = Array.from(container.children);
-        // for (let i = 0; i < funnyList.length; i++) {
-        //     let [curr, next] = [childList[i], childList[i + 1]];
-        //     // console.log(curr, next);
-        //     if (childList[i + 1]) {
-        //         next.style.transition = 'ease 0';
-        //         next.style.transform = `translate(${100 - 100 * (i + 1)}%)`;
-        //         setTimeout(() => {
-        //             curr.style.transition = '';
-        //             curr.style.transform = `translate(${-100 - 100 * i}%)`;
-        //             next.style.transition = '';
-        //             next.style.transform = `translate(${-100 * (i + 1)}%)`;
-        //         }, 1500 * (i + 1));
-        //     }
-        //
-        // }
-        // setTimeout(() => play(), 16);
+        let startX;
+        let startTransform;
+        let start = event => {
+            event.preventDefault();
+            startX = event.clientX;
+            startTransform = -position * 400;
+            document.addEventListener("mousemove", move);
+            document.addEventListener("mouseup", end);
+        };
+        let move = event => {
+            event.preventDefault();
+            for (let child of childList) {
+                child.style.transition = "ease 0s";
+                child.style.transform = `translate(${startTransform + event.clientX - startX}px)`;
+            }
+
+        };
+
+        let end = () => {
+            document.removeEventListener("mousemove", move);
+            document.removeEventListener("mouseup", end);
+
+            position = -(Math.round((startTransform + event.clientX - startX) / 400));
+
+            position = Math.max(0, Math.min(position, childList.length - 1));
+
+            for (let child of childList) {
+                child.style.transition = "";
+                child.style.transform = `translate(${-position * 400}px)`;
+            }
+        };
+
+        document.addEventListener("mousedown", start);
     };
     play();
     // setInterval("play()", 5500);
