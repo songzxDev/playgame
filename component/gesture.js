@@ -6,9 +6,9 @@ function enableGesture(main) {
 
         context.startTime = Date.now();
 
-        context.isTap = true;
-        context.isPan = false;
-        context.isPress = false;
+        context.isTap = true; // 轻点击
+        context.isPan = false; // 拖动
+        context.isPress = false; // 长按
         context.pressHandler = setTimeout(() => {
             context.isPress = true;
             context.isTap = false;
@@ -76,6 +76,7 @@ function enableGesture(main) {
 
         let v = Math.sqrt(dx * dx + dy * dy) / (Date.now() - context.startTime);
         //console.log(v);
+        // 判断是否为：迅速离开
         if (context.isPan && v > 0.3) {
             context.isFlick = true;
             let e = new Event("flick");
@@ -110,6 +111,11 @@ function enableGesture(main) {
             clearTimeout(context.pressHandler);
         }
     };
+    /*
+    Object.create(null)
+    1.你需要一个非常干净且高度可定制的对象当作数据字典的时候；
+    2.想节省hasOwnProperty带来的一丢丢性能损失并且可以偷懒少些一点代码的时候
+     */
     let contexts = Object.create(null);
 
     let mouseSymbol = Symbol("mouse");

@@ -87,7 +87,7 @@
             let x = 0;
 
             enableGesture(this._container);
-
+            // 属于业务代码，捕捉到事件后，在回调函数中进行业务操作
             this._container.addEventListener("pan", event => {
                 //console.log("pan")
                 if(event.isVertical)
