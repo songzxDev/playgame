@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>M端手势轮播</title>
+    <style>
+        div#container {
+            width: 400px;
+            height: 300px;
+            white-space: nowrap;
+            overflow: hidden;
+            outline: solid 1px blue;
+            background-color : #111111;
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+</div>
+<script>
+    let start = (point) => {
+        console.log("Start...", point.clientX, point.clientY);
+    };
+    let end = (point) => {
+        console.log("End...", point.clientX, point.clientY);
+    };
+    let move = (point) => {
+        console.log("Move...", point.clientX, point.clientY);
+    };
+
+    function handleMousedown(event) {
+        event.preventDefault();
+        document.addEventListener("mousemove", handleMousemove);
+        document.addEventListener("mouseup", handleMouseup);
+        start(event);
+    }
+
+    function handleMouseup(event) {
+        event.preventDefault();
+        document.removeEventListener("mousemove", handleMousemove);
+        document.removeEventListener("mouseup", handleMouseup);
+        end(event);
+    }
+
+    function handleMousemove(event) {
+        event.preventDefault();
+        move(event);
+    }
+
+
+    function handleTouchstart(evt) {
+        evt.preventDefault();
+        let touches = evt.changedTouches;
+
+        for (let i = 0; i < touches.length; i++) {
+            let touch = touches[i];
+            start(touch);
+        }
+    }
+
+    function handleTouchmove(evt) {
+        evt.preventDefault();
+        let touches = evt.changedTouches;
+        for (let i = 0; i < touches.length; i++) {
+            let touch = touches[i];
+            move(touch);
+        }
+
+    }
+
+    function handleTouchend(evt) {
+        evt.preventDefault();
+        let touches = evt.changedTouches;
+        for (let i = 0; i < touches.length; i++) {
+            let touch = touches[i];
+            end(touch);
+        }
+    }
+
+    function handleTouchcancel(evt) {
+        evt.preventDefault();
+        let touches = evt.changedTouches;
+        for (let i = 0; i < touches.length; i++) {
+            let touch = touches[i];
+            end(touch);
+        }
+    }
+
+    window.onload = function startup() {
+        let el = document.getElementById('container');
+        el.addEventListener("touchstart", handleTouchstart, false);
+        el.addEventListener("touchend", handleTouchend, false);
+        el.addEventListener("touchmove", handleTouchmove, false);
+        el.addEventListener("touchcancel", handleTouchcancel, false);
+        el.addEventListener('mousedown', handleMousedown);
+        console.log("初始化成功。");
+    };
+
+
+</script>
+</body>
+</html>
