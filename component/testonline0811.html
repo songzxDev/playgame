@@ -19,6 +19,7 @@
             transition: ease 0.5s;
         }
     </style>
+    <script src="gesture.js"></script>
 </head>
 <body>
 <div id="container">
@@ -93,45 +94,68 @@
                 setTimeout(nextFrame, 3000);
             };
             // setTimeout(nextFrame, 3000);
-            let startX;
-            let startTransform;
-            let start = event => {
-                event.preventDefault();
-                startX = event.clientX;
-                startTransform = -position * 500;
-                // this._container.addEventListener("mousemove", move);
-                // this._container.addEventListener("mouseup", end);
-                document.addEventListener("mousemove", move);
-                document.addEventListener("mouseup", end);
-            };
-            let move = event => {
-                event.preventDefault();
-                for (let child of children) {
-                    child.style.transition = "ease 0s";
-                    child.style.transform = `translate(${startTransform + event.clientX - startX}px)`;
-                }
-
-            };
-
-            let end = () => {
-                // this._container.removeEventListener("mousemove", move);
-                // this._container.removeEventListener("mouseup", end);
-                document.removeEventListener("mousemove", move);
-                document.removeEventListener("mouseup", end);
-
-                position = -(Math.round((startTransform + event.clientX - startX) / 500));
-
-
-                position = Math.max(0, Math.min(position, children.length - 1));
-
-                for (let child of children) {
-                    child.style.transition = "";
-                    child.style.transform = `translate(${ -position * 500}px)`;
-                }
-            };
+            // let startX;
+            // let startTransform;
+            // let start = event => {
+            //     event.preventDefault();
+            //     startX = event.clientX;
+            //     startTransform = -position * 500;
+            //     // this._container.addEventListener("mousemove", move);
+            //     // this._container.addEventListener("mouseup", end);
+            //     document.addEventListener("mousemove", move);
+            //     document.addEventListener("mouseup", end);
+            // };
+            // let move = event => {
+            //     event.preventDefault();
+            //     for (let child of children) {
+            //         child.style.transition = "ease 0s";
+            //         child.style.transform = `translate(${startTransform + event.clientX - startX}px)`;
+            //     }
+            //
+            // };
+            //
+            // let end = () => {
+            //     // this._container.removeEventListener("mousemove", move);
+            //     // this._container.removeEventListener("mouseup", end);
+            //     document.removeEventListener("mousemove", move);
+            //     document.removeEventListener("mouseup", end);
+            //
+            //     position = -(Math.round((startTransform + event.clientX - startX) / 500));
+            //
+            //
+            //     position = Math.max(0, Math.min(position, children.length - 1));
+            //
+            //     for (let child of children) {
+            //         child.style.transition = "";
+            //         child.style.transform = `translate(${ -position * 500}px)`;
+            //     }
+            // };
 
             // this._container.addEventListener("mousedown", start);
-            document.addEventListener("mousedown", start);
+            // document.addEventListener("mousedown", start);
+            let x = 0;
+
+            enableGesture(this._container);
+
+            this._container.addEventListener("pan", event => {
+                console.log("pan")
+                for(let child of children) {
+                    child.style.transition = "ease 0s";
+                    child.style.transform = `translateX(${event.dx + x}px`;
+                }
+            })
+            this._container.addEventListener("panend", event => {
+                position = -(Math.round((x + event.dx) / 500));
+                position = Math.max(0, Math.min(position, children.length - 1));
+
+                for(let child of children) {
+                    child.style.transition = "";
+                    child.style.transform = `translate(${-position * 500}px)`;
+                }
+                x = -position * 500;
+            })
+
+            this._container.addEventListener("mousedown", event => event.preventDefault());
         }
     }
 
