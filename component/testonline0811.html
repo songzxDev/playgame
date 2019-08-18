@@ -138,12 +138,12 @@
             enableGesture(this._container);
 
             this._container.addEventListener("pan", event => {
-                console.log("pan")
+                console.log("pan");
                 for(let child of children) {
                     child.style.transition = "ease 0s";
                     child.style.transform = `translateX(${event.dx + x}px`;
                 }
-            })
+            });
             this._container.addEventListener("panend", event => {
                 position = -(Math.round((x + event.dx) / 500));
                 position = Math.max(0, Math.min(position, children.length - 1));
@@ -153,7 +153,7 @@
                     child.style.transform = `translate(${-position * 500}px)`;
                 }
                 x = -position * 500;
-            })
+            });
 
             this._container.addEventListener("mousedown", event => event.preventDefault());
         }
