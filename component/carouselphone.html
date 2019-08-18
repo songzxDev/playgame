@@ -25,6 +25,10 @@
         main.style.transform = `translate(${event.dx + x}px, ${event.dy + y}px)`;
     });
 
+    main.addEventListener('tap', event=>{
+       console.log('tap');
+    });
+
     main.addEventListener("panend", event => {
         x = x + event.dx;
         y = y + event.dy;
@@ -35,6 +39,16 @@
         console.log("cancel");
         main.style.transform = `translate(${x}px, ${y}px)`;
     });
+    main.addEventListener("mousedown", event => event.preventDefault());
+    main.addEventListener("pressstart", event => {
+        console.log("pressstart")
+    });
+
+    main.addEventListener("presscancel", event => {
+        console.log("presscancel")
+    });
+
+
     enableGesture(main);
 
 
