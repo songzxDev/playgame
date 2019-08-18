@@ -10,7 +10,7 @@
             white-space: nowrap;
             overflow: hidden;
             outline: solid 1px blue;
-            background-color : #111111;
+            background-color: #111111;
         }
     </style>
 </head>
@@ -18,35 +18,55 @@
 <div id="container">
 </div>
 <script>
-    let start = (point) => {
+    let start = (point, context) => {
         console.log("Start...", point.clientX, point.clientY);
+        context.startX = point.clientX;
+        context.startY = point.clientY;
+
+        context.isTap = true;
+        context.isPan = false;
     };
-    let end = (point) => {
+    let end = (point, context) => {
         console.log("End...", point.clientX, point.clientY);
+        if (context.isTap) {
+            console.log("isTap");
+        }
+        if (context.isPan) {
+            console.log("isPan");
+        }
     };
-    let move = (point) => {
+    let move = (point, context) => {
         console.log("Move...", point.clientX, point.clientY);
+        let dx = point.clientX - context.startX, dy = point.clientY - context.startY;
+        if (dx * dx + dy * dy > 100) {
+            context.isTap = false;
+            context.isPan = true;
+        }
     };
 
     function handleMousedown(event) {
         event.preventDefault();
         document.addEventListener("mousemove", handleMousemove);
         document.addEventListener("mouseup", handleMouseup);
-        start(event);
+        contexts[mouseSymbol] = Object.create(null);
+        start(event, contexts[mouseSymbol]);
     }
 
     function handleMouseup(event) {
         event.preventDefault();
         document.removeEventListener("mousemove", handleMousemove);
         document.removeEventListener("mouseup", handleMouseup);
-        end(event);
+        end(event, contexts[mouseSymbol]);
+        delete contexts[mouseSymbol];
     }
 
     function handleMousemove(event) {
         event.preventDefault();
-        move(event);
+        move(event, contexts[mouseSymbol]);
     }
 
+    let contexts = Object.create(null);
+    let mouseSymbol = Symbol("mouse");
 
     function handleTouchstart(evt) {
         evt.preventDefault();
@@ -54,7 +74,8 @@
 
         for (let i = 0; i < touches.length; i++) {
             let touch = touches[i];
-            start(touch);
+            contexts[touch.identifier] = Object.create(null);
+            start(touch, contexts[touch.identifier]);
         }
     }
 
@@ -63,7 +84,7 @@
         let touches = evt.changedTouches;
         for (let i = 0; i < touches.length; i++) {
             let touch = touches[i];
-            move(touch);
+            move(touch, contexts[touch.identifier]);
         }
 
     }
@@ -73,7 +94,8 @@
         let touches = evt.changedTouches;
         for (let i = 0; i < touches.length; i++) {
             let touch = touches[i];
-            end(touch);
+            end(touch, contexts[touch.identifier]);
+            delete contexts[touch.identifier];
         }
     }
 
