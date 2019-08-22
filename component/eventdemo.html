@@ -5,9 +5,12 @@
     <title>Event 事件学习</title>
     <style>
         div#app {
-            width: 300px;
-            height: 300px;
-            background-color: #666666;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 0 0 100px 100px;
+            border-color: transparent transparent #1b7cdd transparent;
+
         }
     </style>
 </head>
@@ -17,19 +20,19 @@
 </div>
 <script>
     let app = document.getElementById('app');
-    let [x, y] = [0, 0];
+    let [x, y, count] = [0, 0, 0];
     app.addEventListener('custom', event => {
-        console.log(event);
         app.style.transition = '';
-        x += 10;
-        y += 10;
+        x = x + 10;
+        y = y + (10 * count);
+        console.log(x, y);
         app.style.transform = `translate(${x}px, ${y}px)`;
     });
     app.addEventListener('click', event => {
-        console.log(event.clientX, event.clientY);
         let customEvt = new Event('custom');
         customEvt.startX = event.clientX;
         customEvt.startY = event.clientY;
+        count = count + 1;
         app.dispatchEvent(customEvt);
     });
 </script>
