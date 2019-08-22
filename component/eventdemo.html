@@ -30,6 +30,7 @@
 </div>
 <div id="app2"></div>
 <script>
+
     let app1 = document.getElementById('app1');
     let app2 = document.getElementById('app2');
     let [x, y, count] = [0, 0, 0];
@@ -39,7 +40,13 @@
         y = y + (10 * count);
         console.log(x, y);
         app1.style.transform = `translate(${x}px, ${y}px)`;
+        let [color1, color2] = ['transparent transparent #1b7cdd transparent', '#ee0000 transparent transparent transparent'];
+        if (count % 2 === 0) {
+            [color1, color2] = ['transparent transparent #ee0000 transparent', '#1b7cdd transparent transparent transparent'];
+        }
+        app1.style.borderColor = color1;
         app2.style.transform = `translate(${x}px, ${y}px)`;
+        app2.style.borderColor = color2;
     });
     app1.addEventListener('click', event => {
         let customEvt = new Event('custom');
