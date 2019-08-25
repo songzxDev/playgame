@@ -99,34 +99,34 @@ class Timeline {
     constructor() {
         this._animations = [];
         this.status = "inited";
-        this._rate = 1
+        this._rate = 1;
         this._startPoint = 0;
     }
 
     pause() {
 
-        if (this.status != "started")
+        if (this.status !== "started")
             return;
-        this.status = "paused"
+        this.status = "paused";
         this._resumeTick = this._tick;
         // 清除 requestAnimationFrame
-        this._tick = null
+        this._tick = null;
         this._pauseStart = Date.now();
     }
 
     resume() {
-        if (this.status != "paused")
+        if (this.status !== "paused")
             return;
         this.pauseTime += Date.now() - this._pauseStart;
 
-        this._tick = this._resumeTick
+        this._tick = this._resumeTick;
         requestAnimationFrame(this._tick);
     }
 
     start() {
-        if (this.status == "started")
+        if (this.status === "started")
             return;
-        this.status = "started"
+        this.status = "started";
         let startTime = Date.now();
         this.pauseTime = 0;
         this._tick = () => {
@@ -137,7 +137,7 @@ class Timeline {
             }
             if (this._tick)
                 requestAnimationFrame(this._tick);
-        }
+        };
         requestAnimationFrame(this._tick);
     }
 
@@ -175,9 +175,8 @@ class DOMElementStyleNumberAnimation {
         this._endTime = endTime;
         this._endValue = endValue;
         this._converter = converter;
-        // 用来解决最后一帧没有绘制，直接丢失了
+        // 解决最后一帧没有绘制成功的问题
         this._fixKeyFrame = false;
-
     }
 
     tick(t) {
@@ -201,7 +200,7 @@ class DOMElementStyleNumberAnimation {
             this._fixKeyFrame = true;
         }
 
-        let progress = (t - this._startTime) / (this._endTime - this._startTime)
+        let progress = (t - this._startTime) / (this._endTime - this._startTime);
         let displacement = easeIn(progress) * (this._endValue - this._startValue);
         let currentValue = this._startValue + displacement;
         this._element.style[this._property] = this._converter(currentValue);
