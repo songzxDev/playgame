@@ -116,6 +116,7 @@
 </div>
 <script>
     class Timeline {
+        // 添加状态是解决重复点击按钮后，动画轨迹不正确的问题
         //inited, started, paused,
         constructor() {
             this._animations = [];
@@ -125,10 +126,12 @@
         }
 
         pause() {
+
             if (this.status != "started")
                 return;
             this.status = "paused"
             this._resumeTick = this._tick;
+            // 清除 requestAnimationFrame
             this._tick = null
             this._pauseStart = Date.now();
         }
@@ -151,6 +154,7 @@
             this._tick = () => {
                 for (let animation of this._animations) {
                     if (!animation.finished)
+                        // rate 速率
                         animation.tick((Date.now() - this.pauseTime - startTime) * this._rate + this._startPoint);
                 }
                 if (this._tick)
