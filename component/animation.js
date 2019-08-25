@@ -163,6 +163,10 @@ class Timeline {
 
     removeAnimation(animation) {
     }
+
+    restart() {
+
+    }
 }
 
 // 蜚蠊
