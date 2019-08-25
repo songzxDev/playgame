@@ -23,9 +23,38 @@
 
     let app = document.getElementById('app');
     let contexts = Object.create(null);
+    let mouseSymbol = Symbol("mouse");
     let [x, y] = [0, 0];
+    // 鼠标
+    let mousedown = function (event) {
+        document.addEventListener("mousemove", mousemove);
+        document.addEventListener("mouseup", mouseup);
+        contexts[mouseSymbol] = Object.create(null);
+        contexts[mouseSymbol].startX = event.clientX;
+        contexts[mouseSymbol].startY = event.clientY;
+    };
+    let mousemove = function (event) {
+        let context = contexts[mouseSymbol];
+        let [dx, dy] = [event.clientX - context.startX, event.clientY - context.startY];
+        app.style.transform = `translate(${dx + x}px,${dy + y}px)`;
+    };
+    let mouseup = function (event) {
+        document.removeEventListener("mousemove", mousemove);
+        document.removeEventListener("mouseup", mouseup);
+        let context = contexts[mouseSymbol];
+        let [dx, dy] = [event.clientX - context.startX, event.clientY - context.startY];
+        [x, y] = [x + dx, y + dy];
+        delete contexts[mouseSymbol];
+    };
+    app.addEventListener('mousedown', mousedown);
+
+    // 触摸笔或者手指
     app.addEventListener('touchstart', function (event) {
         for (let touch of event.changedTouches) {
+            /*
+            此 Touch 对象的唯一标识符. 一次触摸动作(我们指的是手指的触摸)在平面上移动的整个过程中, 该标识符不变.
+            可以根据它来判断跟踪的是否是同一次触摸过程. 只读属性
+             */
             contexts[touch.identifier] = Object.create(null);
             contexts[touch.identifier].startX = touch.clientX;
             contexts[touch.identifier].startY = touch.clientY;
