@@ -165,7 +165,14 @@ class Timeline {
     }
 
     restart() {
-
+        if (this._tick) {
+            this._tick = null;
+            this._resumeTick = null;
+        }
+        this.status = "inited";
+        requestAnimationFrame(() => {
+            this.start();
+        });
     }
 }
 
@@ -207,6 +214,58 @@ class DOMElementStyleNumberAnimation {
         let progress = (t - this._startTime) / (this._endTime - this._startTime);
         let displacement = easeIn(progress) * (this._endValue - this._startValue);
         let currentValue = this._startValue + displacement;
+        this._element.style[this._property] = this._converter(currentValue);
+    }
+}
+
+class DomElementStyleVectorAnimation {
+    constructor(element, property, startTime, startValue, endTime, endValue, converter) {
+        // 真正的私有要用Symbol
+        this._element = element;
+        this._property = property;
+        this._startTime = startTime;
+        this._startValue = startValue;
+        this._endTime = endTime;
+        this._endValue = endValue;
+        this._converter = converter;
+        // 非关键帧
+        this._fixKeyFrame = false;
+    }
+
+    // 接收时间线上的时间点 然后做一些操作
+    tick(t) {
+        // 只有2个点(start end) 所以只能用线性插值
+        // 线性插值:
+
+        // (t - startTime) /(endTime - startTime) :当前时间过去的比例
+        if (t > this._endTime) {
+            //如果不是关键帧
+            if (!this._fixKeyFrame) {
+                return;
+            } else {
+                t = this._endTime;
+            }
+        } else if (t < this._startTime) {
+            if (!this._fixKeyFrame) {
+                return;
+            } else {
+                t = this._startTime;
+                this._fixKeyFrame = false;
+            }
+        } else {
+            // 关键帧
+            this._fixKeyFrame = true;
+        }
+
+        let progress = (t - this._startTime) / (this._endTime - this._startTime);
+
+        let displacement = [];
+        let currentValue = [];
+        for (let i = 0; i < this._endValue.length; i++) {
+            displacement[i] = myCB(progress) * (this._endValue[i] - this._startValue[i]);
+            currentValue[i] = this._startValue[i] + displacement[i];
+        }
+
         this._element.style[this._property] = this._converter(currentValue);
     }
 }
