@@ -117,6 +117,7 @@ class Timeline {
     resume() {
         if (this.status !== "paused")
             return;
+        this.status = "started";
         this.pauseTime += Date.now() - this._pauseStart;
 
         this._tick = this._resumeTick;
