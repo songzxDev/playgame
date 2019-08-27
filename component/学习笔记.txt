@@ -93,6 +93,62 @@ P1：
 + Press手指按住
 
 
+## 20190825
+简单动画
+
+目标：解决同时有动画和手势的时候怎么处理
+
+css animation
+css transition
+
+setTimeout
+setInterval
+request
+
+
+Web Animation
+
+帧 24 48 60
+关键帧
+属性动画与位图动画
+插值算法
+N次样条插值
+N次贝塞尔曲线
+矢量图（属性动画）
+视频流降低传输的量，不要用图片去做位图动画
+线性变换，二次曲线
+符合人类的一般直觉
+
+timeline
+rate
+-rate
+pause/resume
+
+动画精度（24帧）
+
+两条独立的时间线，例如：游戏暂停
+
+
+transition
+transition property
+transition duration
+transition timing function
+transition delay
+
+[线性插值函数](https://cubic-bezier.com/#.17,.67,.83,.67)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
