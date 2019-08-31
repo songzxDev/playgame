@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>手势解锁</title>
+    <style>
+        .container {
+            display: grid;
+            grid-template-columns: 100px 100px 100px;
+            grid-template-rows: 100px 100px 100px;
+            grid-gap: 10px 10px;
+        }
+
+        div#touchLock div:nth-child(2n) {
+            background-color: #009d00;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            margin: 25px auto;
+        }
+
+        div#touchLock div:nth-child(2n-1) {
+            background-color: #1b7cdd;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            margin: 25px auto;
+        }
+
+    </style>
+</head>
+<body>
+<!--绘制手势格子-->
+<!--3 X 3-->
+<div id="touchLock" class="container">
+</div>
+<script>
+    let rightList = ['1', '2', '6', '8', '7'];
+    let touchList = [];
+    window.onload = function () {
+        let touchLock = document.getElementById('touchLock');
+        for (let i = 0; i < 9; i++) {
+            let childCircle = document.createElement('div');
+            childCircle.id = i + 1;
+            childCircle.innerText = i + 1;
+            childCircle.style.textAlign = 'center';
+            childCircle.style.verticalAlign = 'middle';
+            touchLock.appendChild(childCircle);
+            childCircle.addEventListener('click', function (event) {
+                if (!touchList.includes(childCircle.id)) {
+                    touchList.push(childCircle.id);
+                    console.log(touchList);
+                    if(rightList.join(',') === touchList.join(',')) {
+                        alert('手势密码正确！');
+                    }
+                }
+
+            });
+        }
+    };
+</script>
+</body>
+</html>
