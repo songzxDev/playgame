@@ -39,6 +39,9 @@
     let rightList = ['1', '2', '6', '8', '7'];
     let touchList = [];
     let move = document.getElementById('move');
+    move.addEventListener('click', function (event) {
+        showTouchPwd();
+    });
     window.onload = function () {
         let touchLock = document.getElementById('touchLock');
         for (let i = 0; i < 9; i++) {
@@ -78,15 +81,19 @@
         "move.style.transform = 'translate(135px,75px)'",
         "move.style.transform = 'translate(245px,185px)'",
         "move.style.transform = 'translate(135px,295px)'",
-        "move.style.transform = 'translate(25px,295px)'"
+        "move.style.transform = 'translate(25px,295px)'",
+        "move.style.transform = ''",
     ];
 
-    for (let i = 1; i < 24; i++) {
-        let j = i % 6;
-        console.log(j);
-        setTimeout(() => {
-            new Function(moveList[j - 1])();
-        }, i * 1000);
+    function showTouchPwd() {
+        let count = 5;
+        for (let i = 0; i < count * moveList.length; i++) {
+            let j = i % moveList.length;
+            console.log(j);
+            setTimeout(() => {
+                new Function(moveList[j])();
+            }, i * 1000);
+        }
     }
 
 </script>
