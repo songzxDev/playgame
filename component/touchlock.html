@@ -49,10 +49,18 @@
             childCircle.addEventListener('click', function (event) {
                 if (!touchList.includes(childCircle.id)) {
                     touchList.push(childCircle.id);
-                    console.log(touchList);
-                    if(rightList.join(',') === touchList.join(',')) {
-                        alert('手势密码正确！');
+                    childCircle.style.boxShadow = '0 0 10px #000 inset';
+                    if (rightList.join(',') === touchList.join(',')) {
+                        for (let child of touchLock.children) {
+                            if(!touchList.includes(child.id)) {
+                                child.style.backgroundColor = '#a0a0a0';
+                            }
+                        }
+                        setTimeout(() => {
+                            alert('手势密码正确！');
+                        }, 16);
                     }
+
                 }
 
             });
