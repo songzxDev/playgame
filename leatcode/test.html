@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LeetCode在线练习</title>
+</head>
+<body>
+<script>
+    /**
+     * @param {number[]} nums
+     * @param {number} target
+     * @return {number[]}
+     */
+    let twoSum = function (nums, target) {
+        let who = [];
+        for (let i = 0; i < nums.length; i++) {
+            nums.forEach(function (num, j) {
+
+                if (j > i) {
+                    if (nums[i] + nums[j] === target) {
+                        who.push(i);
+                        who.push(j);
+                    }
+                }
+            });
+
+        }
+        return who;
+    };
+</script>
+</body>
+</html>
