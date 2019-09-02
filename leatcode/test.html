@@ -7,6 +7,7 @@
 <body>
 <script>
     /**
+     * 两数之和
      * @param {number[]} nums
      * @param {number} target
      * @return {number[]}
@@ -20,6 +21,49 @@
             who[nums[i]] = i;
         }
         return [];
+    };
+    /**
+     * 三数之和
+     * @param {number[]} nums
+     * @return {number[][]}
+     */
+    let threeSum = function (nums) {
+        let start = Date.now();
+        // a + b + c = 0;
+        // a + b = -c
+        // 数组索引是唯一的
+        let twoSum = function (nums, target, abc) {
+            let who = Object.create(null);
+            let temp = [];
+            for (let i = 0; i < nums.length; i++) {
+                if (i === abc) continue;
+                let another = target - nums[i];
+                if (another in who)
+                    temp.push([who[another], i]);
+                who[nums[i]] = i;
+            }
+            return temp;
+        };
+        let result = [];
+        let how = new Map();
+        nums.sort(function (a, b) {
+            return a - b;
+        }).forEach(function (curr, abc) {
+            let anth = twoSum(nums, -curr, abc).map(item => {
+                item = [curr, nums[item[0]], nums[item[1]]].sort(function (a, b) {
+                    return a - b;
+                });
+                how.set(item.join('#'), item);
+                return item;
+            });
+
+        });
+        for (let value of how.values()) {
+            result.push(value);
+        }
+        let end = Date.now();
+        console.log((end - start) / 1000 + '秒');
+        return result;
     };
 </script>
 </body>
