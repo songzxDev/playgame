@@ -12,18 +12,12 @@
      * @return {number[]}
      */
     let twoSum = function (nums, target) {
-        let who = [];
+        let who = Object.create(null);
         for (let i = 0; i < nums.length; i++) {
-            nums.forEach(function (num, j) {
-
-                if (j > i) {
-                    if (nums[i] + nums[j] === target) {
-                        who.push(i);
-                        who.push(j);
-                    }
-                }
-            });
-
+            let another = target - nums[i];
+            if (another in who)
+                return [who[another], i];
+            who[nums[i]] = i;
         }
         return who;
     };
