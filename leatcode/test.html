@@ -197,6 +197,21 @@
         }
         return n <= 0;
     };
+
+    /**
+     * 各位相加
+     * @param {number} num
+     * @return {number}
+     */
+    let addDigits = function (num) {
+
+        let sum1 = num;
+        while (sum1 >= 10) {
+            let strs = (sum1 + '').split('');
+            sum1 = eval(strs.join('+'));
+        }
+        return sum1;
+    };
 </script>
 </body>
 </html>
