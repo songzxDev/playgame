@@ -32,34 +32,34 @@
         // a + b + c = 0;
         // a + b = -c
         // 数组索引是唯一的
+        nums.sort(function (a, b) {
+            return a - b;
+        });
+        let temp = new Map();
         let twoSum = function (nums, target, abc) {
             let who = Object.create(null);
-            let temp = [];
+
             for (let i = 0; i < nums.length; i++) {
                 if (i === abc) continue;
                 let another = target - nums[i];
-                if (another in who)
-                    temp.push([who[another], i]);
+                if (another in who) {
+                    let can = [nums[abc], nums[who[another]], nums[i]].sort(function (a, b) {
+                        return a - b;
+                    });
+                    if (!temp.has(can.join('#'))) {
+                        temp.set(can.join('#'), can);
+                    }
+                }
                 who[nums[i]] = i;
             }
-            return temp;
         };
         let result = [];
-        let how = new Map();
-        nums.sort(function (a, b) {
-            return a - b;
-        }).forEach(function (curr, abc) {
-            let anth = twoSum(nums, -curr, abc).map(item => {
-                item = [curr, nums[item[0]], nums[item[1]]].sort(function (a, b) {
-                    return a - b;
-                });
-                how.set(item.join('#'), item);
-                return item;
-            });
 
+        nums.forEach(function (curr, abc) {
+           twoSum(nums, -curr, abc);
         });
-        for (let value of how.values()) {
-            result.push(value);
+        if (temp && temp.size > 0) {
+            result = Array.from(temp.values());
         }
         let end = Date.now();
         console.log((end - start) / 1000 + '秒');
