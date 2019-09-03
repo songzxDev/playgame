@@ -205,12 +205,19 @@
      */
     let addDigits = function (num) {
 
-        let sum1 = num;
-        while (sum1 >= 10) {
-            let strs = (sum1 + '').split('');
-            sum1 = eval(strs.join('+'));
+        // let sum1 = num;
+        // while (sum1 >= 10) {
+        //     let strs = (sum1 + '').split('');
+        //     sum1 = eval(strs.join('+'));
+        // }
+        // return sum1;
+        if (num > 9) {
+            num = num % 9;
+            if (num === 0) {
+                return 9;
+            }
         }
-        return sum1;
+        return num;
     };
 </script>
 </body>
