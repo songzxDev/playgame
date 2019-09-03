@@ -6,6 +6,7 @@
 </head>
 <body>
 <script>
+    let [OK, NO] = [Symbol('OK'), Symbol('NO')];
     /**
      * 两数之和
      * @param {number[]} nums
@@ -20,6 +21,7 @@
                 return [who[another], i];
             who[nums[i]] = i;
         }
+        console.log(OK);
         return [];
     };
     /**
@@ -56,13 +58,30 @@
         let result = [];
 
         nums.forEach(function (curr, abc) {
-           twoSum(nums, -curr, abc);
+            twoSum(nums, -curr, abc);
         });
         if (temp && temp.size > 0) {
             result = Array.from(temp.values());
         }
         let end = Date.now();
         console.log((end - start) / 1000 + '秒');
+        console.error(NO);
+        return result;
+    };
+
+    /**
+     * 罗马数字转整数
+     * @param {string} s
+     * @return {number}
+     */
+    let romanToInt = function (s) {
+        let result = 0;
+        let romanMap = new Map([['I', 1], ['V', 5], ['X', 10], ['L', 50], ['C', 100], ['D', 500], ['M', 1000],
+            ['IV', 4], ['IX', 9], ['XL', 40], ['XC', 90], ['CD', 400], ['CM', 900]]);
+        const romanSplit = s.match(/(CM)|(CD)|(XC)|(XL)|(IX)|(IV)|(IX)|(\w)/g);
+        for (let key of romanSplit) {
+            result += romanMap.get(key);
+        }
         return result;
     };
 </script>
