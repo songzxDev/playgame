@@ -144,7 +144,36 @@
         // https://leetcode-cn.com/problems/climbing-stairs/solution/hua-jie-suan-fa-70-pa-lou-ti-by-guanpengchn/
         let sqrt_5 = Math.sqrt(5);
         let fib_n = Math.pow((1 + sqrt_5) / 2, n + 1) - Math.pow((1 - sqrt_5) / 2, n + 1);
+        console.error(NO);
         return Math.round(fib_n / sqrt_5);
+    };
+
+    /**
+     * 打家劫舍
+     * @param {number[]} nums
+     * @return {number}
+     */
+    let rob = function (nums) {
+        if (nums.length === 0) return 0;
+        let dp = Array.from({length: nums.length + 1}, () => (0));
+        dp[1] = nums[0];
+        for (let i = 1; i < nums.length; i++) {
+            dp[i + 1] = Math.max.apply(null, [dp[i], dp[i - 1] + nums[i]]);
+        }
+        console.log(dp);
+        return dp[dp.length - 1];
+        // let sum = [];
+        // nums.forEach(function (num, index) {
+        //     let temp = [];
+        //     let x = index;
+        //     while (x < nums.length) {
+        //         temp.push(nums[x]);
+        //         x = x + 2;
+        //     }
+        //     sum.push(eval(temp.join('+')));
+        // });
+        // return Math.max.apply(null, sum);
+
     };
 </script>
 </body>
