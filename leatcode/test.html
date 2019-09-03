@@ -114,6 +114,38 @@
         }
         return size;
     };
+
+    /**
+     * 爬楼梯
+     * @param {number} n
+     * @return {number}
+     */
+    let climbStairs = function (n) {
+        // 爬楼梯-需要 n 阶你才能到达楼顶，每次可以爬 1 或 2 个台阶
+        // 1x + 2y = n
+        // n % 2 === 1
+        // if (n === 1) return 1;
+        // let canList = [];
+        // let x = n % 2;
+        // while (x <= n) {
+        //     let y = (n - x) / 2;
+        //     let temp = [];
+        //     for (let i = 0; i < x; i++) {
+        //         temp.push(1);
+        //     }
+        //     for (let j = 0; j < y; j++) {
+        //         temp.push(2);
+        //     }
+        //     canList.push(temp);
+        //     x = x + 2;
+        // }
+        // return canList.length;
+        // 可知本题是斐波那契数列，那么用斐波那契数列的公式即可解决问题，公式如下
+        // https://leetcode-cn.com/problems/climbing-stairs/solution/hua-jie-suan-fa-70-pa-lou-ti-by-guanpengchn/
+        let sqrt_5 = Math.sqrt(5);
+        let fib_n = Math.pow((1 + sqrt_5) / 2, n + 1) - Math.pow((1 - sqrt_5) / 2, n + 1);
+        return Math.round(fib_n / sqrt_5);
+    };
 </script>
 </body>
 </html>
