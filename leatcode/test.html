@@ -291,11 +291,43 @@
         let xe = Math.sqrt(1 / 2) * Math.sqrt(c);
         for (let x = 0; x <= xe; x++) {
             let y = Math.sqrt(c - x * x);
-            if(Number.isInteger(y)){
+            if (Number.isInteger(y)) {
                 return true;
             }
         }
         return false;
+    };
+
+    /**
+     * 健身计划评估
+     * @param {number[]} calories
+     * @param {number} k
+     * @param {number} lower
+     * @param {number} upper
+     * @return {number}
+     */
+    let dietPlanPerformance = function (calories, k, lower, upper) {
+        /*
+        滑动窗口思路，遍历时不嵌套循环计算所有值；外层遍历相当于窗口向右滑动，每次减去失效值加上最新值，即为当前窗口的和，然后再比较。
+         */
+        let [count, temp] = [0, 0];
+        for (let i = 0; i < k; i++) {
+            temp += calories[i];
+        }
+        let iMax = calories.length - k + 1;
+        for (let i = 0; i < iMax; i++) {
+            if (i !== 0) {
+                temp += calories[i + k - 1];
+                temp -= calories[i - 1];
+            }
+            if (temp > upper) {
+                count++;
+            } else if (temp < lower) {
+                count--;
+            }
+
+        }
+        return count;
     };
 </script>
 </body>
