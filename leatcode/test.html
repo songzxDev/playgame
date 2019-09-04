@@ -253,6 +253,33 @@
         }
         return num;
     };
+
+    /**
+     * 最常见的单词
+     * @param {string} paragraph
+     * @param {string[]} banned
+     * @return {string}
+     */
+    let mostCommonWord = function (paragraph, banned) {
+        let temp = Object.create(null);
+        let max = 0;
+        let result = '';
+        paragraph.match(/\w+/g).forEach(item => {
+            item = item.toLowerCase();
+            if (!banned.includes(item)) {
+                if (item in temp) {
+                    temp[item]++;
+                } else {
+                    temp[item] = 1;
+                }
+                if (max < temp[item]) {
+                    max = temp[item];
+                    result = item;
+                }
+            }
+        });
+        return result;
+    };
 </script>
 </body>
 </html>
