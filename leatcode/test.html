@@ -235,10 +235,23 @@
                 sum = sum + strN[i] * strN[i];
             }
             strN = sum + '';
-            if(set.has(sum)) return false;
+            if (set.has(sum)) return false;
             set.add(sum);
         }
         return true;
+    };
+
+    /**
+     * 字符串中的单词数
+     * @param {string} s
+     * @return {number}
+     */
+    let countSegments = function (s) {
+        let num = 0;
+        if (s.replace(/\s+/g, '').length > 0) {
+            num = s.split(/\s+/).filter(item => item.replace(/\s+/g, ' ').length > 0).length;
+        }
+        return num;
     };
 </script>
 </body>
