@@ -329,6 +329,31 @@
         }
         return count;
     };
+
+    /**
+     * 有效的括号
+     * @param {string} s
+     * @return {boolean}
+     */
+    let isValid = function (s) {
+        if (s.length % 2 === 1) return false;
+        let myMap = new Map([['(', -1], [')', 1], ['{', -2], ['}', 2], ['[', -3], [']', 3]]);
+        let obj = Object.create(null);
+        for (let [key, value] of myMap) {
+            obj[key] = value;
+        }
+        let strs = [];
+        for (let str of s.split('')) {
+            if (strs.length === 0) {
+                strs.push(str);
+            } else if (obj[str] + obj[strs[strs.length - 1]] === 0) {
+                strs.pop();
+            } else {
+                strs.push(str);
+            }
+        }
+        return strs.length === 0;
+    };
 </script>
 </body>
 </html>
