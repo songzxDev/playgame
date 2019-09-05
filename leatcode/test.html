@@ -427,6 +427,24 @@
         };
         return source[n];
     };
+
+
+    /**
+     * 重复叠加字符串匹配
+     * @param {string} A
+     * @param {string} B
+     * @return {number}
+     */
+    let repeatedStringMatch = function (A, B) {
+        // 如果A的长度小于B的长度，这时B是A的重复子串，则A的重复次数不超过  B.length / A.length + 2
+        let num = Math.ceil(B.length / A.length) + 1;
+        let temp = A.concat('');
+        for (let i = 0; i < num; i++) {
+            if (A.includes(B)) return i + 1;
+            A += temp;
+        }
+        return -1;
+    };
 </script>
 </body>
 </html>
