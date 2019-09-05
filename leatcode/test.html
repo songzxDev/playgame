@@ -354,6 +354,38 @@
         }
         return strs.length === 0;
     };
+
+
+    /**
+     * 搜索插入位置
+     * @param {number[]} nums
+     * @param {number} target
+     * @return {number}
+     */
+    let searchInsert = function (nums, target) {
+        if (!nums.includes(target)) nums.push(target);
+        return nums.findIndex(item => item >= target);
+    };
+
+    /**
+     * 亲密字符串
+     * @param {string} A
+     * @param {string} B
+     * @return {boolean}
+     */
+    let buddyStrings = function (A, B) {
+        if (A.length === 0 || B.length === 0 || A.length !== B.length) return false;
+        let [a, b] = [A.split(''), B.split('')];
+        if (A === B && new Set(a).size < a.length) return true;
+        let dif = [];
+        for (let i = 0; i < a.length; i++) {
+            if (a[i] !== b[i]) {
+                dif.push([a[i], b[i]]);
+            }
+        }
+        return dif.length === 2 && dif[0].join('-') === dif[1].reverse().join('-');
+
+    };
 </script>
 </body>
 </html>
