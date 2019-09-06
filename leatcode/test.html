@@ -547,6 +547,30 @@
         }
         return ss.join('');
     };
+
+    /**
+     * 给定两个字符串形式的非负整数 num1 和num2 ，计算它们的和。
+     * @param {string} num1
+     * @param {string} num2
+     * @return {string}
+     */
+    let addStrings = function (num1, num2) {
+        let max = `${Math.ceil((Math.pow(2, 53) - 1) / 2)}`.length;
+        if (num1.length >= max + '' || num2.length >= max + '') {
+            let [res, temp] = ['', 0];
+            let [a, b] = [num1.split(''), num2.split('')];
+            while (a.length || b.length || temp) {
+                // pop() 方法用于删除并返回数组的最后一个元素
+                temp += ~~a.pop() + ~~b.pop();
+                res = (temp % 10) + res;
+                temp = temp > 9;
+            }
+            return res.replace(/^0+/, '');
+        } else {
+            return eval(`${num1}+${num2}`) + '';
+        }
+
+    };
 </script>
 </body>
 </html>
