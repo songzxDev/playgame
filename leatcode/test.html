@@ -461,21 +461,17 @@
      * @return {string}
      */
     let longestCommonPrefix = function (strs) {
-        let last = 0;
-        let temp = Object.create(null);
-        if (strs.length > 0) {
-            let first = strs[0].split('');
-            temp[0] = first[0];
-
-            for (let i = 0; i < first.length; i++) {
-                let curr = temp[i];
-                let find = strs.filter(item => item.startsWith(curr));
-                if (find.length !== strs.length) break;
-                temp[i + 1] = first.slice(0, i + 1 + 1).join('');
-                last = i + 1;
+        if (strs.length === 0) return '';
+        strs.sort(function (a, b) {
+            return a.localeCompare(b);
+        });
+        let [min, max] = [strs[0], strs[strs.length - 1]];
+        for (let i = 0; i < min.length; i++) {
+            if (min.substring(0, i + 1) !== max.substring(0, i + 1)) {
+                return max.substring(0, i);
             }
         }
-        return last === 0 ? '' : temp[last - 1];
+        return min;
     };
 </script>
 </body>
