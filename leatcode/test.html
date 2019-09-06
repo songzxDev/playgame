@@ -462,6 +462,7 @@
      */
     let longestCommonPrefix = function (strs) {
         if (strs.length === 0) return '';
+        // 按照ascII值排，举例abb， aba，abac，最大为abb，最小为aba。所以只需要比较最大最小的公共前缀就是整个数组的公共前缀
         strs.sort(function (a, b) {
             return a.localeCompare(b);
         });
