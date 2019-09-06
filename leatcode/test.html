@@ -454,6 +454,29 @@
     let checkPerfectNumber = function (num) {
         return [6, 28, 496, 8128, 33550336].includes(num);
     };
+
+    /**
+     * 编写一个函数来查找字符串数组中的最长公共前缀
+     * @param {string[]} strs
+     * @return {string}
+     */
+    let longestCommonPrefix = function (strs) {
+        let last = 0;
+        let temp = Object.create(null);
+        if (strs.length > 0) {
+            let first = strs[0].split('');
+            temp[0] = first[0];
+
+            for (let i = 0; i < first.length; i++) {
+                let curr = temp[i];
+                let find = strs.filter(item => item.startsWith(curr));
+                if (find.length !== strs.length) break;
+                temp[i + 1] = first.slice(0, i + 1 + 1).join('');
+                last = i + 1;
+            }
+        }
+        return last === 0 ? '' : temp[last - 1];
+    };
 </script>
 </body>
 </html>
