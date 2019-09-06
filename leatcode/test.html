@@ -508,9 +508,17 @@
     let firstUniqChar = function (s) {
         if (s.length === 0) return -1;
         if (s.length === 1) return 0;
-        let ss = new Set(s.split(''));
-        for(let k of ss.values()) {
-            if(s.indexOf(k)===s.lastIndexOf(k)) return s.indexOf(k);
+        let abc = Object.create(null);
+        for (let i = 0; i < 26; i++) {
+            abc[String.fromCharCode(i + 65).toLowerCase()] = i;
+        }
+        let letter = Array.from({length: 26}, () => (0));
+        let ss = s.split('');
+        for (let t of ss) {
+            letter[abc[t]]++;
+        }
+        for (let i = 0; i < ss.length; i++) {
+            if (letter[abc[ss[i]]] === 1) return i;
         }
         return -1;
     };
