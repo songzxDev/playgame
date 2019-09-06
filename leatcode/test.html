@@ -474,6 +474,16 @@
         }
         return min;
     };
+
+    /**
+     * 最后一个单词的长度
+     * @param {string} s
+     * @return {number}
+     */
+    let lengthOfLastWord = function (s) {
+        let temp = s.replace(/(^\s*)|(\s*$)/g, "").split(' ');
+        return temp[temp.length - 1].length;
+    };
 </script>
 </body>
 </html>
