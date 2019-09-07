@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="component.js"></script>
+</head>
+<body>
+
+<script>
+    let abc = new Carousel();
+    let f = () => abc.log();
+    abc.addEventListener('widthchange', f);
+    abc.appendTo(document.body);
+</script>
+</body>
+</html>
