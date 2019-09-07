@@ -32,7 +32,7 @@ class Carousel {
         }
         let that = this;
         this[ATTRIBUTE_SYMBOL].children = Array.prototype.slice.call(that[ATTRIBUTE_SYMBOL].container.children);
-
+        this.mounted();
     }
 
     get position() {
@@ -81,11 +81,7 @@ class Carousel {
         curr[ATTRIBUTE_SYMBOL].nextPictureTimer = setTimeout(() => curr.nextPicture(curr), 3000);
     }
 
-    render() {
-        let that = this;
-        this[ATTRIBUTE_SYMBOL].nextPictureTimer = setTimeout(() => that.nextPicture(that), 3000);
-
-
+    mounted() {
         let startTransform;
 
         let offset = 0;
@@ -179,7 +175,11 @@ class Carousel {
         });
 
         this[ATTRIBUTE_SYMBOL].container.addEventListener("mousedown", event => event.preventDefault());
+    }
 
+    render() {
+        let that = this;
+        this[ATTRIBUTE_SYMBOL].nextPictureTimer = setTimeout(() => that.nextPicture(that), 3000);
     }
 
 
