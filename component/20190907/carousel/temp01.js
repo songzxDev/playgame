@@ -45,8 +45,7 @@ class Carousel {
 
         nextPosition = nextPosition % children.length;
 
-        let current = children[this[ATTRIBUTE_SYMBOL].position],
-            next = children[nextPosition];
+        let current = children[this[ATTRIBUTE_SYMBOL].position], next = children[nextPosition];
         //把next摆到正确的位置
         //next.style.transition = "ease 0s";
         next.style.transform = `translate(${100 - 100 * nextPosition}%)`;
