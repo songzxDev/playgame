@@ -17,10 +17,10 @@ class Carousel {
         this[ATTRIBUTE_SYMBOL].container = config.container;
         this[ATTRIBUTE_SYMBOL].pictures = config.pictures;
 
-        this[ATTRIBUTE_SYMBOL].position = 0;
-        this[ATTRIBUTE_SYMBOL].offsetTimeStart = 0;
-        this[ATTRIBUTE_SYMBOL].nextPictureTimer = null;
-        this[ATTRIBUTE_SYMBOL].timeline = new Timeline();
+        this[ATTRIBUTE_SYMBOL].position = 0; // 私有属性
+        this[ATTRIBUTE_SYMBOL].offsetTimeStart = 0; // 私有属性
+        this[ATTRIBUTE_SYMBOL].nextPictureTimer = null; // 私有属性
+        this[ATTRIBUTE_SYMBOL].timeline = new Timeline(); // 私有属性
         let data = this[ATTRIBUTE_SYMBOL].pictures;
         let i = data.length;
         for (let d of data) {
@@ -28,19 +28,11 @@ class Carousel {
             e.src = d;
             this[ATTRIBUTE_SYMBOL].container.appendChild(e);
             e.style.zIndex = i++;
-            // e.onclick = event => console.log(d);
         }
         this[ATTRIBUTE_SYMBOL].children = Array.prototype.slice.call(this[ATTRIBUTE_SYMBOL].container.children);
         this.mounted();
     }
 
-    get position() {
-        return this[ATTRIBUTE_SYMBOL].position;
-    }
-
-    set position(value) {
-        return this[ATTRIBUTE_SYMBOL].position = value;
-    }
 
     render() {
         this[ATTRIBUTE_SYMBOL].nextPictureTimer = setTimeout(() => this.nextPicture(), 3000);
@@ -49,11 +41,11 @@ class Carousel {
     nextPicture() {
         let children = this[ATTRIBUTE_SYMBOL].children;
         let tl = this[ATTRIBUTE_SYMBOL].timeline;
-        let nextPosition = this.position + 1;
+        let nextPosition = this[ATTRIBUTE_SYMBOL].position + 1;
 
         nextPosition = nextPosition % children.length;
 
-        let current = children[this.position],
+        let current = children[this[ATTRIBUTE_SYMBOL].position],
             next = children[nextPosition];
         //把next摆到正确的位置
         //next.style.transition = "ease 0s";
@@ -64,8 +56,8 @@ class Carousel {
         tl.addAnimation(new DOMElementStyleNumberAnimation(
             current,
             "transform",
-            0, -500 * this.position,
-            1000, -500 - 500 * this.position,
+            0, -500 * this[ATTRIBUTE_SYMBOL].position,
+            1000, -500 - 500 * this[ATTRIBUTE_SYMBOL].position,
             (v) => `translateX(${v}px)`
         ));
         tl.addAnimation(new DOMElementStyleNumberAnimation(
