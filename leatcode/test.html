@@ -581,6 +581,26 @@
     let checkRecord = function (s) {
         return !((s.match(/A/g) && s.match(/A/g).length > 1) || s.includes('LLL'));
     };
+
+    /**
+     * 二进制求和
+     * @param {string} a
+     * @param {string} b
+     * @return {string}
+     */
+    let addBinary = function (a, b) {
+        let sub = Math.abs(a.length - b.length);
+        let zero = Array.from({length: sub}, () => (0)).join('');
+        if (a.length > b.length) {
+            b = zero + b;
+        } else if (a.length < b.length) {
+            a = zero + a;
+        } else {
+            for (let i = 0; i < a.length; i++) {
+
+            }
+        }
+    };
 </script>
 </body>
 </html>
