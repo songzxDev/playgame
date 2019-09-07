@@ -30,8 +30,7 @@ class Carousel {
             e.style.zIndex = i++;
             // e.onclick = event => console.log(d);
         }
-        let that = this;
-        this[ATTRIBUTE_SYMBOL].children = Array.prototype.slice.call(that[ATTRIBUTE_SYMBOL].container.children);
+        this[ATTRIBUTE_SYMBOL].children = Array.prototype.slice.call(this[ATTRIBUTE_SYMBOL].container.children);
         this.mounted();
     }
 
@@ -43,21 +42,24 @@ class Carousel {
         return this[ATTRIBUTE_SYMBOL].position = value;
     }
 
+    render() {
+        this[ATTRIBUTE_SYMBOL].nextPictureTimer = setTimeout(() => this.nextPicture(), 3000);
+    }
 
-    nextPicture(curr) {
-        let children = curr[ATTRIBUTE_SYMBOL].children;
-        let tl = curr[ATTRIBUTE_SYMBOL].timeline;
-        let nextPosition = curr.position + 1;
+    nextPicture() {
+        let children = this[ATTRIBUTE_SYMBOL].children;
+        let tl = this[ATTRIBUTE_SYMBOL].timeline;
+        let nextPosition = this.position + 1;
 
         nextPosition = nextPosition % children.length;
 
-        let current = children[curr.position],
+        let current = children[this.position],
             next = children[nextPosition];
         //把next摆到正确的位置
         //next.style.transition = "ease 0s";
         next.style.transform = `translate(${100 - 100 * nextPosition}%)`;
 
-        curr[ATTRIBUTE_SYMBOL].offsetTimeStart = Date.now();
+        this[ATTRIBUTE_SYMBOL].offsetTimeStart = Date.now();
 
         tl.addAnimation(new DOMElementStyleNumberAnimation(
             current,
@@ -75,11 +77,12 @@ class Carousel {
         ));
         tl.restart();
 
-        curr[ATTRIBUTE_SYMBOL].position = nextPosition;
+        this[ATTRIBUTE_SYMBOL].position = nextPosition;
 
 
-        curr[ATTRIBUTE_SYMBOL].nextPictureTimer = setTimeout(() => curr.nextPicture(curr), 3000);
+        this[ATTRIBUTE_SYMBOL].nextPictureTimer = setTimeout(() => this.nextPicture(), 3000);
     }
+
 
     mounted() {
         let startTransform;
@@ -176,12 +179,6 @@ class Carousel {
 
         this[ATTRIBUTE_SYMBOL].container.addEventListener("mousedown", event => event.preventDefault());
     }
-
-    render() {
-        let that = this;
-        this[ATTRIBUTE_SYMBOL].nextPictureTimer = setTimeout(() => that.nextPicture(that), 3000);
-    }
-
 
     get container() {
         return this[ATTRIBUTE_SYMBOL].container;
