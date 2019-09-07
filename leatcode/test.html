@@ -578,8 +578,8 @@
      * @param {string} s
      * @return {boolean}
      */
-    let checkRecord = function(s) {
-
+    let checkRecord = function (s) {
+        return !((s.match(/A/g) && s.match(/A/g).length > 1) || s.includes('LLL'));
     };
 </script>
 </body>
