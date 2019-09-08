@@ -589,17 +589,24 @@
      * @return {string}
      */
     let addBinary = function (a, b) {
-        let sub = Math.abs(a.length - b.length);
-        let zero = Array.from({length: sub}, () => (0)).join('');
-        if (a.length > b.length) {
-            b = zero + b;
-        } else if (a.length < b.length) {
-            a = zero + a;
-        } else {
-            for (let i = 0; i < a.length; i++) {
-
+        let add = (x, y) => {
+            return x ? x + y : y;
+        };
+        let aa = a.split('').map(Number);
+        let bb = b.split('').map(Number);
+        let len = Math.max(aa.length, bb.length) + 1;
+        while (aa.length !== len) aa.unshift(0);
+        while (bb.length !== len) bb.unshift(0);
+        let c = [];
+        for (let i = len - 1; i >= 0; i--) {
+            c[i] = add(c[i], aa[i] + bb[i]);
+            if (c[i] > 1) {
+                c[i - 1] = add(c[i - 1], 1);
+                c[i] = c[i] - 2;
             }
         }
+        if (!c[0]) c.shift();
+        return c.join('');
     };
 </script>
 </body>
