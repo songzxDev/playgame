@@ -621,6 +621,8 @@
         while (true) {
             let pre = cur;
             cur = (cur + x / cur) / 2;
+            // 1e-6 是科学计数法，表示 11 乘以 1010 的负 66 次方，也就是 0.0000010.000001
+            // 牛顿法，f(x) = x^2 - a，求解 a 的平方根, 即求解 f(x) = 0 的解
             if (Math.abs(cur - pre) < 1e-6)
                 return ~~cur;
         }
