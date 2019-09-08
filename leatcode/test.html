@@ -608,6 +608,24 @@
         if (!c[0]) c.shift();
         return c.join('');
     };
+
+    /**
+     * 69. x 的平方根，计算并返回 x 的平方根，其中 x 是非负整数
+     * @param {number} x
+     * @return {number}
+     */
+    let mySqrt = function (x) {
+
+        if ([0, 1].includes(x)) return x;
+        let cur = 1;
+        while (true) {
+            let pre = cur;
+            cur = (cur + x / cur) / 2;
+            if (Math.abs(cur - pre) < 1e-6)
+                return ~~cur;
+        }
+
+    };
 </script>
 </body>
 </html>
