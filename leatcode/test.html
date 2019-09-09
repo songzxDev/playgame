@@ -805,6 +805,31 @@
         }
         return counter.filter(num => num > 0).length === 0;
     };
+
+
+    /**
+     * 720. 词典中最长的单词
+     * @param {string[]} words
+     * @return {string}
+     */
+    const longestWord = function (words) {
+        let res = '';
+        let mySet = new Set();
+        words.sort(function (a, b) {
+            return a.localeCompare(b);
+        });
+
+        for (let word of words) {
+            let len = word.length;
+            if (len === 1 || mySet.has(word.substring(0, len - 1))) {
+                mySet.add(word);
+                if (len > res.length) {
+                    res = word;
+                }
+            }
+        }
+        return res;
+    };
 </script>
 </body>
 </html>
