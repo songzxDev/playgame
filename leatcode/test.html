@@ -848,6 +848,23 @@
         if (p['val'] !== q['val']) return false;
         return isSameTree(p['right'], q['right']) && isSameTree(p['left'], q['left']);
     };
+
+
+    /**
+     * 136. 只出现一次的数字
+     * 给定一个非空整数数组，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素
+     * @param {number[]} nums
+     * @return {number}
+     */
+    const singleNumber = function (nums) {
+        if (nums.length === 1) return nums[0];
+        let xor = 0;
+        for(let num of nums) {
+            // 在计算机里面的 ^= 是异或运算，相同取0，不同取1.
+            xor ^= num;
+        }
+        return xor;
+    };
 </script>
 </body>
 </html>
