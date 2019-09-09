@@ -859,12 +859,36 @@
     const singleNumber = function (nums) {
         if (nums.length === 1) return nums[0];
         let xor = 0;
-        for(let num of nums) {
+        for (let num of nums) {
             // 在计算机里面的 ^= 是异或运算，相同取0，不同取1.
             xor ^= num;
         }
         return xor;
     };
+
+    /**
+     * 169. 求众数
+     * 众数是指在数组中出现次数大于 ⌊ n/2 ⌋ 的元素
+     * @param {number[]} nums
+     * @return {number}
+     */
+    const majorityElement = function (nums) {
+        let counter = 0;
+        let leader = 0;
+        for (let num of nums) {
+            if (counter === 0) {
+                leader = num;
+            }
+            if (num === leader) {
+                counter += 1;
+            } else {
+                counter -= 1;
+            }
+        }
+        return leader;
+    };
+
+
 </script>
 </body>
 </html>
