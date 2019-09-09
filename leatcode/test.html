@@ -38,7 +38,7 @@
             return a - b;
         });
         let temp = new Map();
-        let twoSum = function (nums, target, abc) {
+        let twoSum2 = function (nums, target, abc) {
             let who = Object.create(null);
 
             for (let i = 0; i < nums.length; i++) {
@@ -58,7 +58,7 @@
         let result = [];
 
         nums.forEach(function (curr, abc) {
-            twoSum(nums, -curr, abc);
+            twoSum2(nums, -curr, abc);
         });
         if (temp && temp.size > 0) {
             result = Array.from(temp.values());
@@ -661,7 +661,7 @@
      * @param {number} target
      * @return {number[]}
      */
-    let twoSum = function (numbers, target) {
+    let twoSumII = function (numbers, target) {
         let [start, end] = [0, numbers.length - 1];
         while (start < end) {
             let sum = numbers[start] + numbers[end];
@@ -674,6 +674,29 @@
             }
         }
         return [-1, -1];
+    };
+
+    /**
+     * 28. 实现 strStr()
+     * @param {string} haystack
+     * @param {string} needle
+     * @return {number}
+     */
+    let strStr = function (haystack, needle) {
+        if (needle.length === 0) return 0;
+        if (haystack.length <= needle) return haystack === needle || needle.length === 0 ? 0 : -1;
+        let start = 0;
+        while (haystack.length - start >= needle.length) {
+            if (haystack.charAt(start) === needle.charAt(0)) {
+                if (haystack.substring(start, needle.length + start) === needle) {
+                    return start;
+                }
+            }
+            start++;
+
+        }
+
+        return -1;
     };
 
 </script>
