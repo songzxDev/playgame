@@ -972,8 +972,28 @@
      * @return {boolean}
      */
     const backspaceCompare = function (S, T) {
-        let [ms, mt] = [[...S], [...T]];
         let [stackS, stackT] = [[], []];
+        for (let c of S) {
+            if (c === '#' && stackS.length > 0) {
+                stackS.pop();
+            } else if (c !== '#') {
+                stackS.push(c);
+            }
+        }
+        for (let c of T) {
+            if (c === '#' && stackT.length > 0) {
+                stackT.pop();
+            } else if (c !== '#') {
+                stackT.push(c);
+            }
+        }
+        if (stackS.length !== stackT.length) return false;
+        while (stackS.length > 0) {
+            if (stackS.length > 0 && stackT.length > 0 && stackS.pop() !== stackT.pop()) {
+                return false;
+            }
+        }
+        return true;
     };
 </script>
 </body>
