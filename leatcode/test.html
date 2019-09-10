@@ -906,6 +906,23 @@
         return i;
     };
 
+    /**
+     * 532. 数组中的K-diff数对，注意：数对 (i, j) 和数对 (j, i) 被算作同一数对
+     * @param {number[]} nums
+     * @param {number} k
+     * @return {number}
+     */
+    const findPairs = function (nums, k) {
+        if (k < 0) return 0;
+        let [saw, diff] = [new Set(), new Set()];
+        for (let num of nums) {
+            if (saw.has(num - k)) diff.add(num - k);
+            if (saw.has(num + k)) diff.add(num);
+            saw.add(num);
+        }
+        return diff.size;
+    };
+
 </script>
 </body>
 </html>
