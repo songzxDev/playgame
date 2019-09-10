@@ -923,6 +923,26 @@
         return diff.size;
     };
 
+    /**
+     * 852. 山脉数组的峰顶索引
+     * @param {number[]} A
+     * @return {number}
+     */
+    const peakIndexInMountainArray = function (A) {
+        if (A.length < 3) return -1;
+        let [begin, end] = [0, A.length];
+        while (begin < end) {
+            let middle = Math.floor((begin + end) / 2);
+            if (A[middle] > A[middle - 1] && A[middle] > A[middle + 1]) {
+                return middle;
+            } else if (A[middle] > A[middle - 1]) {
+                begin = middle;
+            } else {
+                end = middle;
+            }
+        }
+    };
+
 </script>
 </body>
 </html>
