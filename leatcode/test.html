@@ -1012,6 +1012,33 @@
         }
         return stack.join('');
     };
+
+    /**
+     * 204. 计数质数：统计所有小于非负整数 n 的质数的数量
+     * @param {number} n
+     * @return {number}
+     */
+    const countPrimes = function (n) {
+        if (n < 2) return 0;
+        /*质数又称素数。一个大于1的自然数，除了1和它自身外，不能被其他自然数整除的数叫做质数；否则称为合数。
+        在一个大于1的数a和它的2倍之间（即区间（a, 2a]中）必存在至少一个素数，所有大于10的质数中，个位数只有1,3,7,9
+        质数大于等于2 不能被它本身和1以外的数整除，在一般领域，对正整数n，如果用2到 之间的所有整数去除，均无法整除，则n为质数*/
+
+        // 厄拉多塞筛法求质数
+        let best = [];
+        for (let i = 0; i < n; i++) {
+            best[i] = 1;
+        }
+
+        for (let i = 2; i < n; i++) {
+            if (best[i] === 1) {
+                for (let j = 2; i * j < n; j++) {
+                    best[i * j] = 0;
+                }
+            }
+        }
+        return best.filter(item => item === 1).length - 2;
+    };
 </script>
 </body>
 </html>
