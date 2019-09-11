@@ -54,6 +54,30 @@
         }
         return total;
     };
+
+    /**
+     * 665. 非递减数列
+     * @param {number[]} nums
+     * @return {boolean}
+     */
+    const checkPossibility = function (nums) {
+        if (nums.length <= 2) return true;
+        if (nums.length === 3) {
+            return !(nums[0] > nums[1] && nums[0] > nums[2] && nums[1] > nums[2]);
+        }
+        let n = 0;
+        for (let i = 0; i < nums.length - 1; i++) {
+            let [a, b] = [nums[i], nums[i + 1]];
+            if (a > b) {
+                n += 1;
+                if (n > 1) return false;
+                if (i - 1 > -1 && nums[i - 1] > b && i + 2 < nums.length && a > nums[i + 2]) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    };
 </script>
 </body>
 </html>
