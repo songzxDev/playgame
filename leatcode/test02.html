@@ -120,6 +120,28 @@
         digits[0] = 1;
         return digits;
     };
+
+    /**
+     * 118. 杨辉三角：给定一个非负整数 numRows，生成杨辉三角的前 numRows 行
+     * @param {number} numRows
+     * @return {number[][]}
+     */
+    const generate = function (numRows) {
+        let myMap = [[]];
+        if (numRows === 0) return [];
+        myMap[0].push(1);
+        for (let rowNum = 1; rowNum < numRows; rowNum++) {
+            let row = [];
+            let prevRow = myMap[rowNum - 1];
+            row.push(1);
+            for (let j = 1; j < rowNum; j++) {
+                row.push(prevRow[j - 1] + prevRow[j]);
+            }
+            row.push(1);
+            myMap.push(row);
+        }
+        return myMap;
+    };
 </script>
 </body>
 </html>
