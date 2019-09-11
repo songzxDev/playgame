@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Leetcode 刷题</title>
+</head>
+<body>
+<script type="text/javascript">
+    /**
+     * 455. 分发饼干：一个小朋友最多只能拥有一块饼干
+     * @param {number[]} g
+     * @param {number[]} s
+     * @return {number}
+     */
+    const findContentChildren = function (g, s) {
+        let res = 0;
+        if (g.length * s.length === 0) return res;
+        g.sort(function (a, b) {
+            return a - b;
+        });
+        s.sort(function (a, b) {
+            return a - b;
+        });
+        let [gMin, sMax] = [g[0], s[s.length - 1]];
+        if (sMax < gMin) return 0;
+        // 最大值
+        let [i, j] = [0, 0];
+        while (i < g.length && j < s.length) {
+            if (g[i] <= s[j]) {
+                res += 1;
+                i += 1;
+                j += 1;
+            } else {
+                j += 1;
+            }
+        }
+        return res;
+    };
+</script>
+</body>
+</html>
