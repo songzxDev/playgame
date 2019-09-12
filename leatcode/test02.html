@@ -149,18 +149,20 @@
      * @return {void} Do not return anything, modify arr in-place instead.
      */
     const duplicateZeros = function (arr) {
-        // [1,0,2,3,0,4,5,0] => [1,0,0,2,3,0,0,4]
-        for (let j = 0; j < arr.length; j++) {
-            if (arr[j] === 0) {
-                // [arr[j], arr[arr.length - 1],] = [arr[arr.length - 1], arr[j],];
-                for (let k = arr.length - 1; k > j; k--) {
-                    arr[k] = arr[k - 1];
-                }
-                j++;
-            }
-
+        let [n, i, j] = [arr.length, 0, 0];
+        while (j < n) {
+            if (arr[i] === 0) ++j;
+            ++i;
+            ++j;
         }
-        // console.log(arr)
+        --i;
+        --j;
+        while (i >= 0) {
+            if (j < n) arr[j] = arr[i];
+            if (arr[i] === 0) arr[--j] = arr[i];
+            --i;
+            --j;
+        }
     };
 </script>
 </body>
