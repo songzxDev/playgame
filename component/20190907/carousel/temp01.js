@@ -13,6 +13,11 @@ class Carousel {
         this.init(config);
     }
 
+    get parentWidth() {
+        let parentWidth = window.getComputedStyle(this[ATTRIBUTE_SYMBOL].container, null).width;
+        return parseInt(parentWidth.replace(/px/g, ''), 10);
+    }
+
     init(config) {
         this[ATTRIBUTE_SYMBOL].container = config.container;
         this[ATTRIBUTE_SYMBOL].pictures = config.pictures;
@@ -28,8 +33,12 @@ class Carousel {
             e.src = d;
             this[ATTRIBUTE_SYMBOL].container.appendChild(e);
             e.style.zIndex = i++;
+            e.style.width = '100%';
+            e.style.height = '100%';
+            e.style.display = 'inline-block';
         }
         this[ATTRIBUTE_SYMBOL].children = Array.prototype.slice.call(this[ATTRIBUTE_SYMBOL].container.children);
+        enableGesture(container);
         this.mounted();
     }
 
@@ -55,15 +64,15 @@ class Carousel {
         tl.addAnimation(new DOMElementStyleNumberAnimation(
             current,
             "transform",
-            0, -500 * this[ATTRIBUTE_SYMBOL].position,
-            1000, -500 - 500 * this[ATTRIBUTE_SYMBOL].position,
+            0, -this.parentWidth * this[ATTRIBUTE_SYMBOL].position,
+            1000, -this.parentWidth - this.parentWidth * this[ATTRIBUTE_SYMBOL].position,
             (v) => `translateX(${v}px)`
         ));
         tl.addAnimation(new DOMElementStyleNumberAnimation(
             next,
             "transform",
-            0, 500 - 500 * nextPosition,
-            1000, -500 * nextPosition,
+            0, this.parentWidth - this.parentWidth * nextPosition,
+            1000, -this.parentWidth * nextPosition,
             (v) => `translateX(${v}px)`
         ));
         tl.restart();
@@ -80,13 +89,12 @@ class Carousel {
 
         let offset = 0;
         this[ATTRIBUTE_SYMBOL].container.addEventListener("mousedown", event => {
-            //startTransform = - position * 500;
             let tl = this[ATTRIBUTE_SYMBOL].timeline;
             tl.pause();
 
             let currentTime = Date.now();
             if (currentTime - this[ATTRIBUTE_SYMBOL].offsetTimeStart < 1000) {
-                offset = 500 - ease((currentTime - this[ATTRIBUTE_SYMBOL].offsetTimeStart) / 1000) * 500;
+                offset = this.parentWidth - ease((currentTime - this[ATTRIBUTE_SYMBOL].offsetTimeStart) / 1000) * this.parentWidth;
                 console.log(offset);
             } else {
                 offset = 0;
@@ -95,7 +103,6 @@ class Carousel {
             clearTimeout(this[ATTRIBUTE_SYMBOL].nextPictureTimer);
         });
         this[ATTRIBUTE_SYMBOL].container.addEventListener("pan", event => {
-            // event.origin.preventDefault();
             let children = this[ATTRIBUTE_SYMBOL].children;
             let current = children[this[ATTRIBUTE_SYMBOL].position];
 
@@ -104,13 +111,13 @@ class Carousel {
             let lastPosition = (children.length + this[ATTRIBUTE_SYMBOL].position - 1) % children.length;
             let last = children[lastPosition];
             last.style.transition = "ease 0s";
-            last.style.transform = `translate(${-500 - 500 * lastPosition + event.dx + offset}px)`;
+            last.style.transform = `translate(${-this.parentWidth - this.parentWidth * lastPosition + event.dx + offset}px)`;
 
             next.style.transition = "ease 0s";
-            next.style.transform = `translate(${500 - 500 * nextPosition + event.dx + offset}px)`;
+            next.style.transform = `translate(${this.parentWidth - this.parentWidth * nextPosition + event.dx + offset}px)`;
 
             current.style.transition = "ease 0s";
-            current.style.transform = `translate(${-500 * this[ATTRIBUTE_SYMBOL].position + event.dx + offset}px)`;
+            current.style.transform = `translate(${-this.parentWidth * this[ATTRIBUTE_SYMBOL].position + event.dx + offset}px)`;
         });
         this[ATTRIBUTE_SYMBOL].container.addEventListener("panend", event => {
             let children = this[ATTRIBUTE_SYMBOL].children;
@@ -128,17 +135,16 @@ class Carousel {
                 }
 
             } else {
-                if (event.dx > 250) {
+                if (event.dx > this.parentWidth / 2) {
                     this[ATTRIBUTE_SYMBOL].position--;
                     isLeft = true;
-                } else if (event.dx < -250) {
+                } else if (event.dx < -this.parentWidth / 2) {
                     this[ATTRIBUTE_SYMBOL].position++;
                     isLeft = false;
                 } else {
                     isLeft = event.dx <= 0;
                 }
 
-                //position = (Math.round((position * 500 - event.dx) / 500));
             }
             this[ATTRIBUTE_SYMBOL].position = (children.length + this[ATTRIBUTE_SYMBOL].position) % children.length;
 
@@ -153,17 +159,17 @@ class Carousel {
             } else {
                 last.style.transition = "ease 0s";
             }
-            last.style.transform = `translate(${-500 - 500 * lastPosition}px)`;
+            last.style.transform = `translate(${-this.parentWidth - this.parentWidth * lastPosition}px)`;
 
             if (isLeft) {
                 next.style.transition = "";
             } else {
                 next.style.transition = "ease 0s";
             }
-            next.style.transform = `translate(${500 - 500 * nextPosition}px)`;
+            next.style.transform = `translate(${this.parentWidth - this.parentWidth * nextPosition}px)`;
 
             current.style.transition = "";
-            current.style.transform = `translate(${-500 * this[ATTRIBUTE_SYMBOL].position}px)`;
+            current.style.transform = `translate(${-this.parentWidth * this[ATTRIBUTE_SYMBOL].position}px)`;
 
 
         });
@@ -177,16 +183,6 @@ class Carousel {
 
     set container(container) {
         return this[ATTRIBUTE_SYMBOL].container = container;
-    }
-
-    get isTouch() {
-        return this[ATTRIBUTE_SYMBOL].isTouch;
-    }
-
-    set isTouch(value) {
-        if (value) // 是否支持手势拖动
-            enableGesture(container);
-        return this[ATTRIBUTE_SYMBOL].isTouch = value;
     }
 
     get pictures() { // 基础数据
