@@ -121,7 +121,6 @@ class Carousel {
         });
         this[ATTRIBUTE_SYMBOL].container.addEventListener("panend", event => {
             let children = this[ATTRIBUTE_SYMBOL].children;
-            // event.origin.preventDefault();
             let isLeft;
             if (event.isFlick) {
                 if (event.dx > 0) {
@@ -177,21 +176,6 @@ class Carousel {
         this[ATTRIBUTE_SYMBOL].container.addEventListener("mousedown", event => event.preventDefault());
     }
 
-    get container() {
-        return this[ATTRIBUTE_SYMBOL].container;
-    }
-
-    set container(container) {
-        return this[ATTRIBUTE_SYMBOL].container = container;
-    }
-
-    get pictures() { // 基础数据
-        return this[ATTRIBUTE_SYMBOL].pictures;
-    }
-
-    set pictures(pictures) {
-        return this[ATTRIBUTE_SYMBOL].pictures = pictures;
-    }
 
     addEventListener(type, listener) {
         if (!this[EVENT_SYMBOL][type]) {
