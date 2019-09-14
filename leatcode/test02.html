@@ -236,6 +236,35 @@
         }
         return res;
     };
+
+    /**
+     * 520. 检测大写字母
+     * @param {string} word
+     * @return {boolean}
+     */
+    const detectCapitalUse = function (word) {
+        if (word.length === 1) return true;
+        let lastWord = word.charAt(word.length - 1);
+        let firstWord = word.charAt(0);
+        if (firstWord.charCodeAt(0) < 97) {// 首字母大写
+            let temp = [];
+            for (let i = 1; i < word.length; i++) {
+                temp.push(word.charCodeAt(i));
+            }
+            temp.sort(function (a, b) {
+                return a - b;
+            });
+            let [min, max] = [temp[0], temp[temp.length - 1]];
+            return max <= 90 || (min >= 97);
+        } else {// 首字母小写
+            if (lastWord.charCodeAt(0) < 97) return false; // 尾字母大写
+            for (let i = 1; i < word.length; i++) {
+                if (word.charCodeAt(i) < 97) return false;
+            }
+            return true;
+        }
+
+    };
 </script>
 </body>
 </html>
