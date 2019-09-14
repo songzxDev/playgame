@@ -244,26 +244,12 @@
      */
     const detectCapitalUse = function (word) {
         if (word.length === 1) return true;
-        let lastWord = word.charAt(word.length - 1);
-        let firstWord = word.charAt(0);
-        if (firstWord.charCodeAt(0) < 97) {// 首字母大写
-            let temp = [];
-            for (let i = 1; i < word.length; i++) {
-                temp.push(word.charCodeAt(i));
-            }
-            temp.sort(function (a, b) {
-                return a - b;
-            });
-            let [min, max] = [temp[0], temp[temp.length - 1]];
-            return max <= 90 || (min >= 97);
-        } else {// 首字母小写
-            if (lastWord.charCodeAt(0) < 97) return false; // 尾字母大写
-            for (let i = 1; i < word.length; i++) {
-                if (word.charCodeAt(i) < 97) return false;
-            }
-            return true;
+        let [upper, lower] = [0, 0];
+        if (word.charCodeAt(0) >= 97 && word.charCodeAt(word.length - 1) <= 90) return false;
+        for (let i = 0; i < word.length; i++) {
+            word.charCodeAt(i) <= 90 ? upper += 1 : lower += 1;
         }
-
+        return (lower === word.length || upper === word.length || (upper === 1 && word.charCodeAt(0) <= 90));
     };
 </script>
 </body>
