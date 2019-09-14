@@ -251,6 +251,26 @@
         }
         return (lower === word.length || upper === word.length || (upper === 1 && word.charCodeAt(0) <= 90));
     };
+
+    /**
+     * 7. 整数反转：数值范围为 [−2^31,  2^31 − 1]，反转后整数溢出那么就返回 0
+     * 给出一个 32 位的有符号整数，你需要将这个整数中每位上的数字进行反转
+     * @param {number} x
+     * @return {number}
+     */
+    const reverse = function (x) {
+        // -2147483648～2147483647
+        const [INT_MIN, INT_MAX] = [Math.pow(-2, 31), Math.pow(2, 31) - 1];
+        let rev = 0;
+        while (x !== 0) {
+            let pop = x % 10;
+            x = parseInt(x / 10, 10);
+            if (rev > INT_MAX / 10 || rev === INT_MAX && pop === 7) return 0;
+            if (rev < INT_MIN / 10 || rev === INT_MIN && pop === -8) return 0;
+            rev = rev * 10 + pop;
+        }
+        return rev;
+    };
 </script>
 </body>
 </html>
