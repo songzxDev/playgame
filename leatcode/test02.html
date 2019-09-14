@@ -260,17 +260,37 @@
      */
     const reverse = function (x) {
         // -2147483648～2147483647
-        if (Math.abs(x) < 9) return x;
+        if (Math.abs(x) <= 9) return x;
         const [INT_MIN, INT_MAX] = [Math.pow(-2, 31), Math.pow(2, 31) - 1];
         let rev = 0;
         while (x !== 0) {
             let pop = x % 10;
             x = parseInt(x / 10, 10);
-            if (rev > INT_MAX / 10 || rev === INT_MAX/10 && pop === 7) return 0;
-            if (rev < INT_MIN / 10 || rev === INT_MIN/10 && pop === -8) return 0;
+            if (rev > INT_MAX / 10 || (rev === INT_MAX / 10 && pop === 7)) return 0;
+            if (rev < INT_MIN / 10 || (rev === INT_MIN / 10 && pop === -8)) return 0;
             rev = rev * 10 + pop;
         }
         return rev;
+    };
+
+    /**
+     * 9.回文数（不要将整数转为字符串）
+     * 判断一个整数是否是回文数。回文数是指正序（从左向右）和倒序（从右向左）读都是一样的整数。
+     * @param {number} x
+     * @return {boolean}
+     */
+    const isPalindrome = function (x) {
+        if (x >= 0 && x <= 9) return true;
+        if (x < 0) return false;
+        let div = 1;
+        while (x / div >= 10) div *= 10;
+        while (x > 0) {
+            let [left, right] = [parseInt(x / div, 10), x % 10];
+            if (left !== right) return false;
+            x = parseInt((x % div) / 10, 10);
+            div = parseInt(div / 100, 10);
+        }
+        return true;
     };
 </script>
 </body>
