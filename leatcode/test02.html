@@ -336,6 +336,54 @@
         }
         return Math.max(even, odd);
     };
+
+    /**
+     * 303. 区域和检索 - 数组不可变
+     * @param {number[]} nums
+     */
+    let NumArray = function (nums) {
+        const NUMS = Symbol("nums");
+        this.sums = Object.create(null);
+        this.sums[0] = 0;
+        this[NUMS] = nums;
+        for (let i = 0; i < this[NUMS].length; i++) {
+            this.sums[i + 1] = this.sums[i] + this[NUMS][i];
+        }
+    };
+
+    /**
+     * @param {number} i
+     * @param {number} j
+     * @return {number}
+     */
+    NumArray.prototype.sumRange = function (i, j) {
+        return this.sums[j + 1] - this.sums[i];
+    };
+
+    /**
+     * Your NumArray object will be instantiated and called as such:
+     * var obj = new NumArray(nums)
+     * var param_1 = obj.sumRange(i,j)
+     */
+
+    /**
+     * 121. 买卖股票的最佳时机
+     * @param {number[]} prices
+     * @return {number}
+     */
+    const maxProfit = function (prices) {
+        if (prices.length <= 1) return 0;
+        let [minPrice, maxPrice] = [prices[0], 0];
+        for (let price of prices) {
+            if (price < minPrice) {
+                minPrice = price;
+            }
+            if (price - minPrice > maxPrice) {
+                maxPrice = price - minPrice;
+            }
+        }
+        return maxPrice;
+    };
 </script>
 </body>
 </html>
