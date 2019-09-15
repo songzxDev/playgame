@@ -423,6 +423,22 @@
         }
         return dp[N];
     };
+
+    /**
+     * 709. 转换成小写字母
+     * 实现函数 ToLowerCase()，该函数接收一个字符串参数 str，并将该字符串中的大写字母转换成小写字母
+     * @param {string} str
+     * @return {string}
+     */
+    const toLowerCase = function (str) {
+        let strs = str.split('');
+        for (let i = 0; i < strs.length; i++) {
+            if (strs[i].charCodeAt(0) <= 90 && strs[i].charCodeAt(0) >= 65) {
+                strs[i] = String.fromCharCode(strs[i].charCodeAt(0) + 32);
+            }
+        }
+        return strs.join('');
+    };
 </script>
 </body>
 </html>
