@@ -473,6 +473,22 @@
         }
         return res;
     };
+
+    /**
+     * 171. Excel表列序号：给定一个Excel表格中的列名称，返回其相应的列序号
+     * @param {string} res
+     * @return {number}
+     */
+    const titleToNumber = function (res) {
+        if (res.length === 0) return 0;
+        if (res.length === 1) return res.charCodeAt(0) % 65 + 1;
+        let sum = 0;
+        let i = res.length - 1;
+        for (let s of res) {
+            sum += Math.pow(26, i--) * (s.charCodeAt(0) % 65 + 1);
+        }
+        return sum;
+    };
 </script>
 </body>
 </html>
