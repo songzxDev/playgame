@@ -384,6 +384,23 @@
         }
         return maxPrice;
     };
+
+    /**
+     * 746. 使用最小花费爬楼梯
+     * @param {number[]} cost
+     * @return {number}
+     */
+    const minCostClimbingStairs = function (cost) {
+        // 状态转移方程： dp[i] = min(dp[i-1],dp[i-2]) + cost[i]
+        if (cost.length === 2) return Math.min.apply(null, cost);
+        let [p, q] = [cost[0], cost[1]];
+        for (let i = 2; i < cost.length; i++) {
+            let sum = Math.min(p, q) + cost[i];
+            p = q;
+            q = sum;
+        }
+        return Math.min(p, q);
+    };
 </script>
 </body>
 </html>
