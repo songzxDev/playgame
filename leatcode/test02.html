@@ -489,6 +489,18 @@
         }
         return sum;
     };
+
+    /**
+     * 326. 3的幂：（不能使用循环或者递归）
+     * 给定一个整数，写一个函数来判断它是否是 3 的幂次方
+     * @param {number} n
+     * @return {boolean}
+     */
+    const isPowerOfThree = function (n) {
+        // 最大值是：3^19，n能被3^19整出则该数是3的幂
+        const N_MAX_INT = Math.pow(3, 19);
+        return n > 0 && N_MAX_INT % n === 0;
+    };
 </script>
 </body>
 </html>
