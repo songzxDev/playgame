@@ -401,6 +401,28 @@
         }
         return Math.min(p, q);
     };
+
+    /**
+     * 1025. 除数博弈
+     * @param {number} N
+     * @return {boolean}
+     */
+    const divisorGame = function (N) {
+        /*记dp[N]为黑板上数字为N的情况下,Alice的输赢情况， 如果Alice取了数字x, 那么显然dp[N]与dp[N -x]输赢情况相反。
+        x可以取的值很多，只要dp[N -xi]中任意一个为False, 那么dp[N]肯定为True, 否则dp[N]为False*/
+        let dp = Object.create(null);
+        [dp[1], dp[2]] = [false, true];
+        for (let i = 3; i < N + 1; i++) {
+            dp[i] = false;
+            for (let j = 1; j < i; j++) {
+                if (i % j === 0 && dp[i - j] === false) {
+                    dp[i] = true;
+                    break;
+                }
+            }
+        }
+        return dp[N];
+    };
 </script>
 </body>
 </html>
