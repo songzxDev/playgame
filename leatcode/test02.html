@@ -511,6 +511,16 @@
     const isPowerOfTwo = function (n) {
         return n > 0 && (n & n - 1) === 0;
     };
+
+    /**
+     * 342. 4的幂：给定一个整数 (32 位有符号整数)，请编写一个函数来判断它是否是 4 的幂次方
+     * @param {number} num
+     * @return {boolean}
+     */
+    const isPowerOfFour = function (num) {
+        let fourSet = new Set([1, 4, 16, 64, 256, 1024, 4096, 16384, 65536, 262144, 1048576, 4194304, 16777216, 67108864, 268435456, 1073741824]);
+        return fourSet.has(num);
+    };
 </script>
 </body>
 </html>
