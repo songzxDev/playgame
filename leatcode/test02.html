@@ -300,6 +300,11 @@
      * @return {number}
      */
     const maxSubArray = function (nums) {
+        /* 假设你是一个选择性遗忘的赌徒，数组表示你这几天来赢钱或者输钱，
+        你用sum来表示这几天来的输赢，用ans来存储你手里赢到的最多的钱，
+        如果昨天你手上还是输钱（sum < 0），你忘记它，明天继续赌钱；
+        如果你手上是赢钱(sum > 0), 你记得，你继续赌钱；
+        你记得你手气最好的时候 */
         if (nums.length === 1) return nums[0];
         let ans = nums[0];
         let sum = 0;
@@ -312,6 +317,24 @@
             ans = Math.max(ans, sum);
         }
         return ans;
+    };
+
+    /**
+     * 198. 打家劫舍
+     * @param {number[]} nums
+     * @return {number}
+     */
+    const rob = function (nums) {
+        if (nums.length === 1) return nums[0];
+        if (nums.length === 0) return 0;
+        let [even, odd] = [0, 0];
+        for (let i = 0; i < nums.length; i += 2) {
+            even += nums[i];
+            even = Math.max(even, odd);
+            odd += (nums[i + 1] || 0);
+            odd = Math.max(even, odd);
+        }
+        return Math.max(even, odd);
     };
 </script>
 </body>
