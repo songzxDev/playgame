@@ -521,6 +521,18 @@
         let fourSet = new Set([1, 4, 16, 64, 256, 1024, 4096, 16384, 65536, 262144, 1048576, 4194304, 16777216, 67108864, 268435456, 1073741824]);
         return fourSet.has(num);
     };
+
+    /**
+     * 441. 排列硬币
+     * @param {number} n
+     * @return {number}
+     */
+    const arrangeCoins = function (n) {
+        // i^2 + i - 2n = 0，二次函数求 i 的值
+        // a = 1, b = 1, c = -2n
+        let i = (-1 + Math.sqrt(1 - 4 * (-2 * n))) / 2;
+        return Math.floor(i);
+    };
 </script>
 </body>
 </html>
