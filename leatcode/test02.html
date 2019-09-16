@@ -583,6 +583,27 @@
         }
         return -1;
     };
+
+    /**
+     * 970. 强整数
+     * @param {number} x
+     * @param {number} y
+     * @param {number} bound
+     * @return {number[]}
+     */
+    const powerfulIntegers = function (x, y, bound) {
+        let a = x > 1 ? Math.floor(Math.log(bound) / Math.log(x)) + 1 : 1;
+        let b = y > 1 ? Math.floor(Math.log(bound) / Math.log(y)) + 1 : 1;
+        let res = new Set();
+        for (let i = 0; i < a; i++) {
+            for (let j = 0; j < b; j++) {
+                let k = Math.pow(x, i) + Math.pow(y, j);
+                if (k > bound) break;
+                res.add(k);
+            }
+        }
+        return Array.from(res);
+    };
 </script>
 </body>
 </html>
