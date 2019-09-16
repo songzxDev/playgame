@@ -533,6 +533,31 @@
         let i = (-1 + Math.sqrt(1 - 4 * (-2 * n))) / 2;
         return Math.floor(i);
     };
+
+    /**
+     * 728. 自除数（自除数 是指可以被它包含的每一位数除尽的数，自除数不允许包含 0）
+     * @param {number} left
+     * @param {number} right
+     * @return {number[]}
+     */
+    const selfDividingNumbers = function (left, right) {
+        let mySet = new Set();
+        for (let i = left; i <= right; i++) {
+            let iStr = `${i}`.split('');
+            let sign = true;
+            for (let s of iStr) {
+                let num = parseInt(s, 10);
+                if (num === 0 || i % num !== 0) {
+                    sign = false;
+                    break;
+                }
+            }
+            if (sign) {
+                mySet.add(i);
+            }
+        }
+        return Array.from(mySet);
+    };
 </script>
 </body>
 </html>
