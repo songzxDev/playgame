@@ -558,6 +558,31 @@
         }
         return Array.from(mySet);
     };
+
+    /**
+     * 704.二分查找
+     * @param {number[]} nums
+     * @param {number} target
+     * @return {number}
+     */
+    const search = function (nums, target) {
+        if (nums.length === 0) return -1;
+        if (nums.length === 1) return nums[0] === target ? 0 : -1;
+        let mid = Math.floor(nums.length / 2);
+        let middle = nums[mid];
+        if (middle === target) {
+            return mid;
+        } else if (middle < target) {
+            for (let i = mid + 1; i < nums.length; i++) {
+                if (nums[i] === target) return i;
+            }
+        } else {
+            for (let i = 0; i <= mid - 1; i++) {
+                if (nums[i] === target) return i;
+            }
+        }
+        return -1;
+    };
 </script>
 </body>
 </html>
