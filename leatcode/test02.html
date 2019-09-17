@@ -652,7 +652,26 @@
         let ab = Math.sqrt(Math.pow(points[0][0] - points[1][0], 2) + Math.pow(points[0][1] - points[1][1], 2));
         let ac = Math.sqrt(Math.pow(points[0][0] - points[2][0], 2) + Math.pow(points[0][1] - points[2][1], 2));
         let bc = Math.sqrt(Math.pow(points[1][0] - points[2][0], 2) + Math.pow(points[1][1] - points[2][1], 2));
+        // 三角形两边之和必定大于第三边
         return ab + ac > bc && ab + bc > ac && ac + bc > ab;
+    };
+
+    /**
+     * 172.阶乘后的零（一个正整数的阶乘（factorial）是所有小于及等于该数的正整数的积，并且0的阶乘为1。自然数n的阶乘写作n!）
+     * 即n!=1×2×3×...×n。阶乘亦可以递归方式定义：0!=1，n!=(n-1)!×n
+     * @param {number} n
+     * @return {number}
+     */
+    const trailingZeroes = function (n) {
+        // 算法的时间复杂度应为 O(log n)
+        if (n < 5) return 0;
+        let sum = parseInt(n / 5, 10);
+        let n1 = n;
+        while (parseInt(n1 / 5, 10) !== 0 && n1 >= 5) {
+            n1 = parseInt(n1 / 5, 10);
+            sum += parseInt(n1 / 5, 10);
+        }
+        return sum;
     };
 </script>
 </body>
