@@ -612,33 +612,12 @@
      */
     const maximumProduct = function (nums) {
         if (nums.length === 3) return nums[0] * nums[1] * nums[2];
-        let negative = [];
-        let positive = [];
-        let zero = [];
         nums.sort(function (a, b) {
             return a - b;
         });
-        for (let num of nums) {
-            if (num < 0) {
-                negative.push(num);
-            } else if (num > 0) {
-                positive.push(num);
-            } else {
-                zero.push(num);
-            }
-        }
-        let [i, j, maxI] = [0, 0, 0];
-        if (negative.length >= 2) {
-            i = negative[0] * negative[1];
-            if (positive.length > 0) {
-                maxI = (i * positive[positive.length - 1]);
-            }
-        }
-        if (positive.length >= 3) {
-            j = positive[positive.length - 1] * positive[positive.length - 2] * positive[positive.length - 3];
-            maxI = Math.max(maxI, j);
-        }
-        return Math.max(0, maxI);
+        let negtive = nums[0] * nums[1] * nums[nums.length - 1];
+        let postive = nums[nums.length - 1] * nums[nums.length - 2] * nums[nums.length - 3];
+        return Math.max(negtive, postive);
     }
 </script>
 </body>
