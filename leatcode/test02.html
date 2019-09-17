@@ -641,6 +641,19 @@
         }
         return maxArea;
     };
+
+    /**
+     * 1037.有效的回旋镖
+     * @param {number[][]} points
+     * @return {boolean}
+     */
+    const isBoomerang = function (points) {
+        // 坐标两点之间距离 |AB| = √(ax-bx)^2+(ay-by)^2
+        let ab = Math.sqrt(Math.pow(points[0][0] - points[1][0], 2) + Math.pow(points[0][1] - points[1][1], 2));
+        let ac = Math.sqrt(Math.pow(points[0][0] - points[2][0], 2) + Math.pow(points[0][1] - points[2][1], 2));
+        let bc = Math.sqrt(Math.pow(points[1][0] - points[2][0], 2) + Math.pow(points[1][1] - points[2][1], 2));
+        return ab + ac > bc && ab + bc > ac && ac + bc > ab;
+    };
 </script>
 </body>
 </html>
