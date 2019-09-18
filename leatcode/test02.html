@@ -738,8 +738,23 @@
                 return false;
             }
             hashMap.set(item[0], item[1]);
-        };
+        }
         return true;
+    };
+
+    /**
+     * 217.是否存在重复元素
+     * @param {number[]} nums
+     * @return {boolean}
+     */
+    const containsDuplicate = function (nums) {
+        if (nums.length <= 1) return false;
+        let diff = new Set();
+        for (let num of nums) {
+            if (diff.has(num)) return true;
+            diff.add(num);
+        }
+        return false;
     };
 </script>
 </body>
