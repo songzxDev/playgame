@@ -780,6 +780,21 @@
         }
         return true;
     };
+
+    /**
+     * 389.找不同
+     * @param {string} s
+     * @param {string} t
+     * @return {string}
+     */
+    const findTheDifference = function (s, t) {
+        let merge = s.concat(t).split('').map(si => si.charCodeAt(0));
+        let diff = 0;
+        for (let i = 0; i < merge.length; i++) {
+            diff ^= merge[i];
+        }
+        return String.fromCharCode(diff);
+    };
 </script>
 </body>
 </html>
