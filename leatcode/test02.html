@@ -756,6 +756,30 @@
         }
         return false;
     };
+
+    /**
+     * 290.单次规律
+     * @param {string} pattern
+     * @param {string} str
+     * @return {boolean}
+     */
+    const wordPattern = function (pattern, str) {
+        if (pattern.length === 0 && str.length === 0) return true;
+        str = (str || '').replace(/^\s+|\s+$/g, '');
+        let [patterns, strs] = [pattern.split(''), str.split(' ')];
+        if (patterns.length !== strs.length) return false;
+        let merged = [];
+        for (let i = 0; i < patterns.length; i++) {
+            merged.push([patterns[i], strs[i]]);
+        }
+        let hashMap = new Map();
+        for (let mg of merged) {
+            if (hashMap.has(mg[0]) && hashMap.get(mg[0]) !== mg[1]) return false;
+            if (!hashMap.has(mg[0]) && Array.from(hashMap.values()).includes(mg[1])) return false;
+            hashMap.set(mg[0], mg[1]);
+        }
+        return true;
+    };
 </script>
 </body>
 </html>
