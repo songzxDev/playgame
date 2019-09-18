@@ -717,6 +717,30 @@
         }
         return res;
     };
+
+    /**
+     * 205. 同构字符串
+     * @param {string} s
+     * @param {string} t
+     * @return {boolean}
+     */
+    const isIsomorphic = function (s, t) {
+        let hashMap = new Map();
+        let merge = [];
+        for (let i = 0; i < s.length; i++) {
+            merge.push([s.charAt(i), t.charAt(i)]);
+        }
+        for(let item of merge) {
+            if (hashMap.has(item[0]) && item[1] !== hashMap.get(item[0])) {
+                return false;
+            }
+            if (!hashMap.has(item[0]) && Array.from(hashMap.values()).includes(item[1])) {
+                return false;
+            }
+            hashMap.set(item[0], item[1]);
+        };
+        return true;
+    };
 </script>
 </body>
 </html>
