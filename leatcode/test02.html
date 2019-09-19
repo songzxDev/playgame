@@ -795,6 +795,45 @@
         }
         return String.fromCharCode(diff);
     };
+
+    /**
+     * 438.找到字符串中所有字母的异位词
+     * @param {string} s
+     * @param {string} p
+     * @return {number[]}
+     */
+    const findAnagrams = function (s, p) {
+        let res = [];
+        let [left, right, match] = [0, 0, 0];
+        let [needs, window] = [Object.create(null), Object.create(null)];
+        for (let sp of p) needs[sp] = (needs[sp] || 0) + 1;
+        while (right < s.length) {
+            let p1 = s.charAt(right);
+            if (p1 in needs) {
+                window[p1] = (window[p1] || 0) + 1;
+                if (window[p1] === needs[p1]) {
+                    match += 1;
+                }
+            }
+            right++;
+
+            while (match === Object.keys(needs).length) {
+                if ((right - left === p.length)) {
+                    res.push(left);
+                }
+                let p2 = s.charAt(left);
+                if (p2 in needs) {
+                    window[p2] = (window[p2] || 0) - 1;
+                    if (window[p2] < needs[p2]) {
+                        match -= 1;
+                    }
+                }
+                left++;
+            }
+
+        }
+        return res;
+    };
 </script>
 </body>
 </html>
