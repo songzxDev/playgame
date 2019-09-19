@@ -883,7 +883,7 @@
                 ransom[maga] -= 1;
             }
         }
-        for (let kye in ransom) {
+        for (let kye of Object.keys(ransom)) {
             if (ransom[kye] > 0) return false;
         }
         return true;
