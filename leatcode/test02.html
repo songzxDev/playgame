@@ -868,6 +868,26 @@
         }
         return res;
     };
+
+    /**
+     * 383.赎金信
+     * @param {string} ransomNote
+     * @param {string} magazine
+     * @return {boolean}
+     */
+    const canConstruct = function (ransomNote, magazine) {
+        let ransom = Object.create(null);
+        for (let rans of ransomNote) ransom[rans] = (ransom[rans] || 0) + 1;
+        for (let maga of magazine) {
+            if (maga in ransom && ransom[maga] > 0) {
+                ransom[maga] -= 1;
+            }
+        }
+        for (let kye in ransom) {
+            if (ransom[kye] > 0) return false;
+        }
+        return true;
+    };
 </script>
 </body>
 </html>
