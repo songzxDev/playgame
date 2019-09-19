@@ -834,6 +834,23 @@
         }
         return res;
     };
+
+    /**
+     * 771. 宝石与石头
+     * @param {string} J
+     * @param {string} S
+     * @return {number}
+     */
+    const numJewelsInStones = function (J, S) {
+        if (J.length === 0 || S.length === 0) return 0;
+        let mySet = new Set();
+        for (let j of J) mySet.add(j);
+        let sum = 0;
+        for (let s of S) {
+            if (mySet.has(s)) sum += 1;
+        }
+        return sum;
+    };
 </script>
 </body>
 </html>
