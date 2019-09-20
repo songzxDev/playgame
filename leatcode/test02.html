@@ -869,6 +869,25 @@
         return res;
     };
     /**
+     * 383.赎金信
+     * @param {string} ransomNote
+     * @param {string} magazine
+     * @return {boolean}
+     */
+    const canConstruct = function (ransomNote, magazine) {
+        let ransom = Object.create(null);
+        for (let rans of ransomNote) ransom[rans] = (ransom[rans] || 0) + 1;
+        for (let maga of magazine) {
+            if (maga in ransom && ransom[maga] > 0) {
+                ransom[maga] -= 1;
+            }
+        }
+        for (let kye of Object.keys(ransom)) {
+            if (ransom[kye] > 0) return false;
+        }
+        return true;
+    };
+    /**
      * 914.卡牌分组（最大公约数）
      * @param {number[]} deck
      * @return {boolean}
@@ -894,6 +913,8 @@
         }
         return g >= 2;
     };
+
+
 </script>
 </body>
 </html>
