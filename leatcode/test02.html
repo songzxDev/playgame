@@ -915,6 +915,24 @@
     };
 
 
+    /**
+     * 929.独特的电子邮件地址
+     * @param {string[]} emails
+     * @return {number}
+     */
+    const numUniqueEmails = function (emails) {
+        if (emails.length === 1) return 1;
+        let ste = new Set();
+        for (let email of emails) {
+            let subs = email.split('@');
+            subs[0] = subs[0].includes('+') ? subs[0].concat('@') : subs[0];
+            subs[0] = subs[0].replace(/\+(.*?)@/g, '').replace(/\./g, '');
+            if (!ste.has(subs.join('@')))
+                ste.add(subs.join('@'));
+        }
+        return ste.size;
+    };
+
 </script>
 </body>
 </html>
