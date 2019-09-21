@@ -730,7 +730,7 @@
         for (let i = 0; i < s.length; i++) {
             merge.push([s.charAt(i), t.charAt(i)]);
         }
-        for(let item of merge) {
+        for (let item of merge) {
             if (hashMap.has(item[0]) && item[1] !== hashMap.get(item[0])) {
                 return false;
             }
@@ -868,7 +868,6 @@
         }
         return res;
     };
-
     /**
      * 383.赎金信
      * @param {string} ransomNote
@@ -888,6 +887,34 @@
         }
         return true;
     };
+    /**
+     * 914.卡牌分组（最大公约数）
+     * @param {number[]} deck
+     * @return {boolean}
+     */
+    const hasGroupsSizeX = function (deck) {
+        if (deck.length < 2) return false;
+        let gcd = (x, y) => {
+            return x === 0 ? y : gcd(y % x, x);
+        };
+        let count = Object.create(null);
+        for (let n of deck) {
+            count[n] = (count[n] || 0) + 1;
+        }
+        let g = -1;
+        for (let i = 0; i < 10000; ++i) {
+            if (count[i] > 0) {
+                if (g === -1) {
+                    g = count[i];
+                } else {
+                    g = gcd(g, count[i]);
+                }
+            }
+        }
+        return g >= 2;
+    };
+
+
 </script>
 </body>
 </html>
