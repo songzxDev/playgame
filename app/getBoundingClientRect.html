@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>getBoundingClientRect</title>
+    <style>
+        #getBoundingClientRect {
+            width: 400px;
+            height: 400px;
+            background-color: #1b7cdd;
+        }
+    </style>
+</head>
+<body>
+<div id="getBoundingClientRect">
+
+</div>
+<script>
+    window.addEventListener('scroll', function (event) {
+        let scrollX = (((t = document.documentElement) || (t = document.body.parentNode))
+        && typeof t.scrollLeft == 'number' ? t : document.body).scrollLeft;
+        let scrollY = (((t = document.documentElement) || (t = document.body.parentNode))
+        && typeof t.scrollTop == 'number' ? t : document.body).scrollTop;
+        console.log(scrollX, scrollY);
+    })
+</script>
+</body>
+</html>
