@@ -927,8 +927,10 @@
             let subs = email.split('@');
             subs[0] = subs[0].includes('+') ? subs[0].concat('@') : subs[0];
             subs[0] = subs[0].replace(/\+(.*?)@/g, '').replace(/\./g, '');
-            if (!ste.has(subs.join('@')))
-                ste.add(subs.join('@'));
+            let tempStr = subs.join('@');
+            if (!ste.has(tempStr)) {
+                ste.add(tempStr);
+            }
         }
         return ste.size;
     };
