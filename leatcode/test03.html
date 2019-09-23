@@ -34,6 +34,24 @@
         execRes(0);
         return Array.from(res);
     };
+
+    /**
+     * 1051. 高度检查器
+     * @param {number[]} heights
+     * @return {number}
+     */
+    const heightChecker = function (heights) {
+        // TODO: 通过对另一个数组进行排序来建立正确的高度顺序，然后比较两个数组
+        let copy = Array.from(heights);
+        copy.sort(function (a, b) {
+            return a - b;
+        });
+        let res = 0;
+        for (let i = 0; i < heights.length; i++) {
+            if (heights[i] !== copy[i]) res += 1;
+        }
+        return res;
+    };
 </script>
 </body>
 </html>
