@@ -16,6 +16,7 @@
         let res = new Set();
         res.add(S);
         let execRes = (index) => {
+            if (index === S.length) return;
             res.forEach(function (value) {
                 let s = value.charAt(index);
                 if (/[a-zA-Z]/g.test(s)) { // 字母
@@ -27,11 +28,10 @@
 
                 }
             });
+            execRes(index + 1);
         };
 
-        for (let i = 0; i < S.length; i++) {
-            execRes(i);
-        }
+        execRes(0);
         return Array.from(res);
     };
 </script>
