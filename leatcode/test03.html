@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>leetcode-test-03</title>
+</head>
+<body>
+<script>
+    /**
+     * 784.字母大小写全排列
+     * @param {string} S
+     * @return {string[]}
+     */
+    const letterCasePermutation = function (S) {
+        if (S.length === 0) return [];
+        let res = new Set();
+        res.add(S);
+        let execRes = (index) => {
+            res.forEach(function (value) {
+                let s = value.charAt(index);
+                if (/[a-zA-Z]/g.test(s)) { // 字母
+                    res.add(value);
+                    let temp = value.split('');
+                    temp[index] = String.fromCharCode(s.charCodeAt(0) ^ (1 << 5));
+                    res.add(temp.join(''));
+                } else { // 数字
+
+                }
+            });
+        };
+
+        for (let i = 0; i < S.length; i++) {
+            execRes(i);
+        }
+        return Array.from(res);
+    };
+</script>
+</body>
+</html>
