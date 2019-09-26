@@ -141,6 +141,18 @@
     const defangIPaddr = function(address) {
         return address.split('.').join('[.]');
     };
+
+    /**
+     * 461.汉明距离
+     * @param {number} x
+     * @param {number} y
+     * @return {number}
+     */
+    const hammingDistance = function(x, y) {
+        // 将两个给定的数进行 异或(^)运算后保存在变量a，汉明距离就是a的二进制中1的个数
+        let a = x^y;
+        return a.toString(2).replace(/0/g, '').length;
+    };
 </script>
 </body>
 </html>
