@@ -132,6 +132,15 @@
         backtrack(ans, "", 0, 0, n);
         return ans;
     };
+
+    /**
+     * 1108.IP 地址无效化
+     * @param {string} address
+     * @return {string}
+     */
+    const defangIPaddr = function(address) {
+        return address.split('.').join('[.]');
+    };
 </script>
 </body>
 </html>
