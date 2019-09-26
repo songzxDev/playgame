@@ -153,6 +153,22 @@
         let a = x^y;
         return a.toString(2).replace(/0/g, '').length;
     };
+
+    /**
+     * 476.数字的补数
+     * @param {number} num
+     * @return {number}
+     */
+    const findComplement = function (num) {
+        let i = 1;
+        let numTemp = num;
+        while (num !== 1) {
+            num = (num / 2) | 0;
+            i++;
+        }
+        let temp = Math.pow(2, i) - 1;
+        return numTemp ^ temp;
+    };
 </script>
 </body>
 </html>
