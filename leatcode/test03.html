@@ -220,6 +220,24 @@
         }
         return sum;
     };
+
+    /**
+     * 804.唯一摩尔斯密码词
+     * @param {string[]} words
+     * @return {number}
+     */
+    const uniqueMorseRepresentations = function (words) {
+        const morl = [".-", "-...", "-.-.", "-..", ".", "..-.", "--.", "....", "..", ".---", "-.-", ".-..", "--", "-.", "---", ".--.", "--.-", ".-.", "...", "-", "..-", "...-", ".--", "-..-", "-.--", "--.."];
+        let res = new Set();
+        for (let word of words) {
+            let temp = '';
+            for (let s of word) {
+                temp = temp.concat(morl[s.charCodeAt(0) - 'a'.charCodeAt(0)]);
+            }
+            if (!res.has(temp)) res.add(temp);
+        }
+        return res.size;
+    };
 </script>
 </body>
 </html>
