@@ -204,6 +204,22 @@
         }
         return res;
     };
+
+    /**
+     * 561.数组拆分 I
+     * @param {number[]} nums
+     * @return {number}
+     */
+    const arrayPairSum = function (nums) {
+        nums.sort(function (a, b) {
+            return a - b;
+        });
+        let sum = 0;
+        for (let i = 0; i < nums.length; i += 2) {
+            sum += nums[i];
+        }
+        return sum;
+    };
 </script>
 </body>
 </html>
