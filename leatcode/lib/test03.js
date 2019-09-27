@@ -231,10 +231,29 @@ const uniqueMorseRepresentations = function (words) {
 };
 
 /**
- * 11. 盛最多水的容器
- * @param {number[]} height
+ * 762. 二进制表示中质数个计算置位
+ * @param {number} L
+ * @param {number} R
  * @return {number}
  */
-const maxArea = function(height) {
+const countPrimeSetBits = function (L, R) {
+    let isPrimeNumber = (num) => {
+        if (num === 2) return true;
+        if (num < 2 || num % 2 === 0) return false;
+        for (let i = 3; i <= Math.sqrt(num); i += 2) {
+            if (num % i === 0) {
+                return false;
+            }
+        }
+        return true;
+    };
 
+    let res = 0;
+    for (let i = L; i <= R; i++) {
+        let bitStr = i.toString(2).replace(/0/g, '');
+        if (isPrimeNumber(bitStr.length)) {
+            res += 1;
+        }
+    }
+    return res;
 };
