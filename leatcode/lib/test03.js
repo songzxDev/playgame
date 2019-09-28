@@ -289,3 +289,27 @@ const reverseWords = function (s) {
     }
     return ss.join(' ');
 };
+
+
+/**
+ * 541. 反转字符串 II
+ * @param {string} s
+ * @param {number} k
+ * @return {string}
+ */
+const reverseStr = function (s, k) {
+    let kk = k * 2;
+    let subs = [];
+    for (let i = 0; i < s.length; i += kk) {
+        let sub = s.substr(i, kk).split('');
+        if (sub.length === kk || (sub.length >= k && sub.length < kk)) {
+            // 对从字符串开头算起的每个 2k 个字符的前k个字符进行反转
+            // 如果有小于 2k 但大于或等于 k 个字符，则反转前 k 个字符，并将剩余的字符保持原样
+            subs.push(sub.slice(0, k).reverse().concat(sub.slice(k)).join(''));
+        } else if (sub.length < k) {
+            // 剩余少于 k 个字符，则将剩余的所有全部反转
+            subs.push(sub.reverse().join(''));
+        }
+    }
+    return subs.join('');
+};
