@@ -257,3 +257,17 @@ const countPrimeSetBits = function (L, R) {
     }
     return res;
 };
+
+/**
+ * 657.机器人能否返回原点
+ * @param {string} moves
+ * @return {boolean}
+ */
+const judgeCircle = function (moves) {
+    let operation = Object.create(null);
+    [operation['U'], operation['D'], operation['L'], operation['R']] = [0, 0, 0, 0];
+    for (let move of moves) {
+        operation[move] = (operation[move] || 0) + 1;
+    }
+    return operation['U']===operation['D'] && operation['L']===operation['R'];
+};
