@@ -269,5 +269,23 @@ const judgeCircle = function (moves) {
     for (let move of moves) {
         operation[move] = (operation[move] || 0) + 1;
     }
-    return operation['U']===operation['D'] && operation['L']===operation['R'];
+    return operation['U'] === operation['D'] && operation['L'] === operation['R'];
+};
+
+
+/**
+ * 557. 反转字符串中的单词 III
+ * @param {string} s
+ * @return {string}
+ */
+const reverseWords = function (s) {
+    if (s.length === 0) return s;
+    let ss = s.split(' ');
+    for (let i = 0; i < ss.length; i++) {
+        let sts = ss[i].split('');
+        let res = [];
+        while (sts.length > 0) res.push(sts.pop());
+        ss[i] = res.join('');
+    }
+    return ss.join(' ');
 };
