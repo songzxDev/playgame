@@ -28,115 +28,7 @@
     let kejian = new Vue({
         el: '#kejian',
         data: {
-            data1: [
-                {
-                    title: '讲义',
-                    expand: true,
-                    render: (h, {root, node, data}) => {
-                        return h('span', {
-                            style: {
-                                display: 'inline-block',
-                                width: '100%'
-                            }
-                        }, [
-                            h('span', [
-                                h('Icon', {
-                                    props: {
-                                        type: 'ios-folder-outline'
-                                    },
-                                    style: {
-                                        marginRight: '8px'
-                                    }
-                                }),
-                                h('span', data.title)
-                            ]),
-
-                        ]);
-                    },
-                    children: [
-                        {
-                            title: '高中',
-                            expand: true,
-                            children: [
-                                {
-                                    title: '高一',
-                                    expand: true,
-                                    children: [
-                                        {
-                                            title: '数学',
-                                            expand: true,
-                                            children: [
-                                                {
-                                                    title: '必修一',
-                                                    expand: true,
-                                                    children: [
-                                                        {
-                                                            title: '讲义一',
-                                                            expand: true,
-                                                            children: [],
-                                                        },
-                                                        {
-                                                            title: '讲义二',
-                                                            expand: true,
-                                                            children: [],
-                                                        },
-                                                        {
-                                                            title: '讲义三',
-                                                            expand: true,
-                                                            children: [],
-                                                        },
-                                                    ],
-                                                },
-                                                {
-                                                    title: '必修二',
-                                                    expand: true,
-                                                    children: [],
-                                                },
-                                            ],
-                                        },
-                                        {
-                                            title: '语文',
-                                            expand: true,
-                                            children: [],
-                                        },
-                                    ],
-                                },
-                                {
-                                    title: '高二',
-                                    expand: true,
-                                    children: [],
-                                },
-                                {
-                                    title: '高三',
-                                    expand: true,
-                                    children: [],
-                                },
-                            ],
-                        },
-                        {
-                            title: '初中',
-                            expand: true,
-                            children: [
-                                {
-                                    title: '初一',
-                                    expand: true,
-                                    children: [],
-                                },
-                                {
-                                    title: '初二',
-                                    expand: true,
-                                    children: [],
-                                },
-                                {
-                                    title: '初三',
-                                    expand: true,
-                                    children: [],
-                                },
-                            ],
-                        },
-                    ],
-                }
-            ],
+            data1: [],
             buttonProps: {
                 type: 'default',
                 size: 'small',
@@ -183,6 +75,484 @@
             },
         }
     });
+    kejian.data1 = [{
+        "status": 1,
+        "result": {
+            "id": 52,
+            "title": "必修1",
+            "pid": 0,
+            "order_number": "",
+            "has_parent": 0,
+            "has_paper": 1,
+            "has_children": 1,
+            "paper_count": 74,
+            "btn": {
+                "disabled": 0,
+                "delete": 0,
+                "update_name": 0,
+                "append_child": 0,
+                "input_show": 0,
+                "sort_btn": 0
+            },
+            "children": [{
+                "id": 898,
+                "title": "第一章 集合与函数概念",
+                "pid": 52,
+                "order_number": 1,
+                "has_parent": 1,
+                "has_paper": 0,
+                "has_children": 1,
+                "paper_count": 0,
+                "btn": {
+                    "disabled": 0,
+                    "delete": 0,
+                    "update_name": 0,
+                    "append_child": 0,
+                    "input_show": 0,
+                    "sort_btn": 0
+                },
+                "children": [{
+                    "id": 902,
+                    "title": "【章节预习】",
+                    "pid": 898,
+                    "order_number": "1.1",
+                    "has_parent": 1,
+                    "has_paper": 1,
+                    "has_children": 0,
+                    "paper_count": 10,
+                    "btn": {
+                        "disabled": 0,
+                        "delete": 0,
+                        "update_name": 0,
+                        "append_child": 0,
+                        "input_show": 0,
+                        "sort_btn": 0
+                    },
+                    "children": []
+                }, {
+                    "id": 903,
+                    "title": "第一节 集合",
+                    "pid": 898,
+                    "order_number": "1.2",
+                    "has_parent": 1,
+                    "has_paper": 1,
+                    "has_children": 0,
+                    "paper_count": 3,
+                    "btn": {
+                        "disabled": 0,
+                        "delete": 0,
+                        "update_name": 0,
+                        "append_child": 0,
+                        "input_show": 0,
+                        "sort_btn": 0
+                    },
+                    "children": []
+                }, {
+                    "id": 904,
+                    "title": "第二节 函数及其表示",
+                    "pid": 898,
+                    "order_number": "1.3",
+                    "has_parent": 1,
+                    "has_paper": 1,
+                    "has_children": 0,
+                    "paper_count": 4,
+                    "btn": {
+                        "disabled": 0,
+                        "delete": 0,
+                        "update_name": 0,
+                        "append_child": 0,
+                        "input_show": 0,
+                        "sort_btn": 0
+                    },
+                    "children": []
+                }, {
+                    "id": 905,
+                    "title": "第三节 函数的基本性质",
+                    "pid": 898,
+                    "order_number": "1.4",
+                    "has_parent": 1,
+                    "has_paper": 1,
+                    "has_children": 0,
+                    "paper_count": 3,
+                    "btn": {
+                        "disabled": 0,
+                        "delete": 0,
+                        "update_name": 0,
+                        "append_child": 0,
+                        "input_show": 0,
+                        "sort_btn": 0
+                    },
+                    "children": []
+                }, {
+                    "id": 908,
+                    "title": "【章节复习】",
+                    "pid": 898,
+                    "order_number": "1.5",
+                    "has_parent": 1,
+                    "has_paper": 1,
+                    "has_children": 0,
+                    "paper_count": 9,
+                    "btn": {
+                        "disabled": 0,
+                        "delete": 0,
+                        "update_name": 0,
+                        "append_child": 0,
+                        "input_show": 0,
+                        "sort_btn": 0
+                    },
+                    "children": []
+                }]
+            }, {
+                "id": 899,
+                "title": "第二章 基本初等函数（1）",
+                "pid": 52,
+                "order_number": 2,
+                "has_parent": 1,
+                "has_paper": 0,
+                "has_children": 1,
+                "paper_count": 0,
+                "btn": {
+                    "disabled": 0,
+                    "delete": 0,
+                    "update_name": 0,
+                    "append_child": 0,
+                    "input_show": 0,
+                    "sort_btn": 0
+                },
+                "children": [{
+                    "id": 909,
+                    "title": "【章节预习】",
+                    "pid": 899,
+                    "order_number": "2.1",
+                    "has_parent": 1,
+                    "has_paper": 0,
+                    "has_children": 0,
+                    "paper_count": 0,
+                    "btn": {
+                        "disabled": 0,
+                        "delete": 0,
+                        "update_name": 0,
+                        "append_child": 0,
+                        "input_show": 0,
+                        "sort_btn": 0
+                    },
+                    "children": []
+                }, {
+                    "id": 910,
+                    "title": "第一节 指数函数",
+                    "pid": 899,
+                    "order_number": "2.2",
+                    "has_parent": 1,
+                    "has_paper": 1,
+                    "has_children": 0,
+                    "paper_count": 2,
+                    "btn": {
+                        "disabled": 0,
+                        "delete": 0,
+                        "update_name": 0,
+                        "append_child": 0,
+                        "input_show": 0,
+                        "sort_btn": 0
+                    },
+                    "children": []
+                }, {
+                    "id": 911,
+                    "title": "第二节 对数函数",
+                    "pid": 899,
+                    "order_number": "2.3",
+                    "has_parent": 1,
+                    "has_paper": 1,
+                    "has_children": 0,
+                    "paper_count": 3,
+                    "btn": {
+                        "disabled": 0,
+                        "delete": 0,
+                        "update_name": 0,
+                        "append_child": 0,
+                        "input_show": 0,
+                        "sort_btn": 0
+                    },
+                    "children": []
+                }, {
+                    "id": 912,
+                    "title": "第三节 幂函数",
+                    "pid": 899,
+                    "order_number": "2.4",
+                    "has_parent": 1,
+                    "has_paper": 1,
+                    "has_children": 0,
+                    "paper_count": 1,
+                    "btn": {
+                        "disabled": 0,
+                        "delete": 0,
+                        "update_name": 0,
+                        "append_child": 0,
+                        "input_show": 0,
+                        "sort_btn": 0
+                    },
+                    "children": []
+                }, {
+                    "id": 915,
+                    "title": "【章节复习】",
+                    "pid": 899,
+                    "order_number": "2.5",
+                    "has_parent": 1,
+                    "has_paper": 1,
+                    "has_children": 0,
+                    "paper_count": 7,
+                    "btn": {
+                        "disabled": 0,
+                        "delete": 0,
+                        "update_name": 0,
+                        "append_child": 0,
+                        "input_show": 0,
+                        "sort_btn": 0
+                    },
+                    "children": []
+                }]
+            }, {
+                "id": 900,
+                "title": "第三章 函数的应用",
+                "pid": 52,
+                "order_number": 3,
+                "has_parent": 1,
+                "has_paper": 0,
+                "has_children": 1,
+                "paper_count": 0,
+                "btn": {
+                    "disabled": 0,
+                    "delete": 0,
+                    "update_name": 0,
+                    "append_child": 0,
+                    "input_show": 0,
+                    "sort_btn": 0
+                },
+                "children": [{
+                    "id": 916,
+                    "title": "【章节预习】",
+                    "pid": 900,
+                    "order_number": "3.1",
+                    "has_parent": 1,
+                    "has_paper": 0,
+                    "has_children": 0,
+                    "paper_count": 0,
+                    "btn": {
+                        "disabled": 0,
+                        "delete": 0,
+                        "update_name": 0,
+                        "append_child": 0,
+                        "input_show": 0,
+                        "sort_btn": 0
+                    },
+                    "children": []
+                }, {
+                    "id": 917,
+                    "title": "第一节 函数与方程",
+                    "pid": 900,
+                    "order_number": "3.2",
+                    "has_parent": 1,
+                    "has_paper": 1,
+                    "has_children": 0,
+                    "paper_count": 3,
+                    "btn": {
+                        "disabled": 0,
+                        "delete": 0,
+                        "update_name": 0,
+                        "append_child": 0,
+                        "input_show": 0,
+                        "sort_btn": 0
+                    },
+                    "children": []
+                }, {
+                    "id": 918,
+                    "title": "第二节 函数模型及其应用",
+                    "pid": 900,
+                    "order_number": "3.3",
+                    "has_parent": 1,
+                    "has_paper": 1,
+                    "has_children": 0,
+                    "paper_count": 1,
+                    "btn": {
+                        "disabled": 0,
+                        "delete": 0,
+                        "update_name": 0,
+                        "append_child": 0,
+                        "input_show": 0,
+                        "sort_btn": 0
+                    },
+                    "children": []
+                }, {
+                    "id": 2829,
+                    "title": "【函数的周期性与对称性】",
+                    "pid": 900,
+                    "order_number": "3.4",
+                    "has_parent": 1,
+                    "has_paper": 1,
+                    "has_children": 0,
+                    "paper_count": 3,
+                    "btn": {
+                        "disabled": 0,
+                        "delete": 0,
+                        "update_name": 0,
+                        "append_child": 0,
+                        "input_show": 0,
+                        "sort_btn": 0
+                    },
+                    "children": []
+                }, {
+                    "id": 2830,
+                    "title": "【函数的图象】",
+                    "pid": 900,
+                    "order_number": "3.5",
+                    "has_parent": 1,
+                    "has_paper": 1,
+                    "has_children": 0,
+                    "paper_count": 3,
+                    "btn": {
+                        "disabled": 0,
+                        "delete": 0,
+                        "update_name": 0,
+                        "append_child": 0,
+                        "input_show": 0,
+                        "sort_btn": 0
+                    },
+                    "children": []
+                }, {
+                    "id": 2831,
+                    "title": "【分段函数】",
+                    "pid": 900,
+                    "order_number": "3.6",
+                    "has_parent": 1,
+                    "has_paper": 1,
+                    "has_children": 0,
+                    "paper_count": 4,
+                    "btn": {
+                        "disabled": 0,
+                        "delete": 0,
+                        "update_name": 0,
+                        "append_child": 0,
+                        "input_show": 0,
+                        "sort_btn": 0
+                    },
+                    "children": []
+                }, {
+                    "id": 2960,
+                    "title": "【恒成立问题】",
+                    "pid": 900,
+                    "order_number": "3.7",
+                    "has_parent": 1,
+                    "has_paper": 1,
+                    "has_children": 0,
+                    "paper_count": 2,
+                    "btn": {
+                        "disabled": 0,
+                        "delete": 0,
+                        "update_name": 0,
+                        "append_child": 0,
+                        "input_show": 0,
+                        "sort_btn": 0
+                    },
+                    "children": []
+                }, {
+                    "id": 2832,
+                    "title": "【复合函数】",
+                    "pid": 900,
+                    "order_number": "3.8",
+                    "has_parent": 1,
+                    "has_paper": 1,
+                    "has_children": 0,
+                    "paper_count": 5,
+                    "btn": {
+                        "disabled": 0,
+                        "delete": 0,
+                        "update_name": 0,
+                        "append_child": 0,
+                        "input_show": 0,
+                        "sort_btn": 0
+                    },
+                    "children": []
+                }, {
+                    "id": 2833,
+                    "title": "【抽象函数】",
+                    "pid": 900,
+                    "order_number": "3.9",
+                    "has_parent": 1,
+                    "has_paper": 1,
+                    "has_children": 0,
+                    "paper_count": 2,
+                    "btn": {
+                        "disabled": 0,
+                        "delete": 0,
+                        "update_name": 0,
+                        "append_child": 0,
+                        "input_show": 0,
+                        "sort_btn": 0
+                    },
+                    "children": []
+                }, {
+                    "id": 921,
+                    "title": "【章节复习】",
+                    "pid": 900,
+                    "order_number": "3.10",
+                    "has_parent": 1,
+                    "has_paper": 1,
+                    "has_children": 0,
+                    "paper_count": 7,
+                    "btn": {
+                        "disabled": 0,
+                        "delete": 0,
+                        "update_name": 0,
+                        "append_child": 0,
+                        "input_show": 0,
+                        "sort_btn": 0
+                    },
+                    "children": []
+                }]
+            }, {
+                "id": 901,
+                "title": "【全书串讲】",
+                "pid": 52,
+                "order_number": 4,
+                "has_parent": 1,
+                "has_paper": 0,
+                "has_children": 1,
+                "paper_count": 0,
+                "btn": {
+                    "disabled": 0,
+                    "delete": 0,
+                    "update_name": 0,
+                    "append_child": 0,
+                    "input_show": 0,
+                    "sort_btn": 0
+                },
+                "children": [{
+                    "id": 2609,
+                    "title": "【知识点串讲】",
+                    "pid": 901,
+                    "order_number": "4.1",
+                    "has_parent": 1,
+                    "has_paper": 1,
+                    "has_children": 0,
+                    "paper_count": 2,
+                    "btn": {
+                        "disabled": 0,
+                        "delete": 0,
+                        "update_name": 0,
+                        "append_child": 0,
+                        "input_show": 0,
+                        "sort_btn": 0
+                    },
+                    "children": []
+                }]
+            }],
+            "loglist": [{
+                "content": "由<span>王笑尘<\/span>最后一次修改",
+                "created_at": "2018-12-10 10:05:08"
+            }]
+        },
+        "error_code": 0,
+        "message": "ok"
+    }.result];
 </script>
 </body>
 </html>
