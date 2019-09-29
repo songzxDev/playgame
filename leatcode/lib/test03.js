@@ -362,3 +362,24 @@ const countBits = function (num) {
     }
     return res;
 };
+
+
+/**
+ * 950. 按递增顺序显示卡牌
+ * @param {number[]} deck
+ * @return {number[]}
+ */
+const deckRevealedIncreasing = function (deck) {
+    deck.sort(function (a, b) {
+        return b - a;
+    });
+    let res = [];
+    for (let i = 0; i < deck.length; i++) {
+        let d = deck[i];
+        res.push(d);
+        if ( i < deck.length - 1) {
+            res.push(res.shift());
+        }
+    }
+    return res.reverse();
+};
