@@ -339,3 +339,26 @@ const removeOuterParentheses = function (S) {
     }
     return res;
 };
+
+
+/**
+ * 338. 比特位计数
+ * @param {number} num
+ * @return {number[]}
+ */
+const countBits = function (num) {
+    /*
+    奇数：二进制，奇数一定比前一个偶数多1，因为多的就是最低位的1
+    偶数：二进制，1的个数一定和除以2后的那个数一样多，因为最低位是0，除以2就是右移一位，把0抹掉，1个个数不变
+    0的二进制1的个数为0
+     */
+    let res = [0];
+    for (let i = 1; i <= num; i++) {
+        if (i % 2 === 1) {
+            res[i] = res[i - 1] + 1;
+        } else {
+            res[i] = res[i / 2];
+        }
+    }
+    return res;
+};
