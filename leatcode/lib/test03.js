@@ -313,3 +313,29 @@ const reverseStr = function (s, k) {
     }
     return subs.join('');
 };
+
+
+/**
+ * 1021. 删除最外层的括号
+ * @param {string} S
+ * @return {string}
+ */
+const removeOuterParentheses = function (S) {
+    let stack = [];
+    let res = '';
+    let j = 0;
+    for (let i = 0; i < S.length; i++) {
+        let s = S.charAt(i);
+        if (s === '(') {
+            stack.push(s);
+        }
+        if (s === ')') {
+            stack.pop();
+            if (stack.length === 0) {
+                res = res.concat(S.substring(j + 1, i));
+                j = i + 1;
+            }
+        }
+    }
+    return res;
+};
