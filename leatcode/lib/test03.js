@@ -419,3 +419,20 @@ const sortedSquares = function (A) {
 
     return ans;
 };
+
+
+/**
+ * 961.重复 N 次的元素
+ * @param {number[]} A
+ * @return {number}
+ */
+const repeatedNTimes = function (A) {
+    let ans = Object.create(null);
+    for (let a of A) {
+        ans[a] = (ans[a] || 0) + 1;
+        if (ans[a] > 1) {
+            return a;
+        }
+    }
+    return 0;
+};
