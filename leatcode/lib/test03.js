@@ -377,9 +377,45 @@ const deckRevealedIncreasing = function (deck) {
     for (let i = 0; i < deck.length; i++) {
         let d = deck[i];
         res.push(d);
-        if ( i < deck.length - 1) {
+        if (i < deck.length - 1) {
             res.push(res.shift());
         }
     }
     return res.reverse();
+};
+
+/**
+ * 977. 有序数组的平方
+ * @param {number[]} A
+ * @return {number[]}
+ */
+const sortedSquares = function (A) {
+    let n = A.length;
+    let j = 0;
+    while (j < n && A[j] < 0) {
+        j++;
+    }
+    let i = j - 1;
+    let ans = [];
+    let t = 0;
+    while (i >= 0 && j < n) {
+        if (A[i] * A[i] < A[j] * A[j]) {
+            ans[t++] = A[i] * A[i];
+            i--;
+        } else {
+            ans[t++] = A[j] * A[j];
+            j++;
+        }
+    }
+    while (i >= 0) {
+        ans[t++] = A[i] * A[i];
+        i--;
+    }
+
+    while (j < n) {
+        ans[t++] = A[j] * A[j];
+        j++;
+    }
+
+    return ans;
 };
