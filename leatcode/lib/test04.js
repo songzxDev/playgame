@@ -57,3 +57,31 @@ const subdomainVisits = function (cpdomains) {
     });
     return res;
 };
+
+/**
+ * 890.查找和替换模式
+ * @param {string[]} words
+ * @param {string} pattern
+ * @return {string[]}
+ */
+const findAndReplacePattern = function (words, pattern) {
+    let res = [];
+    let isMatch = (wds, ptns) => {
+        let [map1, map2] = [new Map(), new Map()];
+        for (let i = 0; i < wds.length; ++i) {
+            let [w, p] = [wds.charAt(i), ptns.charAt(i)];
+            if (!map1.has(w)) map1.set(w, p);
+            if (!map2.has(p)) map2.set(p, w);
+            if (map1.get(w) !== p || map2.get(p) !== w) {
+                return false;
+            }
+        }
+        return true;
+    };
+    for (let word of words) {
+        if (isMatch(word, pattern)) {
+            res.push(word);
+        }
+    }
+    return res;
+};
