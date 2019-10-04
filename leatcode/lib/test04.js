@@ -85,3 +85,32 @@ const findAndReplacePattern = function (words, pattern) {
     }
     return res;
 };
+
+/**
+ * 1160.拼写单词
+ * @param {string[]} words
+ * @param {string} chars
+ * @return {number}
+ */
+const countCharacters = function (words, chars) {
+    let charObj = Object.create(null);
+    let res = 0;
+    for (let char of chars) {
+        charObj[char] = (charObj[char] || 0) + 1;
+    }
+    for (let word of words) {
+        let wObj = Object.create(null);
+        for (let wd of word) {
+            wObj[wd] = (wObj[wd] || 0) + 1;
+        }
+        let isMath = true;
+        for (let key of Object.keys(wObj)) {
+            if (!(key in charObj) || charObj[key] < wObj[key]) {
+                isMath = false;
+                break;
+            }
+        }
+        if (isMath) res += word.length;
+    }
+    return res;
+};
