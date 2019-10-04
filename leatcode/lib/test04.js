@@ -34,3 +34,26 @@ const intToRoman = function (num) {
     }
     return res;
 };
+
+/**
+ * 811.子域名访问计数
+ * @param {string[]} cpdomains
+ * @return {string[]}
+ */
+const subdomainVisits = function (cpdomains) {
+    let resMap = new Map();
+    for (let domain of cpdomains) {
+        let dn = domain.split(' ');
+        let [count, domn] = [parseInt(dn[0], 10), dn[1].split('.')];
+        while (domn.length > 0) {
+            let ck = domn.join('.');
+            resMap.set(ck, (resMap.get(ck) || 0) + count);
+            domn.shift();
+        }
+    }
+    let res = [];
+    resMap.forEach(function (value, key) {
+        res.push(value + ' ' + key);
+    });
+    return res;
+};
