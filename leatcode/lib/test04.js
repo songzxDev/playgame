@@ -114,3 +114,23 @@ const countCharacters = function (words, chars) {
     }
     return res;
 };
+
+/**
+ * 78.子集
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+const subsets = function (nums) {
+    let n = 1 << nums.length;
+    let res = [];
+    for (let i = 0; i < n; i++) {
+        let cur = [];
+        for (let j = 0; j < nums.length; j++) {
+            if ((i >> j & 1) === 1) {
+                cur.push(nums[j]);
+            }
+        }
+        res.push(cur);
+    }
+    return res;
+};
