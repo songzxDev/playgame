@@ -162,3 +162,20 @@ const subsetsWithDup = function (nums) {
     res.unshift([]);
     return res;
 };
+
+/**
+ * 137.只出现一次的数字 II
+ * @param {number[]} nums
+ * @return {number}
+ */
+const singleNumber = function (nums) {
+    let [one, two] = [0, 0];
+    for (let i = 0; i < nums.length; i++) {
+        two = two | (one & nums[i]);
+        one = one ^ nums[i];
+        let three = two & one;
+        two = two ^ three;
+        one = one ^ three;
+    }
+    return one | two;
+};
