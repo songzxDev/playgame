@@ -134,3 +134,31 @@ const subsets = function (nums) {
     }
     return res;
 };
+
+/**
+ * 90.子集 II
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+const subsetsWithDup = function (nums) {
+    let n = 1 << nums.length;
+    let tmpSet = new Set();
+    for (let i = 0; i < n; i++) {
+        let curr = [];
+        for (let j = 0; j < nums.length; j++) {
+            if (i >> j & 1) {
+                curr.push(nums[j]);
+            }
+        }
+        if (curr.length > 0) {
+            curr.sort(function (a, b) {
+                return a - b;
+            });
+            tmpSet.add(curr.join(','));
+        }
+
+    }
+    let res = Array.from(tmpSet).map(item => item.split(',').map(tp => parseInt(tp, 10)));
+    res.unshift([]);
+    return res;
+};
