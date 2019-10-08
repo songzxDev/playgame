@@ -198,3 +198,19 @@ const hasAlternatingBits = function (n) {
     }
     return true;
 };
+
+/**
+ * 191.位1的个数
+ * @param {number} n - a positive integer
+ * @return {number}
+ */
+const hammingWeight = function (n) {
+    let [bits, mask] = [0, 1];
+    for (let i = 0; i < 32; i++) {
+        if ((n & mask) !== 0) {
+            bits += 1;
+        }
+        mask <<= 1;
+    }
+    return bits;
+};
