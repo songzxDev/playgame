@@ -179,3 +179,22 @@ const singleNumber = function (nums) {
     }
     return one | two;
 };
+
+/**
+ * 693.交替位二进制数
+ * @param {number} n
+ * @return {boolean}
+ */
+const hasAlternatingBits = function (n) {
+    let nBins = n.toString(2).replace(/-/g, '').split('').map(num => parseInt(num));
+    let ans = nBins[0];
+    for (let i = 1; i < nBins.length; i++) {
+        ans = ans ^ nBins[i];
+        if (ans === 0) {
+            return false;
+        } else {
+            ans = nBins[i];
+        }
+    }
+    return true;
+};
