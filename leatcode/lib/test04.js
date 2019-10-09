@@ -237,6 +237,23 @@ const getSum = function (a, b) {
  * @return {number} - a positive integer
  */
 const reverseBits = function (n) {
-    let tmp = n.toString(2).padStart(32, 0).split('').reverse().join('');
+    let tmp = n.toString(2).padStart(32, '0').split('').reverse().join('');
     return Number.parseInt(tmp, 2);
+};
+
+/**
+ * 187.重复的DNA序列
+ * @param {string} s
+ * @return {string[]}
+ */
+const findRepeatedDnaSequences = function (s) {
+    let [visited, res] = [new Set(), new Set()];
+    for (let i = 0; i < s.length - 9; i++) {
+        let tmp = s.substring(i, i + 10);
+        if (visited.has(tmp)) {
+            res.add(tmp);
+        }
+        visited.add(tmp);
+    }
+    return Array.from(res);
 };
