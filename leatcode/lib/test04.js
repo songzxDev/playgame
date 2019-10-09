@@ -304,3 +304,48 @@ const flipAndInvertImage = function (A) {
     }
     return A;
 };
+
+/**
+ * 1207.独一无二的出现次数
+ * @param {number[]} arr
+ * @return {boolean}
+ */
+const uniqueOccurrences = function (arr) {
+    let uniqueMap = new Map();
+    for (let num of arr) {
+        uniqueMap.set(num, (uniqueMap.get(num) || 0) + 1);
+    }
+    return new Set(uniqueMap.values()).size === Array.from(uniqueMap.values()).length;
+};
+
+/**
+ * 1002.查找常用字符
+ * @param {string[]} A
+ * @return {string[]}
+ */
+const commonChars = function (A) {
+
+    let charSets = A.map(a => {
+        let tmp = new Map();
+        for (let w of a) {
+            tmp.set(w, (tmp.get(w) || 0) + 1);
+        }
+        return tmp;
+    });
+    let intersect = new Set(charSets[0].keys());
+    for (let i = 1; i < charSets.length; i++) {
+        let tmp = new Set();
+        new Set(charSets[i].keys()).forEach(function (value) {
+            if (intersect.has(value)) {
+                tmp.add(value);
+            }
+        });
+        intersect = tmp;
+    }
+    let res = '';
+    intersect.forEach(function (value) {
+        let num = Math.min.apply(null, charSets.map(item => item.get(value)));
+        res = res.concat(`${value}`.padStart(num, `${value}`));
+    });
+    return res.split('');
+};
