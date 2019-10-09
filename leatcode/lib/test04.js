@@ -270,3 +270,22 @@ const missingNumber = function (nums) {
     }
     return ans;
 };
+
+/**
+ * 405.数字转换为十六进制数
+ * @param {number} num
+ * @return {string}
+ */
+const toHex = function (num) {
+    let hex = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+    let res = '';
+    while (num !== 0) {
+        let end = num & 15;
+        res = hex[end] + res;
+        num >>>= 4;
+    }
+    if (res.length === 0) {
+        res = hex[0];
+    }
+    return res;
+};
