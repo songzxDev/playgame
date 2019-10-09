@@ -229,3 +229,14 @@ const getSum = function (a, b) {
     }
     return a;
 };
+
+
+/**
+ * 190.颠倒二进制位
+ * @param {number} n - a positive integer
+ * @return {number} - a positive integer
+ */
+const reverseBits = function (n) {
+    let tmp = n.toString(2).padStart(32, 0).split('').reverse().join('');
+    return Number.parseInt(tmp, 2);
+};
