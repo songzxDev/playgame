@@ -214,3 +214,18 @@ const hammingWeight = function (n) {
     }
     return bits;
 };
+
+/**
+ * 371.两整数之和
+ * @param {number} a
+ * @param {number} b
+ * @return {number}
+ */
+const getSum = function (a, b) {
+    while (b !== 0) {
+        let res = (a & b) << 1;
+        a = a ^ b;
+        b = res;
+    }
+    return a;
+};
