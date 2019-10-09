@@ -289,3 +289,18 @@ const toHex = function (num) {
     }
     return res;
 };
+
+/**
+ * 832.翻转图像
+ * @param {number[][]} A
+ * @return {number[][]}
+ */
+const flipAndInvertImage = function (A) {
+    for (let i = 0; i < A.length; i++) {
+        let a = A[i];
+        a.reverse();
+        a = a.map(it => it ^ 1);
+        A[i] = a;
+    }
+    return A;
+};
