@@ -257,3 +257,16 @@ const findRepeatedDnaSequences = function (s) {
     }
     return Array.from(res);
 };
+
+/**
+ * 268.缺失数字
+ * @param {number[]} nums
+ * @return {number}
+ */
+const missingNumber = function (nums) {
+    let ans = nums.length;
+    for (let i = 0; i < nums.length; i++) {
+        ans ^= i ^ nums[i];
+    }
+    return ans;
+};
