@@ -446,3 +446,24 @@ const customSortString = function (S, T) {
     }
     return res.concat(tmp.join(''));
 };
+
+/**
+ * 451.根据字符出现频率排序
+ * @param {string} s
+ * @return {string}
+ */
+const frequencySort = function (s) {
+    let sMap = new Map();
+    for (let t of s) {
+        sMap.set(t, (sMap.get(t) || 0) + 1);
+    }
+    let tmp = Array.from(sMap);
+    tmp.sort(function (a, b) {
+        return b[1] - a[1];
+    });
+    let res = '';
+    tmp.forEach(function (value) {
+        res += value[0].padStart(value[1], value[0]);
+    });
+    return res;
+};
