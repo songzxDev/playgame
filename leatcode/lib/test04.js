@@ -349,3 +349,14 @@ const commonChars = function (A) {
     });
     return res.split('');
 };
+
+/**
+ * 575.分糖果
+ * @param {number[]} candies
+ * @return {number}
+ */
+const distributeCandies = function (candies) {
+    let mid = candies.length / 2;
+    let tmp = new Set(candies);
+    return tmp.size <= mid ? tmp.size : mid;
+};
