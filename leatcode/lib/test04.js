@@ -380,3 +380,24 @@ const maxNumberOfBalloons = function (text) {
         return Number.parseInt(Math.min(wdMap.get('l'), wdMap.get('o')) / 2, 10);
     }
 };
+
+/**
+ * 884.两句话中的不常见单词
+ * @param {string} A
+ * @param {string} B
+ * @return {string[]}
+ */
+const uncommonFromSentences = function (A, B) {
+    let merge = `${A} ${B}`.split(' ');
+    let myMap = new Map();
+    for (let wd of merge) {
+        myMap.set(wd, (myMap.get(wd) || 0) + 1);
+    }
+    let res = [];
+    myMap.forEach(function (value, key) {
+        if (value === 1) {
+            res.push(key)
+        }
+    });
+    return res;
+};
