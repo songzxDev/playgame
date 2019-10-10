@@ -360,3 +360,23 @@ const distributeCandies = function (candies) {
     let tmp = new Set(candies);
     return tmp.size <= mid ? tmp.size : mid;
 };
+
+/**
+ * 1189.【气球】的最大数量
+ * @param {string} text
+ * @return {number}
+ */
+const maxNumberOfBalloons = function (text) {
+    // balloon
+    let wdMap = new Map([['b', 0], ['a', 0], ['l', 0], ['o', 0], ['n', 0]]);
+    for (let tx of text) {
+        if (wdMap.has(tx)) {
+            wdMap.set(tx, wdMap.get(tx) + 1);
+        }
+    }
+    if (wdMap.get('l') < 2 || wdMap.get('o') < 2 || Array.from(wdMap.values()).includes(0)) {
+        return 0;
+    } else {
+        return Number.parseInt(Math.min(wdMap.get('l'), wdMap.get('o')) / 2, 10);
+    }
+};
