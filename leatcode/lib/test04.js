@@ -420,3 +420,29 @@ const findOcurrences = function (text, first, second) {
     }
     return res;
 };
+
+/**
+ * 791.自定义字符串排序
+ * @param {string} S
+ * @param {string} T
+ * @return {string}
+ */
+const customSortString = function (S, T) {
+    let i = 0;
+    let sMap = new Map(Array.from({length: S.length}, () => ([S.charAt(i++), 0])));
+    let tmp = [];
+    let res = '';
+    for (let t of T) {
+        if (sMap.has(t)) {
+            sMap.set(t, sMap.get(t) + 1);
+        } else {
+            tmp.push(t);
+        }
+    }
+    for (let s of S) {
+        if (sMap.get(s) > 0) {
+            res += s.padStart(sMap.get(s), s);
+        }
+    }
+    return res.concat(tmp.join(''));
+};
