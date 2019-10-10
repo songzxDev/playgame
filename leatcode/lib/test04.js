@@ -401,3 +401,22 @@ const uncommonFromSentences = function (A, B) {
     });
     return res;
 };
+
+/**
+ * 1078.Bigram 分词
+ * @param {string} text
+ * @param {string} first
+ * @param {string} second
+ * @return {string[]}
+ */
+const findOcurrences = function (text, first, second) {
+    let texts = text.split(' ');
+    let res = [];
+    for (let i = 0; i < texts.length - 2; i++) {
+        let [a, b, c] = [texts[i], texts[i + 1], texts[i + 2]];
+        if (a === first && b === second) {
+            res.push(c);
+        }
+    }
+    return res;
+};
