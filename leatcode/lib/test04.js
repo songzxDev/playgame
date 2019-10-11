@@ -467,3 +467,22 @@ const frequencySort = function (s) {
     });
     return res;
 };
+
+/**
+ * 49.字母异位词分组
+ * @param {string[]} strs
+ * @return {string[][]}
+ */
+const groupAnagrams = function (strs) {
+    let sMap = new Map();
+    for (let ss of strs) {
+        let sss = ss.split('').sort(function (a, b) {
+            return a.charCodeAt(0) - b.charCodeAt(0);
+        });
+        let curr = sss.join('');
+        let tmp = (sMap.get(curr) || []);
+        tmp.push(ss);
+        sMap.set(curr, tmp);
+    }
+    return Array.from(sMap.values());
+};
