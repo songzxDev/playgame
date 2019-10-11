@@ -486,3 +486,24 @@ const groupAnagrams = function (strs) {
     }
     return Array.from(sMap.values());
 };
+
+/**
+ * 824.山羊拉丁文
+ * @param {string} S
+ * @return {string}
+ */
+const toGoatLatin = function (S) {
+    let yuan = new Set(['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U']);
+    let ss = S.split(' ');
+    for (let i = 0; i < ss.length; i++) {
+        let curr = ss[i];
+        if (yuan.has(curr.charAt(0))) {
+            curr += 'ma';
+        } else {
+            curr = curr.substring(1) + curr.charAt(0) + 'ma';
+        }
+        curr += 'a'.padStart(i + 1, 'a');
+        ss[i] = curr;
+    }
+    return ss.join(' ');
+};
