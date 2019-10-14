@@ -20,3 +20,23 @@ const permute = function (nums) {
     backtrack(0);
     return output;
 };
+
+/**
+ * 260.只出现一次的数字 III 【位运算】
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+const singleNumber = function (nums) {
+    nums.sort(function (a, b) {
+        return a - b;
+    });
+    let tmp = new Set();
+    nums.forEach(function (value) {
+        if (tmp.has(value)) {
+            tmp.delete(value);
+        } else {
+            tmp.add(value);
+        }
+    });
+    return Array.from(tmp);
+};
