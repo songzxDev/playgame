@@ -84,3 +84,24 @@ const balancedStringSplit = function (s) {
     }
     return ans;
 };
+
+/**
+ * 717.1 比特与 2 比特字符
+ * @param {number[]} bits
+ * @return {boolean}
+ */
+const isOneBitCharacter = function (bits) {
+    let i = 0;
+    while (i < bits.length) {
+        let curr = bits[i];
+        if (curr === 1) {
+            i += 2;
+            if (i >= bits.length) {
+                return false;
+            }
+        } else {
+            i += 1;
+        }
+    }
+    return true;
+};
