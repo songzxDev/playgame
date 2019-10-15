@@ -105,3 +105,28 @@ const isOneBitCharacter = function (bits) {
     }
     return true;
 };
+
+/**
+ * 485.最大连续1的个数
+ * @param {number[]} nums
+ * @return {number}
+ */
+const findMaxConsecutiveOnes = function (nums) {
+    let res = 0;
+    let j = nums.indexOf(1);
+    if (j === -1) return 0;
+    let k = nums.lastIndexOf(1);
+    if (j === k) return 1;
+    while (j <= k) {
+        let ans = 0;
+        while (j <= k && nums[j] === 1) {
+            ans += 1;
+            j++;
+        }
+        res = Math.max(res, ans);
+        while (j <= k && nums[j] === 0) {
+            j++;
+        }
+    }
+    return res;
+};
