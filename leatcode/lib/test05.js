@@ -40,3 +40,27 @@ const singleNumber = function (nums) {
     });
     return Array.from(tmp);
 };
+
+/**
+ * 77.组合（回朔算法）
+ * @param {number} n
+ * @param {number} k
+ * @return {number[][]}
+ */
+const combine = function (n, k) {
+    let backtrack = (start, k, n, pre, res) => {
+        if (pre.length === k) {
+            res.push(Array.from(pre));
+            return;
+        }
+        for (let i = start; i < n + 1; i++) {
+            pre.push(i);
+            backtrack(i + 1, k, n, pre, res);
+            pre.pop();
+        }
+    };
+    if (n <= 0 || k <= 0 || k > n) return [];
+    let res = [];
+    backtrack(1, k, n, [], res);
+    return res;
+};
