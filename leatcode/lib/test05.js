@@ -64,3 +64,23 @@ const combine = function (n, k) {
     backtrack(1, k, n, [], res);
     return res;
 };
+
+/**
+ * 5222.分割平衡字符串（贪心算法）
+ * @param {string} s
+ * @return {number}
+ */
+const balancedStringSplit = function (s) {
+    let ss = s.split('');
+    let stack = Object.create(null);
+    [stack['L'], stack['R']] = [0, 0];
+    let ans = 0;
+    for (let i = 0; i < s.length; i++) {
+        stack[ss.pop()] += 1;
+        if (stack['L'] === stack['R']) {
+            ans += 1;
+            [stack['L'], stack['R']] = [0, 0];
+        }
+    }
+    return ans;
+};
