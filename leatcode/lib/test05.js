@@ -143,3 +143,20 @@ const dayOfTheWeek = function (day, month, year) {
     let datte = `${year}/${month <= 9 ? '0' + month : month}/${day <= 9 ? '0' + day : day}`;
     return weekSet[new Date(datte).getDay()];
 };
+
+/**
+ * 80.删除排序数组中的重复项 II
+ * @param {number[]} nums
+ * @return {number}
+ */
+const removeDuplicates = function (nums) {
+    let n = 0;
+    for (let num of nums) {
+        if (n < 2 || num !== nums[n - 2]) {
+            nums[n] = num;
+            n++;
+        }
+    }
+    return n;
+};
+
