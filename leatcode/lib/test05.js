@@ -130,3 +130,16 @@ const findMaxConsecutiveOnes = function (nums) {
     }
     return res;
 };
+
+/**
+ * 1185.一周中的第几天
+ * @param {number} day
+ * @param {number} month
+ * @param {number} year
+ * @return {string}
+ */
+const dayOfTheWeek = function (day, month, year) {
+    let weekSet = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    let datte = `${year}/${month <= 9 ? '0' + month : month}/${day <= 9 ? '0' + day : day}`;
+    return weekSet[new Date(datte).getDay()];
+};
