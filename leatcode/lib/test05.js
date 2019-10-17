@@ -230,10 +230,42 @@ const findDuplicate = function (nums) {
     } while (tortoise !== hare);
 
     let [ptr1, ptr2] = [nums[0], tortoise];
-    while(ptr1 !== ptr2) {
+    while (ptr1 !== ptr2) {
         ptr1 = nums[ptr1];
         ptr2 = nums[ptr2];
     }
     return ptr1;
+};
+
+/**
+ * 521.最长特殊序列 I
+ * @param {string} a
+ * @param {string} b
+ * @return {number}
+ */
+const findLUSlength = function (a, b) {
+    if (a === b) return -1;
+    let [al, bl] = [a.length, b.length];
+    return al > bl ? al : bl;
+};
+
+/**
+ * LCP 1.猜数字
+ * @param {number[]} guess
+ * @param {number[]} answer
+ * @return {number}
+ */
+const game = function(guess, answer) {
+    let ans = 0;
+    if(guess[0] === answer[0]) {
+        ans +=1;
+    }
+    if(guess[1] === answer[1]) {
+        ans +=1;
+    }
+    if(guess[2] === answer[2]) {
+        ans +=1;
+    }
+    return ans;
 };
 
