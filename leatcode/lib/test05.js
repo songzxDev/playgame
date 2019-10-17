@@ -188,3 +188,30 @@ const reverseList = function (head) {
     return prev;
 };
 
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+function TreeNode(val) {
+    this.val = val;
+    [this.left, this.right] = [null, null];
+}
+
+/**
+ * 104.二叉树的最大深度
+ * @param {TreeNode} root
+ * @return {number}
+ */
+const maxDepth = function (root) {
+    if (root === null) {
+        return 0;
+    } else {
+        let leftHeight = maxDepth(root.left);
+        let rightHeight = maxDepth(root.right);
+        return Math.max(leftHeight, rightHeight) + 1;
+    }
+};
+
