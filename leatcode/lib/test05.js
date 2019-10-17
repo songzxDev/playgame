@@ -160,3 +160,31 @@ const removeDuplicates = function (nums) {
     return n;
 };
 
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+function ListNode(val) {
+    this.val = val;
+    this.next = null;
+}
+
+/**
+ * 206.反转链表
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+const reverseList = function (head) {
+    let [prev, curr] = [null, head];
+    while (curr !== null) {
+        let nextTemp = curr.next;
+        curr.next = prev;
+        prev = curr;
+        curr = nextTemp;
+    }
+    return prev;
+};
+
