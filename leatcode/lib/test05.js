@@ -215,3 +215,25 @@ const maxDepth = function (root) {
     }
 };
 
+/**
+ * 287.寻找重复数【双指针】-（弗洛伊德的乌龟和兔子）
+ * @param {number[]} nums
+ * @return {number}
+ */
+const findDuplicate = function (nums) {
+    // 数组是只读的，只能使用额外O(1)的空间，时间复杂度小于O(n^2)
+    // 乌龟和兔子都要走到当前值的索引处
+    let [tortoise, hare] = [nums[0], nums[0]];
+    do {
+        tortoise = nums[tortoise];
+        hare = nums[nums[hare]];
+    } while (tortoise !== hare);
+
+    let [ptr1, ptr2] = [nums[0], tortoise];
+    while(ptr1 !== ptr2) {
+        ptr1 = nums[ptr1];
+        ptr2 = nums[ptr2];
+    }
+    return ptr1;
+};
+
