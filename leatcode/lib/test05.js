@@ -338,3 +338,24 @@ const shortestCompletingWord = function (licensePlate, words) {
         return word;
     }
 };
+
+/**
+ * 409.最长回文串
+ * @param {string} s
+ * @return {number}
+ */
+const longestPalindrome = function (s) {
+    let [i, j] = [97, 65];
+    let count = new Map(Array.from({length: 26}, () => ([String.fromCharCode(i++), 0])).concat(Array.from({length: 26}, () => ([String.fromCharCode(j++), 0]))));
+    for (let c of s) {
+        count.set(c, count.get(c) + 1);
+    }
+    let ans = 0;
+    for (let v of count.values()) {
+        ans += parseInt(v / 2, 10) * 2;
+        if (v % 2 === 1 && ans % 2 === 0) {
+            ans += 1;
+        }
+    }
+    return ans;
+};
