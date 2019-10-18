@@ -290,3 +290,51 @@ const sortColors = function (nums) {
     }
 };
 
+/**
+ * 748.最短的完整词
+ * @param {string} licensePlate
+ * @param {string[]} words
+ * @return {string}
+ */
+const shortestCompletingWord = function (licensePlate, words) {
+    let lps = licensePlate.replace(/\s+/g, '').replace(/\d/g, '').split('');
+    let lpMap = new Map();
+    for (let ls of lps) {
+        lpMap.set(ls.toLowerCase(), (lpMap.get(ls.toLowerCase()) || 0) + 1);
+    }
+    let res = Object.create(null);
+    for (let word of words) {
+        let tmp = new Map();
+        for (let wd of word) {
+            tmp.set(wd, (tmp.get(wd) || 0) + 1);
+        }
+        let sum = eval(Array.from(tmp.values()).join('+'));
+        for (let key of lpMap.keys()) {
+            if (tmp.has(key) && tmp.get(key) >= lpMap.get(key)) {
+                res[word] = sum;
+            } else {
+                delete res[word];
+                break;
+            }
+        }
+    }
+    if (Object.keys(res).length === 0) {
+        return "";
+    } else {
+        let word = '';
+        let num = 0;
+        for (let key of Object.keys(res)) {
+            if (num === 0) {
+                num = res[key];
+                word = key;
+            } else {
+                if (res[key] < num) {
+                    num = res[key];
+                    word = key;
+                }
+            }
+
+        }
+        return word;
+    }
+};
