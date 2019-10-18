@@ -255,17 +255,38 @@ const findLUSlength = function (a, b) {
  * @param {number[]} answer
  * @return {number}
  */
-const game = function(guess, answer) {
+const game = function (guess, answer) {
     let ans = 0;
-    if(guess[0] === answer[0]) {
-        ans +=1;
+    if (guess[0] === answer[0]) {
+        ans += 1;
     }
-    if(guess[1] === answer[1]) {
-        ans +=1;
+    if (guess[1] === answer[1]) {
+        ans += 1;
     }
-    if(guess[2] === answer[2]) {
-        ans +=1;
+    if (guess[2] === answer[2]) {
+        ans += 1;
     }
     return ans;
+};
+
+/**
+ * 75.颜色分类（双指针）
+ * @param {number[]} nums
+ * @return {void} Do not return anything, modify nums in-place instead.
+ */
+const sortColors = function (nums) {
+    let [p0, curr, p2] = [0, 0, nums.length - 1];
+    while (curr <= p2) {
+        if (nums[curr] === 0) {
+            [nums[p0], nums[curr]] = [nums[curr], nums[p0]];
+            p0 += 1;
+            curr += 1;
+        } else if (nums[curr] === 2) {
+            [nums[curr], nums[p2]] = [nums[p2], nums[curr]];
+            p2 -= 1;
+        } else {
+            curr += 1;
+        }
+    }
 };
 
