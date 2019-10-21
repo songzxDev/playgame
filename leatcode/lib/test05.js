@@ -381,3 +381,35 @@ const findRestaurant = function (list1, list2) {
     });
     return res;
 };
+
+/**
+ * 299.猜数字游戏（哈希表）
+ * @param {string} secret
+ * @param {string} guess
+ * @return {string}
+ */
+const getHint = function (secret, guess) {
+    let [A, B] = [0, 0];
+    let [sObj, gObj] = [Object.create(null), Object.create(null)];
+    let notIdx = new Set();
+    for (let k = 0; k < secret.length; k++) {
+        let [sct, ges] = [secret.charAt(k), guess.charAt(k)];
+        if (sct !== ges) {
+            sObj[sct] = (sObj[sct] || 0) + 1;
+            gObj[ges] = (gObj[ges] || 0) + 1;
+            notIdx.add(k);
+        } else {
+            A++;
+        }
+    }
+
+    for (let i of notIdx) {
+        let [s, g] = [secret.charAt(i), guess.charAt(i)];
+        if (s in gObj && gObj[s] > 0) {
+            gObj[s] -= 1;
+            B += 1;
+        }
+
+    }
+    return `${A}A${B}B`;
+};
