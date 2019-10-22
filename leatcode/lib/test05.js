@@ -413,3 +413,22 @@ const getHint = function (secret, guess) {
     }
     return `${A}A${B}B`;
 };
+
+/**
+ * 594.最长和谐子序列（哈希表）
+ * @param {number[]} nums
+ * @return {number}
+ */
+const findLHS = function (nums) {
+    let [numObj, ans] = [Object.create(null), 0];
+    for (let num of nums) {
+        numObj[num] = (numObj[num] || 0) + 1;
+        if (num - 1 in numObj) {
+            ans = Math.max(ans, numObj[num] + numObj[num - 1]);
+        }
+        if (num + 1 in numObj) {
+            ans = Math.max(ans, numObj[num] + numObj[num + 1]);
+        }
+    }
+    return ans;
+};
