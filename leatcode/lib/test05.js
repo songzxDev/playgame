@@ -515,3 +515,37 @@ const stoneGame = function (piles) {
     }
     return dp[1][n] > 0;
 };
+
+/**
+ * 931.下降路径最小和（动态规划）
+ * @param {number[][]} A
+ * @return {number}
+ */
+const minFallingPathSum = function (A) {
+    /*动态规划思路
+    dp[i][j]表示以A中第i行第j列位置为结束点时，对应的下降路径最小和：
+    dp[i][j] = min{dp[i-1][j], dp[i-1][j+1]} + A[i][j], j = 0(前面第一列)
+    dp[i][j] = min{dp[i-1][j-1], dp[i-1][j], dp[i-1][j+1]} + A[i][j], 1 < j < A.length-1 (中间列)
+    dp[i][j] = min{dp[i-1][j-1], dp[i-1][j]} + A[i][j], j = A.length-1(最后一列)
+    返回dp中最后一行中最小值，即为下降路劲最小和。时间复杂度O(n^2)，空间复杂度O(n^2)*/
+    let n = A.length;
+    let dp = Array.from({length: n}, () => (Array.from({length: n}, () => (0))));
+    for (let i = 0; i < n; i++) {
+        dp[0][i] = A[0][i];
+    }
+    for (let i = 1; i < n; i++) {
+        // 第一列计算
+        dp[i][0] = Math.min(dp[i - 1][0], dp[i - 1][1]) + A[i][0];
+        // 中间列计算
+        for (let j = 1; j < n - 1; j++) {
+            dp[i][j] = Math.min(Math.min(dp[i - 1][j - 1], dp[i - 1][j]), dp[i - 1][j + 1]) + A[i][j];
+        }
+        // 最后一列计算
+        dp[i][n - 1] = Math.min(dp[i - 1][n - 2], dp[i - 1][n - 1]) + A[i][n - 1];
+    }
+    let res = Math.pow(2, 31);
+    for (let j = 0; j < n; j++) {
+        res = Math.min(res, dp[n - 1][j]);
+    }
+    return res;
+};
