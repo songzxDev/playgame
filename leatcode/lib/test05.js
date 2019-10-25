@@ -493,3 +493,25 @@ const countSubstrings = function (s) {
     }
     return res;
 };
+
+/**
+ * 877.石子游戏（动态规划）
+ * @param {number[]} piles
+ * @return {boolean}
+ */
+const stoneGame = function (piles) {
+    let n = piles.length;
+    let dp = Array.from({length: n + 2}, () => (Array.from({length: n + 2}, () => (0))));
+    for (let k = 1; k <= n; ++k) {
+        for (let i = 0; i + k <= n; ++i) {
+            let j = i + k - 1;
+            let parity = parseInt((j + i + n) % 2, 10);
+            if (parity === 1) {
+                dp[i + 1][j + 1] = Math.max(piles[i] + dp[i + 2][j + 1], piles[j] + dp[i + 1][j]);
+            } else {
+                dp[i + 1][j + 1] = Math.min(-piles[i] + dp[i + 2][j + 1], -piles[j] + dp[i + 1][j]);
+            }
+        }
+    }
+    return dp[1][n] > 0;
+};
