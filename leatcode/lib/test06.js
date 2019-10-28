@@ -45,3 +45,33 @@ const minPathSum = function (grid) {
     }
     return dp[0][0];
 };
+
+/**
+ * 1200.最小绝对差（数组）
+ * @param {number[]} arr
+ * @return {number[][]}
+ */
+const minimumAbsDifference = function (arr) {
+    // case01: [1,3,6,10,15]
+    // case02: [3,8,-10,23,19,-4,-14,27]
+    // case03: [4,2,1,3]
+    arr.sort(function (a, b) {
+        return a - b;
+    });
+    let ans = Math.pow(10, 6);
+    let res = [];
+    for (let i = 0; i < arr.length; i++) {
+        let j = i + 1;
+        if (j !== arr.length) {
+            let sub = Math.abs(arr[i] - arr[j]);
+            if (sub === ans) {
+                res.push([arr[i], arr[j]]);
+            } else if (sub < ans) {
+                res = [];
+                res.push([arr[i], arr[j]]);
+                ans = sub;
+            }
+        }
+    }
+    return res;
+};
