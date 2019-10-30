@@ -116,3 +116,20 @@ const sumEvenAfterQueries = function (A, queries) {
     return res;
 };
 
+/**
+ * 459.重复的子字符串（字符串）
+ * @param {string} s
+ * @return {boolean}
+ */
+const repeatedSubstringPattern = function (s) {
+    let [len, i, t] = [s.length, 0, 0];
+    for (t = 1; t <= parseInt(len / 2); ++t) {
+        if (len % t > 0) continue;
+        for (i = t; i < len && s.charAt(i % t) === s.charAt(i); ++i) {
+
+        }
+        if(i===len) return true;
+    }
+    return false;
+};
+
