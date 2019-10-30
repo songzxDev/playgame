@@ -93,3 +93,15 @@ const findDuplicates = function (nums) {
     }
     return res;
 };
+
+/**
+ * 985.查询后的偶数和（数组）
+ * @param {number[]} A
+ * @param {number[][]} queries
+ * @return {number[]}
+ */
+const sumEvenAfterQueries = function (A, queries) {
+    for (let i = 0; i < A.length; i++) {
+        let [val, index] = [queries[i][0], queries[i][i]];
+    }
+};
