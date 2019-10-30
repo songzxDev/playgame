@@ -101,7 +101,18 @@ const findDuplicates = function (nums) {
  * @return {number[]}
  */
 const sumEvenAfterQueries = function (A, queries) {
-    for (let i = 0; i < A.length; i++) {
-        let [val, index] = [queries[i][0], queries[i][i]];
+    let [res, sum] = [[], eval(A.filter(a => (a & 1) === 0).join('+')) || 0];
+    for (let i = 0; i < A.length && i < queries.length; i++) {
+        let [val, index] = [queries[i][0], queries[i][1]];
+        if ((A[index] & 1) === 0) {
+            sum -= A[index];
+        }
+        A[index] += val;
+        if ((A[index] & 1) === 0) {
+            sum += A[index];
+        }
+        res.push(sum);
     }
+    return res;
 };
+
