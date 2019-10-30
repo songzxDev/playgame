@@ -75,3 +75,21 @@ const minimumAbsDifference = function (arr) {
     }
     return res;
 };
+
+/**
+ * 442.数组中重复的数据（数组）
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+const findDuplicates = function (nums) {
+    let res = [];
+    for (let num of nums) {
+        let idx = Math.abs(num) - 1;
+        if (nums[idx] > 0) {
+            nums[idx] *= -1;
+        } else {
+            res.push(Math.abs(num));
+        }
+    }
+    return res;
+};
