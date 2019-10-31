@@ -128,8 +128,22 @@ const repeatedSubstringPattern = function (s) {
         for (i = t; i < len && s.charAt(i % t) === s.charAt(i); ++i) {
 
         }
-        if(i===len) return true;
+        if (i === len) return true;
     }
     return false;
+};
+
+/**
+ * 189.旋转数组（数组）
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {void} Do not return anything, modify nums in-place instead.
+ */
+const rotate = function (nums, k) {
+    let i = 0;
+    while (i < k) {
+        i++;
+        nums.unshift(nums.pop());
+    }
 };
 
