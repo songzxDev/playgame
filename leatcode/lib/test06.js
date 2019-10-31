@@ -167,3 +167,22 @@ const rangeBitwiseAnd = function (m, n) {
     return m << i;
 };
 
+/**
+ * 1013.将数组分成和相等的三个部分（数组）
+ * @param {number[]} A
+ * @return {boolean}
+ */
+const canThreePartsEqualSum = function (A) {
+    let s = parseInt(eval(A.join('+')) / 3, 10);
+    let [pos, count] = [0, 0];
+    for (let a of A) {
+        count += a;
+        if (count === s && pos === 1) {
+            return true;
+        }
+        if (count === s) {
+            [pos, count] = [1, 0];
+        }
+    }
+    return false;
+};
