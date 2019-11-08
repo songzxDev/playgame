@@ -186,3 +186,27 @@ const canThreePartsEqualSum = function (A) {
     }
     return false;
 };
+
+/**
+ * 题目：290.单词规律
+ * 标签：哈希表
+ * @param {string} pattern
+ * @param {string} str
+ * @return {boolean}
+ */
+const wordPattern = function (pattern, str) {
+    let words = str.split(' ');
+    if (pattern.length !== words.length) {
+        return false;
+    }
+    let indexMap = new Map();
+    for (let i = 0; i < pattern.length; i++) {
+        let [pp, wd] = [pattern.charCodeAt(i), words[i]];
+        if(indexMap.get(pp) !== indexMap.get(wd)) {
+            return false;
+        }
+        indexMap.set(pp, i);
+        indexMap.set(wd, i);
+    }
+    return true;
+};
