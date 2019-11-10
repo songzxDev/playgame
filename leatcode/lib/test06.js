@@ -202,11 +202,56 @@ const wordPattern = function (pattern, str) {
     let indexMap = new Map();
     for (let i = 0; i < pattern.length; i++) {
         let [pp, wd] = [pattern.charCodeAt(i), words[i]];
-        if(indexMap.get(pp) !== indexMap.get(wd)) {
+        if (indexMap.get(pp) !== indexMap.get(wd)) {
             return false;
         }
         indexMap.set(pp, i);
         indexMap.set(wd, i);
     }
     return true;
+};
+
+
+/**
+ * 题目：15.三数之和
+ * 标签：数组、双指针
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+const threeSum = function (nums) {
+    let res = [];
+    nums.sort(function (left, right) {
+        return left - right;
+    });
+    for (let k = 0; k < nums.length - 2; k++) {
+        if (nums[k] > 0) break;
+        if (k === 0 || (nums[k] !== nums[k - 1])) {
+            let [lt, rt] = [k + 1, nums.length - 1];
+            while (lt < rt) {
+                let sum = nums[k] + nums[lt] + nums[rt];
+
+                if (sum === 0) {
+                    res.push([nums[k], nums[lt], nums[rt]]);
+                    const [ln, rn] = [nums[lt], nums[rt]];
+                    do {
+                        lt++;
+                    } while (lt < rt && ln === nums[lt]);
+                    do {
+                        rt--;
+                    } while (lt < rt && rn === nums[rt]);
+                } else if (sum < 0) {
+                    const ln = nums[lt];
+                    do {
+                        lt++;
+                    } while (lt < rt && ln === nums [lt]);
+                } else {
+                    const rn = nums[rt];
+                    do {
+                        rt--;
+                    } while (lt < rt && rn === nums[rt]);
+                }
+            }
+        }
+    }
+    return res;
 };
