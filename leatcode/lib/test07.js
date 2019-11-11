@@ -17,7 +17,8 @@ const merge = function (nums1, m, nums2, n) {
             n--;
         }
     }
-    if (n > 0) {
-        eval(`nums1.splice(0, n, ${nums2.slice(0, n).join(',')})`);
+    // eval(`nums1.splice(0, n, ${nums2.slice(0, n).join(',')})`);
+    for (let i = 0; i < n; i++) {
+        nums1[i] = nums2[i];
     }
 };
