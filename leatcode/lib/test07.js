@@ -31,17 +31,13 @@ const merge = function (nums1, m, nums2, n) {
  */
 const moveZeroes = function (nums) {
     if (nums.length === 0) return;
-    let [i, lastNum] = [0, nums.length - 1];
-    while (i < lastNum) {
-        if (nums[i] === 0) {
-            let j = i;
-            while (j < lastNum) {
-                nums[j] = nums[++j];
-            }
-            nums[lastNum--] = 0;
-        } else {
-            i++;
+    let insertPos = 0;
+    for (let num of nums) {
+        if (num !== 0) {
+            nums[insertPos++] = num;
         }
     }
+    while (insertPos < nums.length) {
+        nums[insertPos++] = 0;
+    }
 };
-moveZeroes([0, 1, 0, 3, 12])
