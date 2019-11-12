@@ -70,3 +70,31 @@ const climbStairs = function (n) {
     }
     return tmp[n];
 };
+
+/**
+ * 题目：500.键盘行
+ * 标签：哈希表
+ * @param {string[]} words
+ * @return {string[]}
+ */
+const findWords = function (words) {
+    let isContains = (small, large) => {
+        for (let sl of small) {
+            if (!large.has(sl)) {
+                return false;
+            }
+        }
+        return true;
+    };
+    let res = [];
+    const set1 = new Set(['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p']);
+    const set2 = new Set(['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l']);
+    const set3 = new Set(['Z', 'X', 'C', 'V', 'B', 'N', 'M', 'z', 'x', 'c', 'v', 'b', 'n', 'm']);
+    for (let wd of words) {
+        let wdSet = new Set(wd.split(""));
+        if(isContains(wdSet, set1) || isContains(wdSet, set2) || isContains(wdSet, set3)) {
+            res.push(wd);
+        }
+    }
+    return res;
+};
