@@ -39,3 +39,18 @@ const moveZeroes = function (nums) {
         }
     }
 };
+
+/**
+ * 题目：11.盛最多水的容器
+ * 标签：数组 双指针
+ * @param {number[]} height
+ * @return {number}
+ */
+const maxArea = function (height) {
+    let [ans, i, j] = [0, 0, height.length - 1];
+    while (i < j) {
+        let minHeight = height[i] < height[j] ? height[i++] : height[j--];
+        ans = Math.max(ans, minHeight * (j - i + 1));
+    }
+    return ans;
+};
