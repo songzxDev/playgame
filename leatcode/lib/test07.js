@@ -54,3 +54,19 @@ const maxArea = function (height) {
     }
     return ans;
 };
+
+/**
+ * 题目：70.爬楼梯
+ * 标签：动态规划 数组 递归
+ * @param {number} n
+ * @return {number}
+ */
+const climbStairs = function (n) {
+    // 爬到第N层楼梯后，往后退，只能退到N-1层楼梯或者N-2层楼梯，F(N) = F(N-1) + F(N-2) 斐波那契数列
+    let tmp = Object.create(null);
+    [tmp[1], tmp[2]] = [1, 2];
+    for (let i = 3; i <= n; i++) {
+        tmp[i] = tmp[i - 1] + tmp[i - 2];
+    }
+    return tmp[n];
+};
