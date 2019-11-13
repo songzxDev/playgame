@@ -106,6 +106,15 @@ const findWords = function (words) {
  * @return {boolean}
  */
 const isValid = function (strs) {
+    // 时间复杂度 O(N^2) 暴力法
+    const replaceBrackets = (ss) => {
+        let lastStr = ss;
+        while (lastStr.includes('()') || lastStr.includes('[]' || lastStr.includes('{}'))) {
+            lastStr = lastStr.replace(/\(\)/g, "").replace(/{}/g, "").replace(/\[]/g, "");
+        }
+        return lastStr;
+    };
+    // return replaceBrackets(strs).length === 0;
     let stack = [];
     for (let s of strs) {
         if (s === '(') {
