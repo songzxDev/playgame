@@ -92,9 +92,31 @@ const findWords = function (words) {
     const set3 = new Set(['Z', 'X', 'C', 'V', 'B', 'N', 'M', 'z', 'x', 'c', 'v', 'b', 'n', 'm']);
     for (let wd of words) {
         let wdSet = new Set(wd.split(""));
-        if(isContains(wdSet, set1) || isContains(wdSet, set2) || isContains(wdSet, set3)) {
+        if (isContains(wdSet, set1) || isContains(wdSet, set2) || isContains(wdSet, set3)) {
             res.push(wd);
         }
     }
     return res;
+};
+
+/**
+ * 题目：20.有效的括号
+ * 标签：栈 字符串
+ * @param {string} s
+ * @return {boolean}
+ */
+const isValid = function (strs) {
+    let stack = [];
+    for (let s of strs) {
+        if (s === '(') {
+            stack.push(')');
+        } else if (s === '{') {
+            stack.push('}');
+        } else if (s === '[') {
+            stack.push(']');
+        } else if (stack.length === 0 || stack.pop() !== s) {
+            return false;
+        }
+    }
+    return stack.length === 0;
 };
