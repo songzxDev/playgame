@@ -129,3 +129,23 @@ const isValid = function (strs) {
     }
     return stack.length === 0;
 };
+
+/**
+ * 题目：387.字符串中的第一个唯一字符
+ * 标签：字符串 哈希表
+ * @param {string} s
+ * @return {number}
+ */
+const firstUniqChar = function (s) {
+    // 数组反而比map方式快，为什么？初步推测是题目中的关键词 "第一个" ，即是有顺序要求的
+    let counts = Array.from({length: 26}, () => (0));
+    for (let i = 0; i < s.length; i++) {
+        counts[s.charCodeAt(i) - 97]++;
+    }
+    for (let i = 0; i < s.length; i++) {
+        if (counts[s.charCodeAt(i) - 97] === 1) {
+            return i;
+        }
+    }
+    return -1;
+};
