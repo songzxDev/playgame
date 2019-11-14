@@ -149,3 +149,22 @@ const firstUniqChar = function (s) {
     }
     return -1;
 };
+
+
+/**
+ * 题目：283.移动零
+ * 标签：数组 双指针
+ * @param {number[]} nums
+ * @return {void} Do not return anything, modify nums in-place instead.
+ */
+const moveZeroes = function (nums) {
+    // 滚雪球方法，去移动零
+    let zeroSnowball = 0;
+    for (let i = 0; i < nums.length; i++) {
+        if (nums[i] === 0) {
+            zeroSnowball++;
+        } else if (zeroSnowball > 0) {
+            [nums[i], nums[i - zeroSnowball]] = [nums[i - zeroSnowball], nums[i]];
+        }
+    }
+};
