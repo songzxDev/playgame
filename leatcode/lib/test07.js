@@ -168,3 +168,18 @@ const moveZeroes = function (nums) {
         }
     }
 };
+
+/**
+ * 题目：125.验证回文串
+ * 标签：双指针 字符串
+ * @param {string} s
+ * @return {boolean}
+ */
+const isPalindrome = function (s) {
+    s = s.replace(/[^0-9a-zA-Z]/g, '').toLowerCase();
+    let [i, j] = [0, s.length - 1];
+    while (i <= j) {
+        if (s.charAt(i++) !== s.charAt(j--)) return false;
+    }
+    return true;
+};
