@@ -20,6 +20,7 @@
         let getChild = (S) => {
             let child = document.createElement('div');
             child.style.display = 'flex';
+            child.style.flexWrap = 'wrap';
             for (let s of S) {
                 child.appendChild(createGird(s));
             }
