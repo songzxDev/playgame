@@ -74,7 +74,8 @@
         <button onclick="showIntention(this)" style="margin-right: 30px;">隐藏题目描述</button>
         <a style="margin-right: 30px;" href="https://leetcode-cn.com/problems/minimum-window-substring/"
            target="_blank">查看leetcode原题</a>
-        <a href="https://leetcode-cn.com/problems/minimum-window-substring/solution/hua-dong-chuang-kou-suan-fa-tong-yong-si-xiang-by-/">参考题解链接</a>
+        <a target="_blank"
+           href="https://leetcode-cn.com/problems/minimum-window-substring/solution/hua-dong-chuang-kou-suan-fa-tong-yong-si-xiang-by-/">参考题解链接</a>
         <div id="intention" style="display: block; border: 1px solid #cccccc; margin-top: 10px;">
             <div style="margin: 10px;  ">
                 <p>给你一个字符串 S、一个字符串 T，请在字符串 S 里面找出：包含 T 所有字母的最小子串。</p>
@@ -90,6 +91,50 @@
         <div id="showIdea" style="display: flex; flex-direction: column;  margin-top: 20px;"></div>
     </div>
     <div style="width: 50%; border: 1px solid #cccccc; background-color: #e9eaec;">
+        <div style="margin: 10px 20px 0 20px;">
+            <a href="#showIdea">查看运行图解</a>
+        </div>
+        <pre style="font-size: 15px; margin: 10px;" class="javascript">
+            <code>
+  // 先统计 T 字符串中，各个字母的个数，存到 Map() 里面
+  let countT = new Map();
+  for(let ct of T) {
+      countT.set(ct, (countT.get(ct) || 0) + 1);
+  }
+
+
+  // 定义两个指针， left、right
+  let [left, right] = [0, 0];
+  // 先固定 left 指针，不断移动right指针，
+  // 直到 left 和 right 之间的字符种类和个数 大于或等于 计数 map 中存储的种类和次数
+  while (left <= right && right < s.length) {
+      let rightKey = s.charAt(right);
+      if (rightKey in ttCount) {
+          winMap[rightKey] = (winMap[rightKey] || 0) + 1;
+          if (winMap[rightKey] === ttCount[rightKey]) {
+              match++;
+          }
+      }
+      right++;
+      while (match === Object.keys(ttCount).length) {
+          // 如果匹配了，则固定右指针位置，
+          // 尝试收缩（即左指针向左移动 left++），尝试获得当前窗口内的最小可行解
+          if (right - left < minLen) {
+                  start = left;
+                  minLen = right - left;
+              }
+              let leftKey = s.charAt(left);
+              if (leftKey in ttCount) {
+                  winMap[leftKey] -= 1;
+                  if (winMap[leftKey] < ttCount[leftKey]) {
+                      match--;
+                  }
+          }
+          left++;
+      }
+  }
+            </code>
+        </pre>
         <pre style="font-size: 15px; margin: 10px;" class="javascript">
             <code>
 /**
@@ -169,7 +214,7 @@ const minWindowRepeat = function (s, t) {
                 right++;
             }
 
-            
+
             while (match === t.length) {
                 if (right - left < minLen) {
                     mountText(`找到和已有可行解 "${s.substr(start, minLen)}" 比较后的最小可行解：【${s.substr(left, right - left)}】！`, 'blue');
