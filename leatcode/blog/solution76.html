@@ -4,6 +4,31 @@
     <meta charset="UTF-8">
     <title>76.最小覆盖子串</title>
     <link rel="stylesheet" href="../highlight/styles/vs.css">
+    <style>
+        .my-left {
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-bottom: 15px solid #00d100;
+            line-height: 15px;
+            text-align: center;
+            margin: 5px 5px;
+            display: none;
+        }
+
+        .my-right {
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-bottom: 15px solid #1b7cdd;
+            line-height: 15px;
+            text-align: center;
+            margin: 5px 5px;
+            display: none;
+        }
+    </style>
     <script src="../highlight/highlight.pack.js"></script>
     <script>
         let createGird = (str, borderColor) => {
@@ -39,11 +64,32 @@
         };
         let mountChild = (child, currIdx, borderStyle) => {
             child = child || getChild(S);
-            child.style.margin = '10px 2px 50px 2px';
+            child.style.margin = '10px 2px 20px 2px';
             if (Number.isInteger(currIdx) && currIdx > -1 && borderStyle) {
                 child.childNodes[currIdx].style.border = borderStyle;
             }
             return showIdea.appendChild(child);
+        };
+        let mountArrow = (left, right, S) => {
+            let root = document.createElement('div');
+            root.style.display = 'flex';
+            root.style.textAlign = 'center';
+            for (let i = 0; i < S.length; i++) {
+                let parent = document.createElement('div');
+                parent.style.display = 'flex';
+                parent.style.width = '54px';
+                parent.style.height = '54px';
+                parent.style.flexDirection = 'column';
+                let [childLeft, childRight] = [document.createElement('div'), document.createElement('div')];
+                childLeft.classList.add("my-left");
+                childRight.classList.add("my-right");
+                if (i === left) childLeft.style.display = 'block';
+                if (i === right) childRight.style.display = 'block';
+                parent.appendChild(childLeft);
+                parent.appendChild(childRight);
+                root.appendChild(parent);
+            }
+            return showIdea.appendChild(root);
         };
         let mountText = (desc, textColor) => {
             let text = document.createElement('div');
@@ -89,7 +135,11 @@
                 <p>Related Topics 哈希表 双指针 字符串 Sliding Window</p>
             </div>
         </div>
-        <div id="showIdea" style="display: flex; flex-direction: column;  margin-top: 20px;"></div>
+        <div style="display: flex; margin-top: 10px;">
+            <div style="margin-right: 30px;"><span>左指针</span><div class="my-left" style="display: block;"></div></div>
+            <div><span>右指针</span><div class="my-right" style="display: block;"></div></div>
+        </div>
+        <div id="showIdea" style="display: flex; flex-direction: column;  margin-top: 10px;"></div>
     </div>
     <div style="width: 50%; border: 1px solid #cccccc; background-color: #e9eaec;">
         <div style="margin: 10px 20px 0 20px;">
@@ -212,6 +262,7 @@ const minWindowRepeat = function (s, t) {
                 mountText("左指针固定，移动右指针！");
                 showDiv = mountChild();
                 renderChildren(showDiv, left, right, "2px solid green");
+                mountArrow(left, right - 1, s);
                 right++;
             }
 
@@ -221,12 +272,14 @@ const minWindowRepeat = function (s, t) {
                     mountText(`找到和已有可行解 "${s.substr(start, minLen)}" 比较后的最小可行解：【${s.substr(left, right - left)}】！`, 'blue');
                     showDiv = mountChild();
                     renderChildren(showDiv, left, right, "2px solid green");
+                    mountArrow(left, right - 1, s);
                     start = left;
                     minLen = right - left;
                 } else {
                     mountText(`窗口内字符 "${s.substring(left, right + left - 1)}" 比现有可行解【${s.substr(start, minLen)}】长度大或相等，` + "右指针固定，继续移动左指针！");
                     showDiv = mountChild();
                     renderChildren(showDiv, left, right, "2px solid green");
+                    mountArrow(left, right - 1, s);
                 }
 
                 let leftKey = s.charAt(left);
@@ -241,6 +294,7 @@ const minWindowRepeat = function (s, t) {
                     mountText("窗口内元素种类或个数不符合预期，固定左指针，开始移动右指针！");
                     showDiv = mountChild();
                     renderChildren(showDiv, left, right, "2px solid red");
+                    mountArrow(left, right - 1, s);
                 }
             }
         }
