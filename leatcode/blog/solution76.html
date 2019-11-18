@@ -144,6 +144,7 @@
     <div style="width: 50%; border: 1px solid #cccccc; background-color: #e9eaec;">
         <div style="margin: 10px 20px 0 20px;">
             <a href="#showIdea">查看运行图解</a>
+            <a style="margin-left: 10px;" href="#array">选择用数组做计数器速度要快于Map？</a>
         </div>
         <pre style="font-size: 15px; margin: 10px;" class="javascript">
             <code>
@@ -228,7 +229,51 @@ const minWindowRepeat = function (s, t) {
 };
             </code>
         </pre>
-
+        <pre id="array" style="font-size: 15px; margin: 10px;" class="javascript">
+            <code>
+/**
+ * 题目：76.最小覆盖子串
+ * 标签：双指针 字符串 滑动窗口
+ * @param {string} s
+ * @param {string} t
+ * @return {string}
+ */
+const minWindow = (s, t) => {
+    if (!s || !t || s.length < t.length) return "";
+    // 经leetcode执行，数组作为计数器执行平均用时84ms，而map平均在114ms，不应该是hash更快些吗？
+    let [tCount, winds] = [Array.from({length: 256}, () => (0)), Array.from({length: 256}, () => (0))];
+    for (let i = 0; i < t.length; i++) tCount[t.charCodeAt(i)]++;
+    let [left, right, match, start, minLen] = [0, 0, 0, 0, s.length + 1];
+    while (right < s.length) {
+        if (match < t.length) {
+            let rightIdx = s.charCodeAt(right);
+            if (tCount[rightIdx] > 0) {
+                winds[rightIdx]++;
+                if (winds[rightIdx] <= tCount[rightIdx]) {
+                    match++;
+                }
+            }
+            right++;
+        }
+        while (match === t.length) {
+            if (right - left < minLen) {
+                start = left;
+                minLen = right - left;
+            }
+            let leftIdx = s.charCodeAt(left);
+            if (tCount[leftIdx] > 0) {
+                winds[leftIdx]--;
+                if (winds[leftIdx] < tCount[leftIdx]) {
+                    match--;
+                }
+            }
+            left++;
+        }
+    }
+    return minLen === s.length + 1 ? "" : s.substr(start, minLen);
+};
+            </code>
+        </pre>
     </div>
 
 </div>
