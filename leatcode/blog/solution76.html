@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>76.最小覆盖子串</title>
+    <script>
+        let createGird = (str, borderColor) => {
+            borderColor = borderColor || '#cccccc';
+            let gird = document.createElement('div');
+            gird.style.textAlign = 'center';
+            gird.style.width = '50px';
+            gird.style.height = '50px';
+            gird.style.lineHeight = '50px';
+            gird.style.border = `1px solid ${borderColor}`;
+            gird.innerText = str;
+            return gird;
+        };
+        let getChild = (S) => {
+            let child = document.createElement('div');
+            child.style.display = 'flex';
+            for (let s of S) {
+                child.appendChild(createGird(s));
+            }
+            return child;
+        };
+        let showIntention = (btn) => {
+            if (intention) {
+                if (intention.style.display === 'block') {
+                    intention.style.display = 'none';
+                    btn.innerText = '显示题目描述';
+                } else {
+                    intention.style.display = 'block';
+                    btn.innerText = '隐藏题目描述';
+                }
+            }
+        };
+        let mountChild = (child, currIdx, borderStyle) => {
+            child = child || getChild(S);
+            child.style.margin = '10px 2px 50px 2px';
+            if (Number.isInteger(currIdx) && currIdx > -1 && borderStyle) {
+                child.childNodes[currIdx].style.border = borderStyle;
+            }
+            return showIdea.appendChild(child);
+        };
+        let mountText = (desc, textColor) => {
+            let text = document.createElement('div');
+            text.style.height = '50px';
+            text.style.lineHeight = '50px';
+            text.style.width = '100%';
+            text.style.fontWeight = textColor ? 'bold' : 'normal';
+            text.style.color = textColor || 'not specified';
+            text.innerText = desc;
+            return showIdea.appendChild(text);
+        };
+
+        let renderChildren = (parent, left, right, boardStyle) => {
+            for (let i = 0; i < parent.childNodes.length; i++) {
+                if (i >= left && i < right) {
+                    parent.childNodes[i].style.border = boardStyle;
+                } else {
+                    parent.childNodes[i].style.border = "1px solid #cccccc";
+                }
+            }
+            return parent;
+        };
+    </script>
+</head>
+<body>
+<div id="solution76" style="display: flex; margin: 10px 5px 40px 5px;">
+    <div style="width: 50%; margin-right: 10px;">
+        <h4>76.最小覆盖子串（哈希表 双指针 字符串 滑动窗口）</h4>
+        <button onclick="showIntention(this)" style="margin-right: 30px;">隐藏题目描述</button>
+        <a href="https://leetcode-cn.com/problems/minimum-window-substring/" target="_blank">查看leetcode题目</a>
+        <div id="intention" style="display: block; border: 1px solid #cccccc; margin-top: 10px;">
+            <div style="margin: 10px;  ">
+                <p>给你一个字符串 S、一个字符串 T，请在字符串 S 里面找出：包含 T 所有字母的最小子串。</p>
+                <p>示例：</p>
+                <p>输入: S = "ADOBECODEBANC", T = "ABC"</p>
+                <p>输出: "BANC"</p>
+                <p>说明：</p>
+                <p>如果 S 中不存这样的子串，则返回空字符串 ""。</p>
+                <p>如果 S 中存在这样的子串，我们保证它是唯一的答案。</p>
+                <p>Related Topics 哈希表 双指针 字符串 Sliding Window</p>
+            </div>
+        </div>
+        <div id="showIdea" style="display: flex; flex-direction: column;  margin-top: 20px;"></div>
+    </div>
+    <div style="width: 50%; border: 1px solid #cccccc; background-color: #e9eaec;">
+        <pre style="font-size: 15px; margin: 10px;">
+            <code>
+/**
+ * 题目：76.最小覆盖子串
+ * 标签：双指针 哈希表 滑动窗口
+ * @param {string} s
+ * @param {string} t
+ * @return {string}
+ */
+const minWindowRepeat = function (s, t) {
+    if (!s || !t || s.length < t.length) return "";
+    let ttCount = Object.create(null);
+    for (let ct of t) ttCount[ct] = (ttCount[ct] || 0) + 1;
+    let [left, right, match, winMap, start, minLen] = [0, 0, 0, Object.create(null), 0, s.length + 1];
+    while (left <= right && right < s.length) {
+        let rightKey = s.charAt(right);
+        if (rightKey in ttCount) {
+            winMap[rightKey] = (winMap[rightKey] || 0) + 1;
+            if (winMap[rightKey] === ttCount[rightKey]) {
+                match++;
+            }
+        }
+        right++;
+        while (match === Object.keys(ttCount).length) {
+            if (right - left < minLen) {
+                start = left;
+                minLen = right - left;
+            }
+            let leftKey = s.charAt(left);
+            if (leftKey in ttCount) {
+                winMap[leftKey] -= 1;
+                if (winMap[leftKey] < ttCount[leftKey]) {
+                    match--;
+                }
+            }
+            left++;
+        }
+    }
+    return minLen === s.length + 1 ? "" : s.substr(start, minLen);
+};
+            </code>
+        </pre>
+
+    </div>
+
+</div>
+
+<script>
+    let [solution76, intention, showIdea] = [document.getElementById('solution76'), document.getElementById('intention'),
+        document.getElementById('showIdea')];
+    let [S, T] = ["ADOBECODEBANC", "ABC"];
+    /**
+     * @param {string} s
+     * @param {string} t
+     * @return {string}
+     */
+    let minWindow = (s, t) => {
+        if (!s || !t || s.length < t.length) return "";
+        let [tCount, winCount] = [new Map(), new Map()];
+        // 统计字符串 t 中每个字母出现的次数
+        for (let ct of t) tCount.set(ct, (tCount.get(ct) || 0) + 1);
+        let [left, right, match, start, minLen] = [0, 0, 0, 0, s.length + 1];
+        let showDiv = null;
+        while (right < s.length) {
+
+            if (match < t.length) {
+                let rightKey = s.charAt(right);
+                if (tCount.has(rightKey)) {
+                    winCount.set(rightKey, (winCount.get(rightKey) || 0) + 1);
+                    if (winCount.get(rightKey) <= tCount.get(rightKey)) {
+                        match++;
+                    }
+                }
+                mountText("左指针固定，移动右指针！");
+                showDiv = mountChild();
+                renderChildren(showDiv, left, right, "2px solid green");
+                right++;
+            }
+
+            while (match === t.length) {
+                if (right - left < minLen) {
+                    mountText(`找到和已有可行解 "${s.substr(start, minLen)}" 比较后的最小可行解：【${s.substr(left, right - left)}】！`, 'blue');
+                    showDiv = mountChild();
+                    renderChildren(showDiv, left, right, "2px solid green");
+                    start = left;
+                    minLen = right - left;
+                } else {
+                    mountText(`窗口内字符 "${s.substring(left, right + left - 1)}" 比现有可行解【${s.substr(start, minLen)}】长度大或相等，` + "右指针固定，继续移动左指针！");
+                    showDiv = mountChild();
+                    renderChildren(showDiv, left, right, "2px solid green");
+                }
+
+                let leftKey = s.charAt(left);
+                if (tCount.has(leftKey)) {
+                    winCount.set(leftKey, winCount.get(leftKey) - 1);
+                    if (winCount.get(leftKey) < tCount.get(leftKey)) {
+                        match--;
+                    }
+                }
+                left++;
+                if (match < t.length) {
+                    mountText("窗口内元素种类或个数不符合预期，固定左指针，开始移动右指针！");
+                    showDiv = mountChild();
+                    renderChildren(showDiv, left, right, "2px solid red");
+                }
+            }
+        }
+        mountText(`右指针已到达边界，循环结束，最小覆盖子串为："${s.substr(start, minLen)}"！`, 'blue');
+        return minLen === s.length + 1 ? '' : s.substr(start, minLen);
+
+    };
+    minWindow(S, T);
+
+</script>
+</body>
+</html>
