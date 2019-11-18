@@ -169,6 +169,7 @@ const minWindowRepeat = function (s, t) {
                 right++;
             }
 
+            
             while (match === t.length) {
                 if (right - left < minLen) {
                     mountText(`找到和已有可行解 "${s.substr(start, minLen)}" 比较后的最小可行解：【${s.substr(left, right - left)}】！`, 'blue');
