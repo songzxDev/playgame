@@ -7,6 +7,7 @@
     <style>
         .my-input {
             width: 300px;
+            height: 20px;
             margin-left: 10px;
             line-height: 20px;
             border-radius: 5px;
@@ -22,6 +23,19 @@
             -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
             box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
         }
+        .my-button {
+            background-color: #4caf50;
+            border: none;
+            color: #ffffff;
+            padding: 5px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
 
         .gird-item {
             width: 50px;
@@ -36,9 +50,9 @@
 </head>
 <body>
 <div>
-    <input id="strIpt" type="text" class="my-input" required value="{}()[]" 
+    <input id="strIpt" type="text" class="my-input" required value="{}()[]"
            onchange="handleInputChange(this.id)">
-    <button id="execStepBtn" style="margin-left: 20px;" onclick="execStepBtnClick()">下一步</button>
+    <button id="execStepBtn" class="my-button" onclick="execStepBtnClick()">下一步</button>
 
 </div>
 <div style="display: flex;">
