@@ -17,12 +17,17 @@
     <script src="../highlight/highlight.pack.js"></script>
 </head>
 <body>
+<div>
+    <button id="execStepBtn" onclick="execStepBtnClick()">下一步</button>
+    <input id="strIpt" type="text" style="width: 300px; margin-left: 20px;">
+</div>
 <div style="display: flex;">
     <div style="width: 50%;">
         <div id="targetStr" style="margin: 10px; display: flex; flex-direction: row;"></div>
-        <div id="stackItems" style="margin: 10px; display: flex; flex-direction: column-reverse;">
-
-        </div>
+        <div id="stackItems"
+             style="margin: 10px; display: flex; flex-direction: column-reverse; border: 1px solid #cccccc"></div>
+        <div id="oldItems"
+             style="margin: 10px; display: flex; flex-direction: row; align-items: center; height: 100px; border: 1px solid #cccccc"></div>
     </div>
     <div style="width: 50%;">
 <pre style="margin: 10px; font-size: 15px;">
@@ -53,19 +58,60 @@ const isValid = (str) => {
     </div>
 </div>
 <script>
-    let createGird = (parent, s) =>{
+    let step = 1;
+    let execStepBtnClick = () => {
+        let str = document.getElementById('strIpt').value;
+        if (!str) return step;
+        step = (Number.isNaN(step) ? 0 : step) % str.length + 1;
+
+        return step;
+    };
+    let createGird = (parent, s) => {
         let item = document.createElement('div');
         item.classList.add('gird-item');
         item.innerText = s;
         return parent.appendChild(item);
     };
+
+    let renderCurrS = (parent, childIdx, borderStyle) => {
+        parent.childNodes[childIdx].style.border = borderStyle;
+        return parent.childNodes;
+    }
 </script>
 <script>
-    let [targetStr, stackItems] = [document.getElementById('targetStr'), document.getElementById('stackItems')];
-    let str = "()[]{}";
-    for(let s of str) {
-        createGird(targetStr, s);
+    let [targetStr, stackItems, oldItems] = [document.getElementById('targetStr'),
+        document.getElementById('stackItems'), document.getElementById('oldItems')];
+    let str = "()[]{}[]{";
+    for (let i = 0; i < str.length; i++) {
+        createGird(targetStr, str.charAt(i));
     }
+
+    const isValid = (str) => {
+        let stack = [];
+        for (let i = 0; i < str.length; i++) {
+            let s = str.charAt(i);
+            if (s === '(') {
+                stack.push(')');
+                createGird(stackItems, stack[stack.length - 1]);
+            } else if (s === '[') {
+                stack.push(']');
+                createGird(stackItems, stack[stack.length - 1]);
+            } else if (s === '{') {
+                stack.push('}');
+                createGird(stackItems, stack[stack.length - 1]);
+            } else if (stack.length === 0 || stack.pop() !== s) {
+                renderCurrS(targetStr, i, "2px solid red");
+                return false;
+            } else if (stackItems.hasChildNodes()) {
+                renderCurrS(targetStr, i, "2px solid blue");
+                let oldChild = stackItems.removeChild(stackItems.lastChild);
+                oldChild.style.border = "2px solid red";
+                oldItems.appendChild(oldChild);
+            }
+        }
+        return stack.length === 0;
+    };
+    isValid(str);
     document.addEventListener('DOMContentLoaded', (event) => {
         document.querySelectorAll('pre code').forEach((block) => {
             hljs.highlightBlock(block);
