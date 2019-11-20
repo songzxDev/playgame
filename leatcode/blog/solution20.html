@@ -7,14 +7,14 @@
     <style>
         .my-input {
             width: 300px;
-            height: 20px;
+            height: 25px;
             margin-left: 10px;
             line-height: 20px;
             border-radius: 5px;
             border: 1px solid #cccccc;
             outline-style: none;
             padding: 5px;
-            font-size: 16px;
+            font-size: 20px;
         }
 
         .my-input:focus {
@@ -28,12 +28,12 @@
             background-color: #4caf50;
             border: none;
             color: #ffffff;
-            padding: 5px 20px;
+            padding: 8px 20px;
             text-align: center;
             text-decoration: none;
             display: inline-block;
             font-size: 16px;
-            margin: 4px 2px;
+            margin: 4px 10px;
             cursor: pointer;
             border-radius: 5px;
         }
@@ -46,11 +46,40 @@
             border: 1px solid #cccccc;
             margin: 5px;
         }
+
+        .stack-items {
+            margin: 10px 10px 20px 10px;
+            min-height: 60px;
+            display: flex;
+            flex-direction: column-reverse;
+            flex-wrap: wrap;
+            border: 1px solid #cccccc;
+            border-radius: 10px;
+        }
+
+        .old-items {
+            margin: 10px 10px 20px 10px;
+            display: flex;
+            flex-direction: row-reverse;
+            align-items: center;
+            height: 100px;
+            border: 1px solid #cccccc;
+            border-radius: 10px;
+        }
+
+        .target-str {
+            margin: 10px 10px 20px 10px;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            border: 1px solid #cccccc;
+            border-radius: 10px;
+        }
     </style>
     <script src="../highlight/highlight.pack.js"></script>
 </head>
 <body>
-<div>
+<div style="margin-bottom: 10px;">
     <input id="strIpt" type="text" class="my-input" required value="{}()[]"
            onchange="handleInputChange(this.id)">
     <button id="execStepBtn" class="my-button" onclick="execStepBtnClick()">下一步</button>
@@ -58,11 +87,9 @@
 </div>
 <div style="display: flex;">
     <div style="width: 50%;">
-        <div id="targetStr" style="margin: 10px; display: flex; flex-direction: row;"></div>
-        <div id="stackItems"
-             style="margin: 10px; min-height: 60px; display: flex; flex-direction: column-reverse; border: 1px solid #cccccc;"></div>
-        <div id="oldItems"
-             style="margin: 10px; display: flex; flex-direction: row-reverse; align-items: center; height: 100px; border: 1px solid #cccccc"></div>
+        <div id="targetStr" class="target-str"></div>
+        <div id="stackItems" class="stack-items"></div>
+        <div id="oldItems" class="old-items"></div>
     </div>
     <div style="width: 50%;">
 <pre style="margin: 10px; font-size: 15px;">
