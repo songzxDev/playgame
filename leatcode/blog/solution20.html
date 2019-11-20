@@ -18,7 +18,8 @@
 </head>
 <body>
 <div>
-    <input id="strIpt" type="text" style="width: 300px; margin-left: 10px; " required value="{}()[]">
+    <input id="strIpt" type="text" style="width: 300px; margin-left: 10px; " required value="{}()[]"
+           onchange="handleInputChange(this.id)">
     <button id="execStepBtn" style="margin-left: 20px;" onclick="execStepBtnClick()">下一步</button>
 
 </div>
@@ -26,9 +27,9 @@
     <div style="width: 50%;">
         <div id="targetStr" style="margin: 10px; display: flex; flex-direction: row;"></div>
         <div id="stackItems"
-             style="margin: 10px; display: flex; flex-direction: column-reverse; border: 1px solid #cccccc"></div>
+             style="margin: 10px; display: flex; flex-direction: column-reverse; border: 1px solid #cccccc;"></div>
         <div id="oldItems"
-             style="margin: 10px; display: flex; flex-direction: row; align-items: center; height: 100px; border: 1px solid #cccccc"></div>
+             style="margin: 10px; display: flex; flex-direction: row-reverse; align-items: center; height: 100px; border: 1px solid #cccccc"></div>
     </div>
     <div style="width: 50%;">
 <pre style="margin: 10px; font-size: 15px;">
@@ -59,7 +60,14 @@ const isValid = (str) => {
     </div>
 </div>
 <script>
-    let step = 1;
+    let step = 0;
+    let handleInputChange = (iptId) => {
+        let currVal = document.getElementById(iptId).value;
+        currVal = currVal || "";
+        step = 0;
+        execStepBtnClick();
+        return currVal;
+    };
     let execStepBtnClick = () => {
         let str = document.getElementById('strIpt').value;
         if (!str) return step;
@@ -79,6 +87,9 @@ const isValid = (str) => {
     };
 
     let renderCurrS = (parent, childIdx, borderStyle) => {
+        for (let i = 0; i < childIdx; i++) {
+            parent.childNodes[i].style.border = "2px solid blue";
+        }
         parent.childNodes[childIdx].style.border = borderStyle;
         return parent.childNodes;
     }
@@ -93,7 +104,7 @@ const isValid = (str) => {
         oldItems.innerHTML = "";
         for (let i = 0; i < step && i < str.length; i++) {
             let s = str.charAt(i);
-            renderCurrS(targetStr, i, "2px solid blue");
+            renderCurrS(targetStr, i, "2px solid green");
             if (s === '(') {
                 stack.push(')');
                 createGird(stackItems, stack[stack.length - 1]);
@@ -118,6 +129,7 @@ const isValid = (str) => {
         document.querySelectorAll('pre code').forEach((block) => {
             hljs.highlightBlock(block);
         });
+        execStepBtnClick();
     });
 </script>
 </body>
