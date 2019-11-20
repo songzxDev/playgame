@@ -18,8 +18,9 @@
 </head>
 <body>
 <div>
-    <button id="execStepBtn" onclick="execStepBtnClick()">下一步</button>
-    <input id="strIpt" type="text" style="width: 300px; margin-left: 20px;">
+    <input id="strIpt" type="text" style="width: 300px; margin-left: 10px; " required value="{}()[]">
+    <button id="execStepBtn" style="margin-left: 20px;" onclick="execStepBtnClick()">下一步</button>
+
 </div>
 <div style="display: flex;">
     <div style="width: 50%;">
@@ -63,7 +64,11 @@ const isValid = (str) => {
         let str = document.getElementById('strIpt').value;
         if (!str) return step;
         step = (Number.isNaN(step) ? 0 : step) % str.length + 1;
-
+        targetStr.innerHTML = "";
+        for (let i = 0; i < str.length; i++) {
+            createGird(targetStr, str.charAt(i));
+        }
+        isValid(str, step);
         return step;
     };
     let createGird = (parent, s) => {
@@ -81,15 +86,14 @@ const isValid = (str) => {
 <script>
     let [targetStr, stackItems, oldItems] = [document.getElementById('targetStr'),
         document.getElementById('stackItems'), document.getElementById('oldItems')];
-    let str = "()[]{}[]{";
-    for (let i = 0; i < str.length; i++) {
-        createGird(targetStr, str.charAt(i));
-    }
 
-    const isValid = (str) => {
+    const isValid = (str, step) => {
         let stack = [];
-        for (let i = 0; i < str.length; i++) {
+        stackItems.innerHTML = "";
+        oldItems.innerHTML = "";
+        for (let i = 0; i < step && i < str.length; i++) {
             let s = str.charAt(i);
+            renderCurrS(targetStr, i, "2px solid blue");
             if (s === '(') {
                 stack.push(')');
                 createGird(stackItems, stack[stack.length - 1]);
@@ -103,7 +107,6 @@ const isValid = (str) => {
                 renderCurrS(targetStr, i, "2px solid red");
                 return false;
             } else if (stackItems.hasChildNodes()) {
-                renderCurrS(targetStr, i, "2px solid blue");
                 let oldChild = stackItems.removeChild(stackItems.lastChild);
                 oldChild.style.border = "2px solid red";
                 oldItems.appendChild(oldChild);
@@ -111,7 +114,6 @@ const isValid = (str) => {
         }
         return stack.length === 0;
     };
-    isValid(str);
     document.addEventListener('DOMContentLoaded', (event) => {
         document.querySelectorAll('pre code').forEach((block) => {
             hljs.highlightBlock(block);
