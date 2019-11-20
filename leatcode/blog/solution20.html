@@ -5,6 +5,24 @@
     <title>题目20-有效的括号</title>
     <link rel="stylesheet" href="../highlight/styles/darcula.css">
     <style>
+        .my-input {
+            width: 300px;
+            margin-left: 10px;
+            line-height: 20px;
+            border-radius: 5px;
+            border: 1px solid #cccccc;
+            outline-style: none;
+            padding: 5px;
+            font-size: 16px;
+        }
+
+        .my-input:focus {
+            border-color: #66afe9;
+            outline: 0;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+        }
+
         .gird-item {
             width: 50px;
             height: 50px;
@@ -18,7 +36,7 @@
 </head>
 <body>
 <div>
-    <input id="strIpt" type="text" style="width: 300px; margin-left: 10px; " required value="{}()[]"
+    <input id="strIpt" type="text" class="my-input" required value="{}()[]" 
            onchange="handleInputChange(this.id)">
     <button id="execStepBtn" style="margin-left: 20px;" onclick="execStepBtnClick()">下一步</button>
 
