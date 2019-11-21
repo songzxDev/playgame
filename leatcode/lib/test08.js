@@ -38,3 +38,19 @@ const minWindow = (s, t) => {
     }
     return minLen === s.length + 1 ? "" : s.substr(start, minLen);
 };
+
+class NodeList {
+    constructor(val) {
+        this.val = val;
+        this.next = null;
+    }
+}
+let node1 = new NodeList(1);
+let node2 = new NodeList(2);
+let node3 = new NodeList(3);
+node1.next = node2;
+node2.next = node3;
+
+console.log(node1);
+console.log(node1.next);
+console.log(node1.next.next);
