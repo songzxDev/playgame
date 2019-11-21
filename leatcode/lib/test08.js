@@ -46,6 +46,28 @@ class ListNode {
     }
 }
 
+let node1 = new ListNode(1);
+let node2 = new ListNode(2);
+let node3 = new ListNode(3);
+let node4 = new ListNode(4);
+let node5 = new ListNode(5);
+let node6 = new ListNode(6);
+let node7 = new ListNode(7);
+let node8 = new ListNode(8);
+let node9 = new ListNode(9);
+let node0 = new ListNode(0);
+node1.next = node2;
+node2.next = node3;
+node3.next = node4;
+node4.next = node5;
+node5.next = node6;
+node6.next = node7;
+node7.next = node8;
+node8.next = node9;
+node9.next = node0;
+node0.next = null;
+console.log(JSON.stringify(node1));
+
 /**
  * 876.链表的中间节点
  * 标签：链表
