@@ -39,7 +39,7 @@ const minWindow = (s, t) => {
     return minLen === s.length + 1 ? "" : s.substr(start, minLen);
 };
 
-class NodeList {
+class ListNode {
     constructor(val) {
         this.val = val;
         this.next = null;
