@@ -45,12 +45,17 @@ class NodeList {
         this.next = null;
     }
 }
-let node1 = new NodeList(1);
-let node2 = new NodeList(2);
-let node3 = new NodeList(3);
-node1.next = node2;
-node2.next = node3;
 
-console.log(node1);
-console.log(node1.next);
-console.log(node1.next.next);
+/**
+ * 876.链表的中间节点
+ * 标签：链表
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+const middleNode = function (head) {
+    let [slow, fast] = [head, head];
+    while (fast && fast.next) {
+        [slow, fast] = [slow.next, fast.next.next];
+    }
+    return slow;
+};
