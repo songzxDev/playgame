@@ -35,6 +35,13 @@
                 hljs.highlightBlock(block);
             });
         });
+
+        let guid2 = () => {
+            let S4 = () => {
+                return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+            };
+            return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
+        };
     </script>
 </head>
 <body>
@@ -122,9 +129,10 @@ const moveZeroes = function (nums) {
     let mountShowDiv = () => {
         let showDiv = document.getElementById('showDiv');
         let copyShowDiv = showDiv.cloneNode(true);
+        copyShowDiv.setAttribute('id', guid2());
         copyShowDiv.style.display = 'flex';
         renderTargetGrid(null, copyShowDiv.firstElementChild);
-        root.appendChild(copyShowDiv);
+        return root.appendChild(copyShowDiv);
     };
     mountShowDiv();
     mountShowDiv();
