@@ -126,16 +126,19 @@ const moveZeroes = function (nums) {
         return parent;
     };
     renderTargetGrid();
-    let mountShowDiv = () => {
+    let mountShowDiv = (nums) => {
         let showDiv = document.getElementById('showDiv');
         let copyShowDiv = showDiv.cloneNode(true);
         copyShowDiv.setAttribute('id', guid2());
         copyShowDiv.style.display = 'flex';
-        renderTargetGrid(null, copyShowDiv.firstElementChild);
+        renderTargetGrid(nums, copyShowDiv.firstElementChild);
         return root.appendChild(copyShowDiv);
     };
-    mountShowDiv();
-    mountShowDiv();
+    let swapChild = (i, j, parent) => {
+        [parent.childNodes[i], parent.childNodes[j]] = [parent.childNodes[j], parent.childNodes[i]];
+        return parent;
+    };
+
 </script>
 <script>
     /**
@@ -144,16 +147,18 @@ const moveZeroes = function (nums) {
      * @param {number[]} nums
      * @return {void} Do not return anything, modify nums in-place instead.
      */
-    const moveZeroes = function (nums, step, parent) {
+    const moveZeroes = function (nums) {
         let snowballLength = 0;
-        for (let i = 0; i < step && i < nums.length; i++) {
+        for (let i = 0; i < nums.length; i++) {
             if (nums[i] === 0) {
                 snowballLength++;
             } else if (snowballLength > 0) {
                 [nums[i], nums[i - snowballLength]] = [nums[i - snowballLength], nums[i]];
             }
+            mountShowDiv(nums);
         }
     };
+    moveZeroes([0, 1, 0, 3, 12]);
 </script>
 </body>
 </html>
