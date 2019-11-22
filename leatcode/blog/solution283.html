@@ -223,7 +223,7 @@ const moveZeroes = function (nums) {
                 mountShowDiv(oldNums, nums, textStr, i, j);
             }
             showError.style.color = 'green';
-            showError.innerText = `${JSON.stringify(nums)} Render Success! `;
+            showError.innerText = `${JSON.stringify(nums)} Render Success! （下面图解可能存在展示逻辑上的 Bug，仅供参考！）`;
         } catch (e) {
             showError.style.color = 'red';
             showError.innerText = '输入参数不是标准数组格式，' + e;
