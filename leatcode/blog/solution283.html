@@ -120,7 +120,7 @@ const moveZeroes = function (nums) {
             <div style="width: 45%;display: flex;"></div>
             <div style="width: 10%; display: flex; flex-direction: column;">
                 <div class="my-gird" style="border: none;">after</div>
-                <div class="my-gird" style="border: none; width: 100%;">swap -> </div>
+                <div class="my-gird" style="border: none; width: 100%;">swap -></div>
             </div>
             <div style="width: 45%; display: flex; align-items: flex-end; margin-left: 10px;"></div>
         </div>
@@ -142,7 +142,6 @@ const moveZeroes = function (nums) {
         gird.classList.add('my-gird');
         if (s === 0) {
             gird.style.borderRadius = '50%';
-            gird.style.borderColor = '#0066FF';
         }
         if (styleStr && styleStr.length > 0) {
             gird.setAttribute('style', styleStr);
@@ -153,22 +152,27 @@ const moveZeroes = function (nums) {
     let root = document.getElementById('root');
     let target = document.getElementById('target');
     let showError = document.getElementById('showError');
-    let renderTargetGrid = (targetList, parent) => {
+    let renderTargetGrid = (targetList, parent, currIdx, zeroIdx) => {
         parent = parent || target;
         targetList = targetList || [0, 1, 0, 3, 12];
         for (let t of targetList) {
             createGird(parent, t);
         }
+        parent.childNodes[currIdx].style.border = '2px dashed green';
+        if(currIdx !== zeroIdx) {
+            parent.childNodes[zeroIdx].style.border = '2px dashed #0066FF';
+        }
+
         return parent;
     };
-    let mountShowDiv = (oldNums, swapNums, textStr) => {
+    let mountShowDiv = (oldNums, swapNums, textStr, currIdx, zeroIdx) => {
         let showDiv = document.getElementById('showDiv');
         let copyShowDiv = showDiv.cloneNode(true);
         copyShowDiv.setAttribute('id', guid2());
         copyShowDiv.style.display = 'flex';
-        renderTargetGrid(oldNums, copyShowDiv.firstElementChild.firstElementChild);
-        if(oldNums.join("") !== swapNums.join("")) {
-            renderTargetGrid(swapNums, copyShowDiv.firstElementChild.lastElementChild);
+        renderTargetGrid(oldNums, copyShowDiv.firstElementChild.firstElementChild, currIdx, zeroIdx);
+        if (oldNums.join("") !== swapNums.join("")) {
+            renderTargetGrid(swapNums, copyShowDiv.firstElementChild.lastElementChild, currIdx, zeroIdx);
         } else {
             copyShowDiv.firstElementChild.firstElementChild.nextElementSibling.innerHTML = "";
         }
@@ -199,6 +203,7 @@ const moveZeroes = function (nums) {
             renderShowDiv();
             for (let i = 0; i < nums.length; i++) {
                 let textStr = "";
+                let j = i;
                 let oldNums = Array.from(nums);
                 if (nums[i] === 0) {
                     snowballLength++;
@@ -213,8 +218,9 @@ const moveZeroes = function (nums) {
                     当前 i 的值为：${i}，nums[${i}] = ${nums[i]} 的值不为零，需要将当前 nums[${i}] = ${nums[i]} 和雪球的第一个零元素 nums[${i - snowballLength}] = ${nums[i - snowballLength]} 进行互换
                     `;
                     [nums[i], nums[i - snowballLength]] = [nums[i - snowballLength], nums[i]];
+                    j = i - snowballLength;
                 }
-                mountShowDiv(oldNums, nums, textStr);
+                mountShowDiv(oldNums, nums, textStr, i, j);
             }
             showError.style.color = 'green';
             showError.innerText = `${JSON.stringify(nums)} Render Success! `;
