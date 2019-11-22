@@ -67,6 +67,7 @@ node8.next = node9;
 node9.next = node0;
 node0.next = null;
 console.log(JSON.stringify(node1));
+console.log(JSON.stringify(node5));
 
 /**
  * 876.链表的中间节点
@@ -80,4 +81,21 @@ const middleNode = function (head) {
         [slow, fast] = [slow.next, fast.next.next];
     }
     return slow;
+};
+
+/**
+ * 题目：283.移动零
+ * 标签：双指针 数组
+ * @param {number[]} nums
+ * @return {void} Do not return anything, modify nums in-place instead.
+ */
+const moveZeroes = function (nums) {
+    let snowballLength = 0;
+    for (let i = 0; i < nums.length; i++) {
+        if (nums[i] === 0) {
+            snowballLength++;
+        } else if (snowballLength > 0) {
+            [nums[i], nums[i - snowballLength]] = [nums[i - snowballLength], nums[i]];
+        }
+    }
 };
