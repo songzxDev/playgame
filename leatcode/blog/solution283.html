@@ -4,6 +4,39 @@
     <meta charset="UTF-8">
     <title>题目283-移动零</title>
     <style>
+        .my-input {
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            line-height: 20px;
+            height: 25px;
+            outline-style: none;
+            padding: 5px;
+            width: 300px;
+            font-size: 20px;
+            display: inline-block;
+        }
+
+        .my-input:focus {
+            border-color: #66afe9;
+            outline: none;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+        }
+
+        .my-button {
+            background-color: #4caf50;
+            border: none;
+            color: #ffffff;
+            padding: 8px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
         .my-gird {
             height: 50px;
             width: 50px;
@@ -62,6 +95,11 @@
                 <p> 必须在原数组上操作，不能拷贝额外的数组。</p>
                 <p> 尽量减少操作次数。</p>
                 <p> Related Topics 数组 双指针</p>
+                <p>
+                    <input type="text" class="my-input" id="ipt" value="[0,1,0,3,12]">
+                    <button class="my-button" onclick="moveZeroes(document.getElementById('ipt').value)">Render</button>
+                </p>
+                <p id="showError"></p>
             </div>
             <div id="target" style="margin: 10px; display: flex;">
 
@@ -117,6 +155,7 @@ const moveZeroes = function (nums) {
     };
     let root = document.getElementById('root');
     let target = document.getElementById('target');
+    let showError = document.getElementById('showError');
     let renderTargetGrid = (targetList, parent) => {
         parent = parent || target;
         targetList = targetList || [0, 1, 0, 3, 12];
@@ -125,7 +164,6 @@ const moveZeroes = function (nums) {
         }
         return parent;
     };
-    renderTargetGrid();
     let mountShowDiv = (nums) => {
         let showDiv = document.getElementById('showDiv');
         let copyShowDiv = showDiv.cloneNode(true);
@@ -134,31 +172,36 @@ const moveZeroes = function (nums) {
         renderTargetGrid(nums, copyShowDiv.firstElementChild);
         return root.appendChild(copyShowDiv);
     };
-    let swapChild = (i, j, parent) => {
-        [parent.childNodes[i], parent.childNodes[j]] = [parent.childNodes[j], parent.childNodes[i]];
-        return parent;
-    };
-
+    let renderShowDiv = () => {
+        let dms = Array.from(document.querySelectorAll('.my-box-item')).slice(2);
+        while (dms.length > 0) {
+            root.removeChild(dms.pop());
+        }
+    }
 </script>
 <script>
-    /**
-     * 题目：283.移动零
-     * 标签：双指针 数组
-     * @param {number[]} nums
-     * @return {void} Do not return anything, modify nums in-place instead.
-     */
+
     const moveZeroes = function (nums) {
-        let snowballLength = 0;
-        for (let i = 0; i < nums.length; i++) {
-            if (nums[i] === 0) {
-                snowballLength++;
-            } else if (snowballLength > 0) {
-                [nums[i], nums[i - snowballLength]] = [nums[i - snowballLength], nums[i]];
+        try {
+            nums = JSON.parse(nums) || [0, 1, 0, 3, 0, 12];
+            let snowballLength = 0;
+            renderShowDiv();
+            for (let i = 0; i < nums.length; i++) {
+                if (nums[i] === 0) {
+                    snowballLength++;
+                } else if (snowballLength > 0) {
+                    [nums[i], nums[i - snowballLength]] = [nums[i - snowballLength], nums[i]];
+                }
+                mountShowDiv(nums);
             }
-            mountShowDiv(nums);
+            showError.style.color = 'green';
+            showError.innerText = `${JSON.stringify(nums)} Render Success! `;
+        } catch (e) {
+            showError.style.color = 'red';
+            showError.innerText = '输入参数不是标准数组格式，' + e;
+            renderShowDiv();
         }
     };
-    moveZeroes([0, 1, 0, 3, 12]);
 </script>
 </body>
 </html>
