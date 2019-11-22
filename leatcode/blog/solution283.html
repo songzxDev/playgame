@@ -156,13 +156,22 @@ const moveZeroes = function (nums) {
         }
         return parent;
     };
-    let mountShowDiv = (nums) => {
+    let mountShowDiv = (nums, textStr) => {
         let showDiv = document.getElementById('showDiv');
         let copyShowDiv = showDiv.cloneNode(true);
         copyShowDiv.setAttribute('id', guid2());
         copyShowDiv.style.display = 'flex';
         renderTargetGrid(nums, copyShowDiv.firstElementChild);
+        renderTextGrid(textStr, copyShowDiv.lastElementChild);
         return root.appendChild(copyShowDiv);
+    };
+    let renderTextGrid = (textStr, parent) => {
+        let text = document.createElement('div');
+        text.style.margin = '5px';
+        text.style.fontSize = '16px';
+        text.style.lineHeight = '16px';
+        text.innerText = textStr || "";
+        return parent.appendChild(text);
     };
     let renderShowDiv = () => {
         let dms = Array.from(document.querySelectorAll('.my-box-item')).slice(2);
@@ -179,12 +188,22 @@ const moveZeroes = function (nums) {
             let snowballLength = 0;
             renderShowDiv();
             for (let i = 0; i < nums.length; i++) {
+                let textStr = "";
                 if (nums[i] === 0) {
                     snowballLength++;
+                    textStr = `// 执行代码：snowballLength++;
+
+                    当前 i 的值为：${i}，nums[${i}] 的值为零，雪球长度加一，当前雪球长度为：${snowballLength}（snowballLength = ${snowballLength}）
+                    `;
+
                 } else if (snowballLength > 0) {
+                    textStr = `// 执行代码：[nums[i], nums[i - snowballLength]] = [nums[i - snowballLength], nums[i]];
+
+                    当前 i 的值为：${i}，nums[${i}] = ${nums[i]} 的值不为零，需要将当前 nums[${i}] = ${nums[i]} 和雪球的第一个零元素 nums[${i - snowballLength}] = ${nums[i - snowballLength]} 进行互换
+                    `;
                     [nums[i], nums[i - snowballLength]] = [nums[i - snowballLength], nums[i]];
                 }
-                mountShowDiv(nums);
+                mountShowDiv(nums, textStr);
             }
             showError.style.color = 'green';
             showError.innerText = `${JSON.stringify(nums)} Render Success! `;
