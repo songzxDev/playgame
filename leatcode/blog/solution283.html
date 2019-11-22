@@ -167,7 +167,11 @@ const moveZeroes = function (nums) {
         copyShowDiv.setAttribute('id', guid2());
         copyShowDiv.style.display = 'flex';
         renderTargetGrid(oldNums, copyShowDiv.firstElementChild.firstElementChild);
-        renderTargetGrid(swapNums, copyShowDiv.firstElementChild.lastElementChild);
+        if(oldNums.join("") !== swapNums.join("")) {
+            renderTargetGrid(swapNums, copyShowDiv.firstElementChild.lastElementChild);
+        } else {
+            copyShowDiv.firstElementChild.firstElementChild.nextElementSibling.innerHTML = "";
+        }
         renderTextGrid(textStr, copyShowDiv.lastElementChild);
         return root.appendChild(copyShowDiv);
     };
