@@ -117,7 +117,12 @@ const moveZeroes = function (nums) {
 
     <div class="my-box-item" id="showDiv" style="display: none;">
         <div class="my-grid-item" style="min-height: 100px; display: flex;">
-
+            <div style="width: 45%;display: flex;"></div>
+            <div style="width: 10%; display: flex; flex-direction: column;">
+                <div class="my-gird" style="border: none;">after</div>
+                <div class="my-gird" style="border: none; width: 100%;">swap -> </div>
+            </div>
+            <div style="width: 45%; display: flex; align-items: flex-end; margin-left: 10px;"></div>
         </div>
         <div class="my-grid-item" style="min-height: 100px">
 
@@ -156,12 +161,13 @@ const moveZeroes = function (nums) {
         }
         return parent;
     };
-    let mountShowDiv = (nums, textStr) => {
+    let mountShowDiv = (oldNums, swapNums, textStr) => {
         let showDiv = document.getElementById('showDiv');
         let copyShowDiv = showDiv.cloneNode(true);
         copyShowDiv.setAttribute('id', guid2());
         copyShowDiv.style.display = 'flex';
-        renderTargetGrid(nums, copyShowDiv.firstElementChild);
+        renderTargetGrid(oldNums, copyShowDiv.firstElementChild.firstElementChild);
+        renderTargetGrid(swapNums, copyShowDiv.firstElementChild.lastElementChild);
         renderTextGrid(textStr, copyShowDiv.lastElementChild);
         return root.appendChild(copyShowDiv);
     };
@@ -189,6 +195,7 @@ const moveZeroes = function (nums) {
             renderShowDiv();
             for (let i = 0; i < nums.length; i++) {
                 let textStr = "";
+                let oldNums = Array.from(nums);
                 if (nums[i] === 0) {
                     snowballLength++;
                     textStr = `// 执行代码：snowballLength++;
@@ -203,7 +210,7 @@ const moveZeroes = function (nums) {
                     `;
                     [nums[i], nums[i - snowballLength]] = [nums[i - snowballLength], nums[i]];
                 }
-                mountShowDiv(nums, textStr);
+                mountShowDiv(oldNums, nums, textStr);
             }
             showError.style.color = 'green';
             showError.innerText = `${JSON.stringify(nums)} Render Success! `;
