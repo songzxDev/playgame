@@ -202,5 +202,14 @@ const calPoints = function (ops) {
  * @return {number}
  */
 const numberOfSubarrays = function (nums, k) {
-
+    let arr = [0];
+    for (let num of nums) arr.push(arr[arr.length - 1] + (num & 1));
+    let [ans, countMap] = [0, new Map()];
+    for (let x of arr) {
+        ans += (countMap.get(x - k) || 0);
+        countMap.set(x, (countMap.get(x) || 0) + 1);
+    }
+    return ans;
 };
+
+console.log(numberOfSubarrays(nums = [2, 2, 2, 1, 2, 2, 1, 2, 2, 2], k = 2));
