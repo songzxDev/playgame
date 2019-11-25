@@ -161,14 +161,14 @@ const calPoints = function (ops) {
         if (op === 'C' && stack.length > 0) {
             stack.pop();
         } else if (op === 'D' && stack.length > 0) {
-            stack.push(parseInt(stack[stack.length - 1], 10) * 2);
+            stack.push(stack[stack.length - 1] * 2);
         } else if (op === '+' && stack.length > 0) {
-            stack.push(stack.length > 1 ? parseInt(stack[stack.length - 1], 10) + parseInt(stack[stack.length - 2], 10) : parseInt(stack[stack.length - 1], 10));
+            stack.push(stack.length > 1 ? stack[stack.length - 1] + stack[stack.length - 2] : stack[stack.length - 1]);
         } else if (op !== 'D' && op !== '+' && op !== 'C') {
             stack.push(parseInt(op, 10));
         }
     }
-    return stack.length === 0 ? 0 : eval(stack.join('+'));
+    return stack.length === 0 ? 0 : stack.reduce((sum, num) => sum + num);
 };
 console.log(calPoints(["5", "-2", "4", "C", "D", "9", "+", "+"])); // 27
 console.log(calPoints(["5", "2", "C", "D", "+"])); // 30
