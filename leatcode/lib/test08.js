@@ -152,23 +152,26 @@ const moveZeroes = function (nums) {
  */
 const calPoints = function (ops) {
     // ["5","-2","4","C","D","9","+","+"]
-    let stack = [];
+    let [stack, sum] = [[], 0];
     // 1.整数（一轮的得分）：直接表示您在本轮中获得的积分数。
     // 2. "+"（一轮的得分）：表示本轮获得的得分是前两轮有效 回合得分的总和。
     // 3. "D"（一轮的得分）：表示本轮获得的得分是前一轮有效 回合得分的两倍。
     // 4. "C"（一个操作，这不是一个回合的分数）：表示您获得的最后一个有效 回合的分数是无效的，应该被移除。
     for (let op of ops) {
         if (op === 'C' && stack.length > 0) {
-            stack.pop();
+            sum -= stack.pop();
         } else if (op === 'D' && stack.length > 0) {
             stack.push(stack[stack.length - 1] * 2);
+            sum += stack[stack.length - 1];
         } else if (op === '+' && stack.length > 0) {
             stack.push(stack.length > 1 ? stack[stack.length - 1] + stack[stack.length - 2] : stack[stack.length - 1]);
+            sum += stack[stack.length - 1];
         } else if (op !== 'D' && op !== '+' && op !== 'C') {
             stack.push(parseInt(op, 10));
+            sum += stack[stack.length - 1];
         }
     }
-    return stack.length === 0 ? 0 : stack.reduce((sum, num) => sum + num);
+    return stack.length === 0 ? 0 : sum;
 };
 console.log(calPoints(["5", "-2", "4", "C", "D", "9", "+", "+"])); // 27
 console.log(calPoints(["5", "2", "C", "D", "+"])); // 30
