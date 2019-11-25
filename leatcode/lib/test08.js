@@ -212,4 +212,26 @@ const numberOfSubarrays = function (nums, k) {
     return ans;
 };
 
+/**
+ * 题目：1248.统计【优美子数组】
+ * 标签：双指针 数组 哈希表
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ */
+const numberOfSubarraysFast = function(nums, k) {
+    const atMost = (arry, k) => {
+        let res = 0, i = 0, n = arry.length;
+        for (let j = 0; j < n; j++) {
+            k -= arry[j] % 2;
+            while(k < 0) {
+                k += arry[i++] % 2;
+            }
+            res += j - i + 1;
+        }
+        return res;
+    };
+    return atMost(nums, k) - atMost(nums, k - 1);
+};
+
 console.log(numberOfSubarrays(nums = [2, 2, 2, 1, 2, 2, 1, 2, 2, 2], k = 2));
