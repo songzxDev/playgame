@@ -309,16 +309,14 @@ console.log(removeElement(nums = [0, 1, 2, 2, 3, 0, 4, 2], val = 2));
  * @return {number[]}
  */
 const sortedSquares = function (A) {
-    if (A.length === 0) return A;
+    if (!A || A.length === 0) return [];
     if (A[0] >= 0) return A.map(a => a * a);
     let i = 0, j = A.length - 1, res = [];
     for (let p = j; p >= 0; p--) {
         if (Math.abs(A[i]) > Math.abs(A[j])) {
-            res[p] = A[i] * A[i];
-            i++;
+            res[p] = Math.pow(A[i++], 2);
         } else {
-            res[p] = A[j] * A[j];
-            j--;
+            res[p] = Math.pow(A[j--], 2);
         }
     }
     return res;
