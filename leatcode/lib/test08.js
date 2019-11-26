@@ -279,3 +279,24 @@ console.log(longestOnes(A = [0, 0, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 0, 0, 0, 1, 1, 
 console.log(longestOnes(A = [0, 0, 1, 1, 1, 0, 0], K = 0));
 console.log(longestOnes(A = [1, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 1, 1, 0, 1, 1]
     , K = 8));
+
+/**
+ * 题目：27.移除元素
+ * 标签：数组 双指针
+ * @param {number[]} nums
+ * @param {number} val
+ * @return {number}
+ */
+const removeElement = function (nums, val) {
+    let moveSize = 0;
+    for (let i = 0; i < nums.length; i++) {
+        if (nums[i] === val) {
+            moveSize++;
+        } else if (moveSize > 0) {
+            [nums[i], nums[i - moveSize]] = [nums[i - moveSize], nums[i]];
+        }
+    }
+    return nums.length - moveSize;
+};
+console.log(removeElement(nums = [3, 2, 2, 3], val = 3));
+console.log(removeElement(nums = [0, 1, 2, 2, 3, 0, 4, 2], val = 2));
