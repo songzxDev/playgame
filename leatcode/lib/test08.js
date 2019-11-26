@@ -300,3 +300,26 @@ const removeElement = function (nums, val) {
 };
 console.log(removeElement(nums = [3, 2, 2, 3], val = 3));
 console.log(removeElement(nums = [0, 1, 2, 2, 3, 0, 4, 2], val = 2));
+
+
+/**
+ * 题目：977.有序数组的平方
+ * 标签：数组 双指针
+ * @param {number[]} A
+ * @return {number[]}
+ */
+const sortedSquares = function (A) {
+    if (A.length === 0) return A;
+    if (A[0] >= 0) return A.map(a => a * a);
+    let i = 0, j = A.length - 1, res = [];
+    for (let p = j; p >= 0; p--) {
+        if (Math.abs(A[i]) > Math.abs(A[j])) {
+            res[p] = A[i] * A[i];
+            i++;
+        } else {
+            res[p] = A[j] * A[j];
+            j--;
+        }
+    }
+    return res;
+};
