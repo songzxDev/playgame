@@ -18,6 +18,8 @@
             font-size: 16px;
             border: 1px solid #cccccc;
             margin: 5px;
+            transition-duration: 2s;
+            -webkit-transition-duration: 2s;
         }
     </style>
 </head>
@@ -25,7 +27,9 @@
 <div id="solution">
     <div style="display: flex; margin-left: 10px; align-items: center;">
         <div class="my-cell" style="margin-right: 20px; border-radius: 12px; border: 2px dashed #01B468;"></div>
-        <div style="margin: 5px 50px 5px 0; height: 50px; line-height: 50px; font-size: 18px; text-align: center;">左指针位置</div>
+        <div style="margin: 5px 50px 5px 0; height: 50px; line-height: 50px; font-size: 18px; text-align: center;">
+            左指针位置
+        </div>
         <div class="my-cell" style="margin-right: 15px; border-radius: 12px; border: 2px dashed #66CCFF;"></div>
         <div style="margin: 5px; height: 50px; line-height: 50px; font-size: 18px; text-align: center;">右指针位置</div>
     </div>
@@ -37,6 +41,13 @@
 </div>
 
 <script>
+    let getMoveDiv = (parentId, childIdx) => {
+        return document.querySelector(`#${parentId} > div:nth-child(1) > div:nth-child(${childIdx})`);
+    };
+    let diffTowDiv = (a, b) => {
+        let leftA = a.getBoundingClientRect().left, leftB = b.getBoundingClientRect().left;
+        return leftB - leftA;
+    };
     let renderDiv = (parent, arry) => {
         parent.innerHTML = arry.map(t => `<div class="my-cell">${t}</div>`).join('');
         return parent;
