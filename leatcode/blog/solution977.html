@@ -35,6 +35,9 @@
             cursor: pointer;
             border-radius: 5px;
         }
+        .my-button:disabled {
+            background-color: #CCCCCC;
+        }
     </style>
 </head>
 <body>
@@ -46,7 +49,7 @@
         </div>
         <div class="my-cell" style="margin-right: 15px; border-radius: 12px; border: 2px dashed #66CCFF;"></div>
         <div style="margin: 5px; height: 50px; line-height: 50px; font-size: 18px; text-align: center;">右指针位置</div>
-        <button class="my-button" style="margin-left: 50px;" onclick="runAnimation()">运行动画</button>
+        <button class="my-button" style="margin-left: 50px;" onclick="runAnimation(this)">运行动画</button>
     </div>
     <div class="my-row">
         <div class="my-row" id="oldDiv" style="width: 33.33%;"></div>
@@ -54,10 +57,9 @@
         <div class="my-row" id="newDiv" style="width: 33.33%;"></div>
     </div>
 </div>
-
 <script>
-    let getMoveDiv = (parentId, childIdx) => {
-        return document.querySelector(`#${parentId} > div:nth-child(1) > div:nth-child(${childIdx})`);
+    let getMoveDiv = (parentId, childIdx, step) => {
+        return document.querySelector(`#${parentId} > div:nth-child(${step}) > div:nth-child(${childIdx})`);
     };
     let diffTowDiv = (a, b) => {
         let leftA = a.getBoundingClientRect().left, leftB = b.getBoundingClientRect().left;
@@ -90,9 +92,12 @@
         renderChild.childNodes[p].style.border = '2px solid #01B468';
         return parent.appendChild(renderChild);
     };
+</script>
+<script>
     let solution = document.getElementById('solution'), oldDiv = document.getElementById('oldDiv'),
         newDiv = document.getElementById('newDiv');
     let test = [-4, -3, -2, 0, 1, 2, 3];
+    let steps = [], currStep = 0, hiddenStep = test.length;
     const sortedSquares = function (A) {
         if (!A || A.length === 0) return [];
         if (A[0] >= 0) return A.map(a => a * a);
@@ -100,8 +105,10 @@
         while (p-- > 0) {
             renderOldDiv(oldDiv, A, i, j);
             if (Math.abs(A[i]) > Math.abs(A[j])) {
+                steps.push(i);
                 res[p] = A[i] * A[i++];
             } else {
+                steps.push(j);
                 res[p] = A[j] * A[j--];
             }
             renderNewDiv(newDiv, res, p);
@@ -110,27 +117,40 @@
     };
     sortedSquares(test);
 
-    let runAnimation = () => {
-        let a = getMoveDiv('oldDiv', 1), b = getMoveDiv('newDiv', 7);
-        let diff = diffTowDiv(a, b);
-        a.style.transform = `translateX(${diff / 2}px)`;
-        requestAnimationFrame(() => {
+    let runAnimation = (btn) => {
+        if (currStep === test.length || hiddenStep === 0) {
+            [currStep, hiddenStep] = [0, test.length];
+            [oldDiv.innerHTML, newDiv.innerHTML] = ["", ""];
+            sortedSquares(test);
+            runAnimation(btn);
+        } else {
+            let a = getMoveDiv('oldDiv', steps[currStep++] + 1, currStep),
+                b = getMoveDiv('newDiv', hiddenStep--, currStep);
+            let diff = diffTowDiv(a, b);
+            a.style.zIndex = '990';
+            a.style.transform = `translateX(${diff / 2}px)`;
+            btn.disabled = true;
             requestAnimationFrame(() => {
-                setTimeout(() => {
-                    a.style.transform = `translate(${diff / 2}px, ${-50}px)`;
-                    b.style.display = 'none';
-                    a.innerText = test[0] * test[0];
-                }, 3000);
+                requestAnimationFrame(() => {
+                    setTimeout(() => {
+                        a.style.transform = `translate(${diff / 2}px, ${-60}px)`;
+                        b.style.border = 'none';
+                        b.style.color = '#FFFFFF';
+                        a.innerText = b.innerText;
+                    }, 3000);
 
+                });
             });
-        });
-        requestAnimationFrame(() => {
             requestAnimationFrame(() => {
-                setTimeout(() => {
-                    a.style.transform = `translate(${diff}px, ${0}px)`;
-                }, 5000);
+                requestAnimationFrame(() => {
+                    setTimeout(() => {
+                        a.style.transform = `translate(${diff}px, ${0}px)`;
+                        btn.disabled = false;
+                    }, 5000);
+                });
             });
-        });
+        }
+
     };
 
 </script>
