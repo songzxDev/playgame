@@ -21,6 +21,20 @@
             transition-duration: 2s;
             -webkit-transition-duration: 2s;
         }
+
+        .my-button {
+            background-color: #4caf50;
+            border: none;
+            color: #ffffff;
+            padding: 8px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
@@ -32,6 +46,7 @@
         </div>
         <div class="my-cell" style="margin-right: 15px; border-radius: 12px; border: 2px dashed #66CCFF;"></div>
         <div style="margin: 5px; height: 50px; line-height: 50px; font-size: 18px; text-align: center;">右指针位置</div>
+        <button class="my-button" style="margin-left: 50px;" onclick="runAnimation()">运行动画</button>
     </div>
     <div class="my-row">
         <div class="my-row" id="oldDiv" style="width: 33.33%;"></div>
@@ -94,6 +109,30 @@
         return res;
     };
     sortedSquares(test);
+
+    let runAnimation = () => {
+        let a = getMoveDiv('oldDiv', 1), b = getMoveDiv('newDiv', 7);
+        let diff = diffTowDiv(a, b);
+        a.style.transform = `translateX(${diff / 2}px)`;
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                setTimeout(() => {
+                    a.style.transform = `translate(${diff / 2}px, ${-50}px)`;
+                    b.style.display = 'none';
+                    a.innerText = test[0] * test[0];
+                }, 3000);
+
+            });
+        });
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                setTimeout(() => {
+                    a.style.transform = `translate(${diff}px, ${0}px)`;
+                }, 5000);
+            });
+        });
+    };
+
 </script>
 </body>
 </html>
