@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>题目：977.有序数组的平方</title>
+    <style>
+        .my-row {
+            display: flex;
+            align-items: center;
+            margin: 5px;
+        }
+
+        .my-cell {
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            font-size: 16px;
+            border: 1px solid #cccccc;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+<div id="solution">
+    <div class="my-row">
+        <div class="my-row" id="oldDiv"></div>
+        <div class="my-row" id="newDiv"></div>
+    </div>
+</div>
+
+<script>
+    let renderDiv = (parent, arry) => {
+        parent.innerHTML = arry.map(t => `<div class="my-cell">${t}</div>`).join('');
+        return parent;
+    };
+    let renderOldDiv = (parent, arry, i, j) => {
+        let child = document.createElement('div');
+        child.classList.add('my-row');
+        child.style.flexDirection = 'row';
+        child.style.width = '100%';
+        parent.style.flexDirection = 'column';
+        let renderChild = renderDiv(child, arry);
+        renderChild.childNodes[i].style.border = '2px dashed #01B468';
+        renderChild.childNodes[i].style.borderRadius = '12px';
+        renderChild.childNodes[j].style.border = '2px dashed #66CCFF';
+        renderChild.childNodes[j].style.borderRadius = '12px';
+        return parent.appendChild(renderChild);
+    };
+    let renderNewDiv = (parent, arry, p) => {
+        let child = document.createElement('div');
+        child.classList.add('my-row');
+        child.style.flexDirection = 'row';
+        child.style.width = '100%';
+        parent.style.flexDirection = 'column';
+        let renderChild = renderDiv(child, arry);
+        renderChild.childNodes[p].style.border = '2px solid #01B468';
+        return parent.appendChild(renderChild);
+    };
+    let solution = document.getElementById('solution'), oldDiv = document.getElementById('oldDiv'),
+        newDiv = document.getElementById('newDiv');
+    let test = [-4, -3, -2, 0, 1, 2, 3];
+    const sortedSquares = function (A) {
+        if (!A || A.length === 0) return [];
+        if (A[0] >= 0) return A.map(a => a * a);
+        let i = 0, j = A.length - 1, res = Array.from({length: A.length}, () => ('?')), p = A.length;
+        while (p-- > 0) {
+            renderOldDiv(oldDiv, A, i, j);
+            if (Math.abs(A[i]) > Math.abs(A[j])) {
+                res[p] = A[i] * A[i++];
+            } else {
+                res[p] = A[j] * A[j--];
+            }
+            renderNewDiv(newDiv, res, p);
+        }
+        return res;
+    };
+    sortedSquares(test);
+</script>
+</body>
+</html>
