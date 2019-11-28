@@ -35,27 +35,78 @@
             cursor: pointer;
             border-radius: 5px;
         }
+
         .my-button:disabled {
             background-color: #CCCCCC;
         }
     </style>
+    <link rel="stylesheet" href="../highlight/styles/vs.css">
+    <script src="../highlight/highlight.pack.js"></script>
 </head>
 <body>
-<div id="solution">
-    <div style="display: flex; margin-left: 10px; align-items: center;">
-        <div class="my-cell" style="margin-right: 20px; border-radius: 12px; border: 2px dashed #01B468;"></div>
-        <div style="margin: 5px 50px 5px 0; height: 50px; line-height: 50px; font-size: 18px; text-align: center;">
-            左指针位置
+<div style="margin: 5px; border: 1px solid #CCCCCC;">
+    <div style="margin: 5px;" class="my-row">
+        <div style="width: 50%; margin: 5px;">
+            <p>
+                <a href="https://leetcode-cn.com/problems/squares-of-a-sorted-array/" target="_blank">题目：977.有序数组的平方</a>
+                <a style="margin-left: 30px;" href="https://leetcode.com/problems/squares-of-a-sorted-array/discuss/221922/Java-two-pointers-O(N)" target="_blank">参考国际站题解</a>
+                <a style="margin-left: 30px;" href="#showAnimation">查看动画</a>
+            </p>
+            <pre style="font-size: 16px;" class="javascript">
+                <code style="background-color: #ececec;">/**
+ * 题目：977.有序数组的平方
+ * 标签：数组 双指针
+ * @param {number[]} A
+ * @return {number[]}
+ */
+const sortedSquares = function (A) {
+    if (!A || A.length === 0) return [];
+    if (A[0] >= 0) return A.map(a => a * a);
+    let i = 0, j = A.length - 1, res = [];
+    for (let p = j; p >= 0; p--) {
+        if (Math.abs(A[i]) > Math.abs(A[j])) {
+            res[p] = Math.pow(A[i++], 2);
+        } else {
+            res[p] = Math.pow(A[j--], 2);
+        }
+    }
+    return res;
+};</code>
+            </pre>
         </div>
-        <div class="my-cell" style="margin-right: 15px; border-radius: 12px; border: 2px dashed #66CCFF;"></div>
-        <div style="margin: 5px; height: 50px; line-height: 50px; font-size: 18px; text-align: center;">右指针位置</div>
-        <button class="my-button" style="margin-left: 50px;" onclick="runAnimation(this)">运行动画</button>
+        <div style="width: 50%; margin: 5px;">
+            <p>定义一个和待排序数组长度相同的空数组，可以利用题目已知条件：【已升序排列】</p>
+            <p>定义两个指针 i、j，初始化位置分别位于数组索引的首尾，即：i = 0, j = A.length - 1;</p>
+            <pre style="font-size: 16px; background-color: #CCCCCC;" class="javascript"><code
+                    style="background-color: #ececec;">let i = 0, j = A.length - 1, res = [];</code></pre>
+            <p>循环比较 A[i] 和 A[j] 的绝对值大小（因为存在负数），并将较大的值的平方存入已定义空数组中，</p>
+            <p>并从空数组尾索引依次递减处存放值将比较后的大值所在处的索引递增（i++）或递减（j--）并进入下一次循环</p>
+            <pre style="font-size: 16px;" class="javascript">
+<code style="background-color: #ececec;">for (let p = j; p >= 0; p--) {
+    if (Math.abs(A[i]) > Math.abs(A[j])) {
+        res[p] = Math.pow(A[i++], 2);
+    } else {
+        res[p] = Math.pow(A[j--], 2);
+    }
+}</code>
+            </pre>
+        </div>
     </div>
-    <div class="my-row">
-        <div class="my-row" id="oldDiv" style="width: 33.33%;"></div>
-        <div class="my-row" id="descDiv" style="width: 33.33%;"></div>
-        <div class="my-row" id="newDiv" style="width: 33.33%;"></div>
+</div>
+<div style="display: flex; margin-left: 10px; align-items: center;" id="showAnimation">
+    <div class="my-cell" style="margin-right: 20px; border-radius: 12px; border: 2px dashed #01B468;"></div>
+    <div style="margin: 5px 50px 5px 0; height: 50px; line-height: 50px; font-size: 18px; text-align: center;">
+        左指针位置
     </div>
+    <div class="my-cell" style="margin-right: 15px; border-radius: 12px; border: 2px dashed #66CCFF;"></div>
+    <div style="margin: 5px; height: 50px; line-height: 50px; font-size: 18px; text-align: center;">右指针位置</div>
+    <button class="my-button" style="margin-left: 50px;" onclick="runAnimation(this)">运行动画</button>
+</div>
+<div class="my-row">
+    <div class="my-row" id="oldDiv" style="width: 33.33%;"></div>
+    <div class="my-row" id="descDiv" style="width: 33.33%;"></div>
+    <div class="my-row" id="newDiv" style="width: 33.33%;"></div>
+</div>
 </div>
 <script>
     let getMoveDiv = (parentId, childIdx, step) => {
@@ -115,7 +166,6 @@
         }
         return res;
     };
-    sortedSquares(test);
 
     let runAnimation = (btn) => {
         if (currStep === test.length || hiddenStep === 0) {
@@ -152,7 +202,12 @@
         }
 
     };
-
+    document.addEventListener('DOMContentLoaded', (event) => {
+        document.querySelectorAll('pre code').forEach((block) => {
+            hljs.highlightBlock(block);
+        });
+        sortedSquares(test);
+    });
 </script>
 </body>
 </html>
