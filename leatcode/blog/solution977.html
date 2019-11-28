@@ -49,7 +49,9 @@
         <div style="width: 50%; margin: 5px;">
             <p>
                 <a href="https://leetcode-cn.com/problems/squares-of-a-sorted-array/" target="_blank">题目：977.有序数组的平方</a>
-                <a style="margin-left: 30px;" href="https://leetcode.com/problems/squares-of-a-sorted-array/discuss/221922/Java-two-pointers-O(N)" target="_blank">参考国际站题解</a>
+                <a style="margin-left: 30px;"
+                   href="https://leetcode.com/problems/squares-of-a-sorted-array/discuss/221922/Java-two-pointers-O(N)"
+                   target="_blank">参考国际站题解</a>
                 <a style="margin-left: 30px;" href="#showAnimation">查看动画</a>
             </p>
             <pre style="font-size: 16px;" class="javascript">
@@ -143,10 +145,24 @@ const sortedSquares = function (A) {
         renderChild.childNodes[p].style.border = '2px solid #01B468';
         return parent.appendChild(renderChild);
     };
+    let renderDescDiv = (parent, a, b) => {
+        let child = document.createElement('div');
+        child.classList.add('my-row');
+        child.style.flexDirection = 'row';
+        child.style.width = '100%';
+        child.innerHTML = `
+            <div class="my-cell" style="border: 2px dashed #01B468; border-radius: 12px;">${a}</div>
+            <div class="my-cell">${Math.abs(a) > Math.abs(b) ? '>' : '<='}</div>
+            <div class="my-cell" style="border: 2px dashed #66CCFF; border-radius: 12px;">${b}</div>
+            <div class="my-cell" style="width: 200px;">${Math.abs(a) > Math.abs(b) ? `| ${a} | 的绝对值：${Math.abs(a)} 大` : `| ${b} | 的绝对值：${Math.abs(b)} 大`}</div>
+        `;
+        parent.style.flexDirection = 'column';
+        return parent.appendChild(child);
+    }
 </script>
 <script>
     let solution = document.getElementById('solution'), oldDiv = document.getElementById('oldDiv'),
-        newDiv = document.getElementById('newDiv');
+        newDiv = document.getElementById('newDiv'), descDiv = document.getElementById('descDiv');
     let test = [-4, -3, -2, 0, 1, 2, 3];
     let steps = [], currStep = 0, hiddenStep = test.length;
     const sortedSquares = function (A) {
@@ -155,6 +171,7 @@ const sortedSquares = function (A) {
         let i = 0, j = A.length - 1, res = Array.from({length: A.length}, () => ('?')), p = A.length;
         while (p-- > 0) {
             renderOldDiv(oldDiv, A, i, j);
+            renderDescDiv(descDiv, A[i], A[j]);
             if (Math.abs(A[i]) > Math.abs(A[j])) {
                 steps.push(i);
                 res[p] = A[i] * A[i++];
@@ -170,7 +187,7 @@ const sortedSquares = function (A) {
     let runAnimation = (btn) => {
         if (currStep === test.length || hiddenStep === 0) {
             [currStep, hiddenStep] = [0, test.length];
-            [oldDiv.innerHTML, newDiv.innerHTML] = ["", ""];
+            [oldDiv.innerHTML, newDiv.innerHTML, descDiv.innerHTML] = ["", "", ""];
             sortedSquares(test);
             runAnimation(btn);
         } else {
