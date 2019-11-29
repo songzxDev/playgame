@@ -321,3 +321,27 @@ const sortedSquares = function (A) {
     }
     return res;
 };
+
+/**
+ * 75.颜色分类
+ * 标签：数组 双指针
+ * @param {number[]} nums
+ * @return {void} Do not return anything, modify nums in-place instead.
+ */
+const sortColors = function(nums) {
+    let one = 0, two = 0;
+    for (let i = 0; i < nums.length; i++) {
+        if (nums[i] === 2) {
+            two++;
+        } else if (two > 0) {
+            [nums[i], nums[i - two]] = [nums[i - two], nums[i]];
+        }
+    }
+    for (let j = 0; j < nums.length - two; j++) {
+        if (nums[j] === 1) {
+            one++;
+        } else if (one > 0) {
+            [nums[j], nums[j - one]] = [nums[j - one], nums[j]];
+        }
+    }
+};
