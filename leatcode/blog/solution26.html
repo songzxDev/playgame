@@ -25,10 +25,8 @@
             let child = document.createElement('div');
             child.classList.add('my-row');
             child.innerHTML = arry.map(a => `<div class="my-grid">${a}</div>`).join('');
-            if (i < j) {
-                child.childNodes[i].style.border = '2px dashed #4caf50';
-                child.childNodes[j].style.border = '2px dashed #66afe9';
-            }
+            if (i) child.childNodes[i].style.border = '2px dashed #66afe9';
+            if (j) child.childNodes[j].style.border = '2px dashed #4caf50';
             return parent.appendChild(child);
         };
     </script>
@@ -51,12 +49,17 @@
     const removeDuplicates = function (nums) {
         let dup = 0;
         for (let i = 0; i < nums.length; i++) {
+            renderRunner(leftDiv, nums, dup, i);
             if (i === 0 || nums[i] > nums[i - 1]) {
-                renderRunner(leftDiv, nums, dup, i);
                 nums[dup++] = nums[i];
             }
         }
-        renderRunner(leftDiv, nums, dup, 0);
+        renderRunner(leftDiv, nums, 0, 0);
+        let remove = dup;
+        leftDiv.lastElementChild.childNodes[remove].style.marginLeft = '150px';
+        while (remove < nums.length) {
+            leftDiv.lastElementChild.childNodes[remove++].style.borderColor = 'red';
+        }
         return dup;
     };
 
