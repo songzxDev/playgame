@@ -58,6 +58,7 @@
         let remove = dup;
         leftDiv.lastElementChild.childNodes[remove].style.marginLeft = '150px';
         while (remove < nums.length) {
+            leftDiv.lastElementChild.childNodes[remove].style.color = 'red';
             leftDiv.lastElementChild.childNodes[remove++].style.borderColor = 'red';
         }
         return dup;
