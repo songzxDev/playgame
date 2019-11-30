@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>题目：26-原地删除已排序的数组中重复项</title>
+    <style>
+        .my-row {
+            display: flex;
+            border: 1px solid #CCCCCC;
+            margin: 5px;
+        }
+
+        .my-grid {
+            height: 50px;
+            width: 50px;
+            line-height: 50px;
+            text-align: center;
+            font-size: 18px;
+            margin: 3px;
+            border: 1px solid #CCCCCC;
+        }
+    </style>
+    <script>
+        let renderRunner = (parent, arry, i, j) => {
+            let child = document.createElement('div');
+            child.classList.add('my-row');
+            child.innerHTML = arry.map(a => `<div class="my-grid">${a}</div>`).join('');
+            if (i < j) {
+                child.childNodes[i].style.border = '2px dashed #4caf50';
+                child.childNodes[j].style.border = '2px dashed #66afe9';
+            }
+            return parent.appendChild(child);
+        };
+    </script>
+</head>
+<body>
+<div id="solution" class="my-row">
+    <div style="width: 50%; margin: 5px; flex-direction: column;" id="leftDiv"></div>
+    <div style="width: 50%; margin: 5px;" id="rightDiv"></div>
+</div>
+<script>
+    let test = [0, 0, 1, 1, 1, 2, 2, 3, 3, 4];
+    let leftDiv = document.getElementById('leftDiv'), rightDiv = document.getElementById('rightDiv');
+
+    /**
+     * 26.删除排序数组中的重复项
+     * 标签：原地算法 数组 双指针
+     * @param {number[]} nums
+     * @return {number}
+     */
+    const removeDuplicates = function (nums) {
+        let dup = 0;
+        for (let i = 0; i < nums.length; i++) {
+            if (i === 0 || nums[i] > nums[i - 1]) {
+                renderRunner(leftDiv, nums, dup, i);
+                nums[dup++] = nums[i];
+            }
+        }
+        renderRunner(leftDiv, nums, dup, 0);
+        return dup;
+    };
+
+    document.addEventListener('DOMContentLoaded', (event) => {
+        removeDuplicates(test);
+    });
+</script>
+</body>
+</html>
