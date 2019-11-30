@@ -328,7 +328,7 @@ const sortedSquares = function (A) {
  * @param {number[]} nums
  * @return {void} Do not return anything, modify nums in-place instead.
  */
-const sortColors = function(nums) {
+const sortColors = function (nums) {
     let one = 0, two = 0;
     for (let i = 0; i < nums.length; i++) {
         if (nums[i] === 2) {
@@ -344,4 +344,20 @@ const sortColors = function(nums) {
             [nums[j], nums[j - one]] = [nums[j - one], nums[j]];
         }
     }
+};
+
+/**
+ * 26.删除排序数组中的重复项
+ * 标签：原地算法 数组 双指针
+ * @param {number[]} nums
+ * @return {number}
+ */
+const removeDuplicates = function (nums) {
+    let dup = 0;
+    for (let i = 0; i < nums.length; i++) {
+        if (i === 0 || nums[i] > nums[i - 1]) {
+            nums[dup++] = nums[i];
+        }
+    }
+    return dup;
 };
