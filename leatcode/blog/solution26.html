@@ -25,8 +25,14 @@
             let child = document.createElement('div');
             child.classList.add('my-row');
             child.innerHTML = arry.map(a => `<div class="my-grid">${a}</div>`).join('');
-            if (i) child.childNodes[i].style.border = '2px dashed #66afe9';
-            if (j) child.childNodes[j].style.border = '2px dashed #4caf50';
+            if (i) {
+                child.childNodes[i].style.border = '2px dashed #66afe9';
+                child.childNodes[i].style.borderRadius = '12px';
+            }
+            if (j) {
+                child.childNodes[j].style.border = '2px dashed #4caf50';
+                child.childNodes[j].style.borderRadius = '12px';
+            }
             return parent.appendChild(child);
         };
     </script>
