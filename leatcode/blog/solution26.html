@@ -8,7 +8,7 @@
             display: flex;
             border: 1px solid #CCCCCC;
             margin: 5px;
-            transition: opacity 2s;
+            transition: opacity 1s;
         }
 
         .my-grid {
@@ -73,7 +73,22 @@
 
     document.addEventListener('DOMContentLoaded', (event) => {
         removeDuplicates(test);
+        let show = (parent, p) => {
+            let count = parent.childNodes.length;
+            p = p % count;
+            for (let i = 0; i < leftDiv.childNodes.length; i++) {
+                leftDiv.childNodes[i].style.opacity = '0';
+            }
+            parent.childNodes[p].style.opacity = '1';
+            setTimeout(() => {
+                show(leftDiv, p + 1);
+            }, 3000);
+        };
+        let p = 0;
+        show(leftDiv, p);
     });
+
+
 </script>
 </body>
 </html>
