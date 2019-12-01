@@ -361,3 +361,24 @@ const removeDuplicates = function (nums) {
     }
     return dup;
 };
+
+/**
+ * 题目：88.合并两个有序数组
+ * 标签：数组 双指针
+ * @param {number[]} nums1
+ * @param {number} m
+ * @param {number[]} nums2
+ * @param {number} n
+ * @return {void} Do not return anything, modify nums1 in-place instead.
+ */
+const merge = function (nums1, m, nums2, n) {
+    let p = m + n - 1;
+    m--;
+    n--;
+    while (m >= 0 && n >= 0) {
+        nums1[p--] = nums1[m] > nums2[n] ? nums1[m--] : nums2[n--];
+    }
+    while (n >= 0) {
+        nums1[n] = nums2[n--];
+    }
+};
