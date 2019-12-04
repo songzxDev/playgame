@@ -22,10 +22,8 @@
 const minWindow = (s, t) => {
     if (!s || !t || s.length < t.length) return "";
     if (s === t) return s;
-    let countedT = t.split('').reduce((allT, tt) => {
-        allT[tt.charCodeAt(0)]++;
-        return allT;
-    }, Array.from({length: 256}, () => (0)));
+    let countedT = Array.from({length: 256}, () => (0));
+    for (let k = 0; k < t.length; k++) countedT[t.charCodeAt(k)]++;
     let i = 0, j = 0, match = 0, wins = Array.from({length: 256}, () => (0)), start = 0, minLen = s.length + 1;
     while (i <= j && j < s.length) {
         if (match < t.length) {
@@ -36,7 +34,6 @@ const minWindow = (s, t) => {
             }
             j++;
         }
-
         while (match === t.length) {
             if (j - i < minLen) [start, minLen] = [i, j - i];
             let left = s.charCodeAt(i);
