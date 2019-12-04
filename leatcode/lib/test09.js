@@ -25,7 +25,7 @@ const minWindow = (s, t) => {
     let countedT = Array.from({length: 256}, () => (0));
     for (let k = 0; k < t.length; k++) countedT[t.charCodeAt(k)]++;
     let i = 0, j = 0, match = 0, wins = Array.from({length: 256}, () => (0)), start = 0, minLen = s.length + 1;
-    while (i <= j && j < s.length) {
+    while (j < s.length) {
         if (match < t.length) {
             let right = s.charCodeAt(j);
             if (countedT[right] > 0) {
