@@ -55,7 +55,7 @@ const minWindow = (s, t) => {
  * @param {string} needle
  * @return {number}
  */
-const strStr = function(haystack, needle) {
+const strStrSlow = function(haystack, needle) {
     if (needle.length === 0) return 0;
     for (let i = 0; i < haystack.length; i++) {
         let hay = haystack.charAt(i);
@@ -66,3 +66,24 @@ const strStr = function(haystack, needle) {
     return -1;
 };
 
+/**
+ * 题目：28.实现 strStr()
+ * 标签：字符串 双指针
+ * @param {string} haystack
+ * @param {string} needle
+ * @return {number}
+ */
+const strStr = function(haystack, needle) {
+    let [len1, len2, sub] = [haystack.length, needle.length, haystack.length - needle.length];
+    if (len1 === sub) {
+        return 0;
+    } else if (sub < 0) {
+        return -1;
+    }
+    for (let p = 0; p <= sub; p++) {
+        if (haystack.charAt(p) === needle.charAt(0) && haystack.substr(p, len2) === needle) {
+            return p;
+        }
+    }
+    return -1;
+};
