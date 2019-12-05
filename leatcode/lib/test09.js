@@ -47,3 +47,22 @@ const minWindow = (s, t) => {
     return minLen === s.length + 1 ? "" : s.substr(start, minLen);
 };
 
+
+/**
+ * 题目28.实现 strStr()
+ * 标签：双指针 字符串
+ * @param {string} haystack
+ * @param {string} needle
+ * @return {number}
+ */
+const strStr = function(haystack, needle) {
+    if (needle.length === 0) return 0;
+    for (let i = 0; i < haystack.length; i++) {
+        let hay = haystack.charAt(i);
+        if (hay === needle.charAt(0) && haystack.substr(i, needle.length) === needle) {
+            return i;
+        }
+    }
+    return -1;
+};
+
