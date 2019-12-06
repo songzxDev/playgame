@@ -55,7 +55,7 @@ const minWindow = (s, t) => {
  * @param {string} needle
  * @return {number}
  */
-const strStrSlow = function(haystack, needle) {
+const strStrSlow = function (haystack, needle) {
     if (needle.length === 0) return 0;
     for (let i = 0; i < haystack.length; i++) {
         let hay = haystack.charAt(i);
@@ -73,7 +73,7 @@ const strStrSlow = function(haystack, needle) {
  * @param {string} needle
  * @return {number}
  */
-const strStr = function(haystack, needle) {
+const strStr = function (haystack, needle) {
     let [len1, len2, sub] = [haystack.length, needle.length, haystack.length - needle.length];
     if (len1 === sub) {
         return 0;
@@ -86,4 +86,21 @@ const strStr = function(haystack, needle) {
         }
     }
     return -1;
+};
+
+
+/**
+ * 题目：80.删除排序数组中的重复项 II
+ * 标签：双指针 数组 原地算法
+ * @param {number[]} nums
+ * @return {number}
+ */
+const removeDuplicates = function (nums) {
+    let j = 0;
+    for (let i = 0; i < nums.length; i++) {
+        if (j < 2 || nums[i] > nums[j - 2]) {
+            nums[j++] = nums[i];
+        }
+    }
+    return j;
 };
