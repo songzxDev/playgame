@@ -111,7 +111,7 @@ const removeDuplicates = function (nums) {
  * @param {number[]} nums
  * @return {number[][]}
  */
-const threeSum = function(nums) {
+const threeSum = function (nums) {
     let res = [];
     if (!nums || nums.length < 3) {
         return res;
@@ -128,11 +128,33 @@ const threeSum = function(nums) {
                     j++;
                 } else {
                     res.push([nums[i], nums[j], nums[k]]);
-                    while (j < k && nums[j] === nums[++j]);
-                    while (j < k && nums[k] === nums[--k]);
+                    while (j < k && nums[j] === nums[++j]) ;
+                    while (j < k && nums[k] === nums[--k]) ;
                 }
             }
         }
     }
     return res;
+};
+
+/**
+ * 题目：189.旋转数组
+ * 标签：数组 双指针
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {void} Do not return anything, modify nums in-place instead.
+ */
+const rotate = function (nums, k) {
+    let reverse = (begin, end, arry) => {
+        while (begin < end) {
+            [arry[begin], arry[end]] = [arry[end], arry[begin]];
+            begin++;
+            end--;
+        }
+    };
+    k %= nums.length;
+    if (k === 0) return;
+    reverse(0, nums.length - 1, nums);
+    reverse(0, k - 1, nums);
+    reverse(k, nums.length - 1, nums);
 };
