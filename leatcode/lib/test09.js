@@ -158,3 +158,42 @@ const rotate = function (nums, k) {
     reverse(0, k - 1, nums);
     reverse(k, nums.length - 1, nums);
 };
+
+class LeetCode_189_1034 {
+    constructor() {
+
+    }
+    reverse(begin, end, nums) {
+        while (begin < end) {
+            nums[begin] ^= nums[end];
+            nums[end] ^= nums[begin];
+            nums[begin++] ^= nums[end--];
+        }
+    }
+    /**
+     * 题目：189.旋转数组（https://leetcode-cn.com/problems/rotate-array/）
+     * 学号：1034（五期一班三组）
+     * @param nums
+     * @param k
+     */
+    rotate(nums, k) {
+        k %= nums.length;
+        if (!nums || nums.length < 2 || k === 0) {
+            return;
+        }
+        this.reverse(0, nums.length - 1, nums);
+        this.reverse(0, k - 1, nums);
+        this.reverse(k, nums.length - 1, nums);
+    }
+}
+
+/**
+ * 题目：189.旋转数组
+ * 标签：数组 双指针
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {void} Do not return anything, modify nums in-place instead.
+ */
+const rotate = function (nums, k) {
+    new LeetCode_189_1034().rotate(nums, k);
+};
