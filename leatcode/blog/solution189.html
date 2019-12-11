@@ -18,13 +18,17 @@
             border: 1px solid #CCCCCC;
             margin: 5px;
         }
+        div#showDesc p {
+            word-break: break-word;
+            word-wrap: break-word;
+        }
     </style>
 </head>
 <body>
 <div id="solution189" style="padding: 5px;">
     <div class="my-grid-row">
         <div id="showStep" style="width: 50%; margin: 5px; border: 1px solid #CCCCCC; min-height: 200px;"></div>
-        <div style="width: 50%; margin: 5px; border: 1px solid #CCCCCC; padding: 0 10px;">
+        <div id="showDesc" style="width: 50%; margin: 5px; border: 1px solid #CCCCCC; padding: 0 10px;">
             <p>一个数组旋转多少次能得到多少种结果取决于其数组长度，例如：[1, 2, 3, 4, 5, 6, 7]</p>
             <p>k = 0&nbsp;&nbsp;&nbsp;&nbsp;[1, 2, 3, 4, 5, 6, 7]</p>
             <p>k = 1&nbsp;&nbsp;&nbsp;&nbsp;[7, 1, 2, 3, 4, 5, 6]</p>
