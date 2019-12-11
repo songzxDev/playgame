@@ -37,8 +37,9 @@
             <p>k = 8&nbsp;&nbsp;&nbsp;&nbsp;[7, 1, 2, 3, 4, 5, 6]</p>
             <p>k = ? ...... </p>
             <p>
-                寻找 <strong>最近重复相关性</strong> 后得出：k = k % nums.length，即：旋转k次的结果和 [0 ~ nums.length - 1] 次的结果相同，
-                继续在 [0, nums.length - 1] 范围内寻找 <strong>最近重复相关性</strong>，首先我们将数组整体反转：[7, 6, 5, 4, 3, 2, 1]
+                寻找 <b>最近重复相关性</b> 后得出：k = k % nums.length，即：旋转k次的结果和 [0 ~ nums.length - 1] 次的结果相同，
+                继续在 [0, nums.length - 1] 范围内寻找 <b>最近重复相关性</b>，首先我们将数组整体反转：[7, 6, 5, 4, 3, 2, 1]，
+                观察按照 <b>k</b> 分隔后的两个虚拟子数组各自的子元素反转后会发生什么？^__^
             </p>
             <p>
                 k = 1&nbsp;&nbsp;&nbsp;&nbsp;[7, 1, 2, 3, 4, 5, 6]&nbsp;&nbsp;<->&nbsp;&nbsp;[7, 6, 5, 4, 3, 2, 1]
