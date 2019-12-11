@@ -91,10 +91,11 @@
         renderArray(nums, root) {
             let parent = document.createElement('div');
             parent.classList.add('my-grid-row');
-            for (let num of nums) {
+            for (let i = 0; i < nums.length; i++) {
                 let child = document.createElement('div');
-                child.innerText = num;
+                child.innerHTML = `<span style="font-size: 20px;">${nums[i]}&nbsp;&nbsp;</span><sub style="color: #b4b4b4;">[${i}]</sub>`;
                 child.classList.add('my-grid-cell');
+
                 parent.appendChild(child);
             }
             return root.appendChild(parent);
