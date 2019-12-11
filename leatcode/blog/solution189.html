@@ -7,6 +7,7 @@
         .my-grid-row {
             display: flex;
             font-size: 15px;
+            transition: opacity 2s;
         }
 
         .my-grid-cell {
@@ -17,7 +18,9 @@
             border-radius: 10px;
             border: 1px solid #CCCCCC;
             margin: 5px;
+            transition: margin-left 2s;
         }
+
         div#showDesc p {
             word-break: break-word;
             word-wrap: break-word;
@@ -27,7 +30,11 @@
 <body>
 <div id="solution189" style="padding: 5px;">
     <div class="my-grid-row">
-        <div id="showStep" style="width: 50%; margin: 5px; border: 1px solid #CCCCCC; min-height: 200px;"></div>
+        <div id="showStep" style="width: 50%; margin: 5px; border: 1px solid #CCCCCC; min-height: 200px;">
+            <div style="padding: 5px 25px;">
+                <p><span>nums = [1, 2, 3, 4, 5, 6, 7]</span><span style="margin-left: 50px;">k = 3</span></p>
+            </div>
+        </div>
         <div id="showDesc" style="width: 50%; margin: 5px; border: 1px solid #CCCCCC; padding: 0 10px;">
             <p>一个数组旋转多少次能得到多少种结果取决于其数组长度，例如：[1, 2, 3, 4, 5, 6, 7]</p>
             <p>k = 0&nbsp;&nbsp;&nbsp;&nbsp;[1, 2, 3, 4, 5, 6, 7]</p>
@@ -111,6 +118,27 @@
             }
         }
     }
+
+
+    document.addEventListener('DOMContentLoaded', (event) => {
+        let app = new LeetCode_189_1034(), k = 3, nums = [1, 2, 3, 4, 5, 6, 7], reverse = [7, 6, 5, 4, 3, 2, 1];
+        let showStep = document.getElementById('showStep');
+        let first = app.renderArray(nums, showStep);
+        first.style.margin = '10px 20px 50px 20px';
+        let second = app.renderArray(reverse, showStep);
+        second.style.margin = '10px 20px 50px 20px';
+
+        let third = app.renderArray(reverse, showStep);
+        third.style.margin = '10px 20px 50px 20px';
+        third.childNodes[k].style.marginLeft = '150px';
+
+        let fourth = app.renderArray([5, 6, 7, 1, 2, 3, 4], showStep);
+        fourth.style.margin = '10px 20px 50px 20px';
+        fourth.childNodes[k].style.marginLeft = '150px';
+
+        let fifth = app.renderArray([5, 6, 7, 1, 2, 3, 4], showStep);
+        fifth.style.margin = '10px 20px 50px 20px';
+    });
 </script>
 </body>
 </html>
