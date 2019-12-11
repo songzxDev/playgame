@@ -24,6 +24,7 @@
         div#showDesc p {
             word-break: break-word;
             word-wrap: break-word;
+            font-size: 15px;
         }
     </style>
 </head>
@@ -88,12 +89,25 @@
 
         }
 
+        renderDesc(desc, root) {
+            let text = document.createElement('p');
+            text.classList.add('my-grid-row');
+            text.innerHTML = desc;
+            text.style.margin = '25px 35px';
+            text.style.color = '#5997cb';
+            text.style.fontWeight = 'bold';
+            text.style.fontSize = '15px';
+            text.style.wordBreak = 'break-word';
+            text.style.wordWrap = 'break-word';
+            return root.appendChild(text);
+        }
+
         renderArray(nums, root) {
             let parent = document.createElement('div');
             parent.classList.add('my-grid-row');
             for (let i = 0; i < nums.length; i++) {
                 let child = document.createElement('div');
-                child.innerHTML = `<span style="font-size: 20px;">${nums[i]}&nbsp;&nbsp;</span><sub style="color: #b4b4b4;">[${i}]</sub>`;
+                child.innerHTML = `<span style="font-size: 20px;">${nums[i]}&nbsp;&nbsp;</span><sub style="opacity: 0.5;">[${i}]</sub>`;
                 child.classList.add('my-grid-cell');
 
                 parent.appendChild(child);
@@ -125,20 +139,23 @@
         let app = new LeetCode_189_1034(), k = 3, nums = [1, 2, 3, 4, 5, 6, 7], reverse = [7, 6, 5, 4, 3, 2, 1];
         let showStep = document.getElementById('showStep');
         let first = app.renderArray(nums, showStep);
-        first.style.margin = '10px 20px 50px 20px';
+        first.style.margin = '10px 20px';
+        app.renderDesc('第一步，整个数组反转，[1, 2, 3, 4, 5, 6, 7]  <->  [7, 6, 5, 4, 3, 2, 1]', showStep);
         let second = app.renderArray(reverse, showStep);
-        second.style.margin = '10px 20px 50px 20px';
-
+        second.style.margin = '10px 20px';
+        app.renderDesc('第二步，已反转的数组，根据k的值分隔两个虚拟子数组：[7, 6, 5, 4, 3, 2, 1]', showStep);
+        app.renderDesc('<span>{7, 6, 5}</span><span style="margin-left: 50px;">{4, 3, 2, 1}</span>', showStep);
         let third = app.renderArray(reverse, showStep);
-        third.style.margin = '10px 20px 50px 20px';
+        third.style.margin = '10px 20px';
         third.childNodes[k].style.marginLeft = '150px';
-
+        app.renderDesc('第三步，分隔后的两个虚拟子数组各自的子元素反转：{7, 6, 5} -> {5, 6, 7}', showStep);
+        app.renderDesc('{4, 3, 2, 1} -> {1, 2, 3, 4}', showStep);
         let fourth = app.renderArray([5, 6, 7, 1, 2, 3, 4], showStep);
-        fourth.style.margin = '10px 20px 50px 20px';
+        fourth.style.margin = '10px 20px';
         fourth.childNodes[k].style.marginLeft = '150px';
 
         let fifth = app.renderArray([5, 6, 7, 1, 2, 3, 4], showStep);
-        fifth.style.margin = '10px 20px 50px 20px';
+        fifth.style.margin = '10px 20px';
     });
 </script>
 </body>
