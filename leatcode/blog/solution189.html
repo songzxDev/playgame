@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>题目189-旋转数组</title>
+    <style>
+        .my-grid-row {
+            display: flex;
+            font-size: 15px;
+        }
+
+        .my-grid-cell {
+            height: 50px;
+            width: 50px;
+            line-height: 50px;
+            text-align: center;
+            border-radius: 10px;
+            border: 1px solid #CCCCCC;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+<div id="solution189" style="padding: 5px;">
+    <div class="my-grid-row">
+        <div id="showStep" style="width: 50%; margin: 5px; border: 1px solid #CCCCCC; min-height: 200px;"></div>
+        <div style="width: 50%; margin: 5px; border: 1px solid #CCCCCC; padding: 0 10px;">
+            <p>一个数组旋转多少次能得到多少种结果取决于其数组长度，例如：[1, 2, 3, 4, 5, 6, 7]</p>
+            <p>k = 0&nbsp;&nbsp;&nbsp;&nbsp;[1, 2, 3, 4, 5, 6, 7]</p>
+            <p>k = 1&nbsp;&nbsp;&nbsp;&nbsp;[7, 1, 2, 3, 4, 5, 6]</p>
+            <p>k = 2&nbsp;&nbsp;&nbsp;&nbsp;[6, 7, 1, 2, 3, 4, 5]</p>
+            <p>k = 3&nbsp;&nbsp;&nbsp;&nbsp;[5, 6, 7, 1, 2, 3, 4]</p>
+            <p>k = 4&nbsp;&nbsp;&nbsp;&nbsp;[4, 5, 6, 7, 1, 2, 3]</p>
+            <p>k = 5&nbsp;&nbsp;&nbsp;&nbsp;[3, 4, 5, 6, 7, 1, 2]</p>
+            <p>k = 6&nbsp;&nbsp;&nbsp;&nbsp;[2, 3, 4, 5, 6, 7, 1]</p>
+            <p>k = 7&nbsp;&nbsp;&nbsp;&nbsp;[1, 2, 3, 4, 5, 6, 7]</p>
+            <p>k = 8&nbsp;&nbsp;&nbsp;&nbsp;[7, 1, 2, 3, 4, 5, 6]</p>
+            <p>k = ? ...... </p>
+            <p>
+                寻找 <strong>最近重复相关性</strong> 后得出：k = k % nums.length，即：旋转k次的结果和 [0 ~ nums.length - 1] 次的结果相同，
+                继续在 [0, nums.length - 1] 范围内寻找 <strong>最近重复相关性</strong>，首先我们将数组整体反转：[7, 6, 5, 4, 3, 2, 1]
+            </p>
+            <p>
+                k = 1&nbsp;&nbsp;&nbsp;&nbsp;[7, 1, 2, 3, 4, 5, 6]&nbsp;&nbsp;<->&nbsp;&nbsp;[7, 6, 5, 4, 3, 2, 1]
+                &nbsp;&nbsp;<->&nbsp;&nbsp;{7}&nbsp;&nbsp;&nbsp;&nbsp;{6, 5, 4, 3, 2, 1}
+            </p>
+            <p>
+                k = 2&nbsp;&nbsp;&nbsp;&nbsp;[6, 7, 1, 2, 3, 4, 5]&nbsp;&nbsp;<->&nbsp;&nbsp;[7, 6, 5, 4, 3, 2, 1]
+                &nbsp;&nbsp;<->&nbsp;&nbsp;{7, 6}&nbsp;&nbsp;&nbsp;&nbsp;{5, 4, 3, 2, 1}
+            </p>
+            <p>
+                k = 3&nbsp;&nbsp;&nbsp;&nbsp;[5, 6, 7, 1, 2, 3, 4]&nbsp;&nbsp;<->&nbsp;&nbsp;[7, 6, 5, 4, 3, 2, 1]
+                &nbsp;&nbsp;<->&nbsp;&nbsp;{7, 6, 5}&nbsp;&nbsp;&nbsp;&nbsp;{4, 3, 2, 1}
+            </p>
+            <p>
+                k = 4&nbsp;&nbsp;&nbsp;&nbsp;[4, 5, 6, 7, 1, 2, 3]&nbsp;&nbsp;<->&nbsp;&nbsp;[7, 6, 5, 4, 3, 2, 1]
+                &nbsp;&nbsp;<->&nbsp;&nbsp;{7, 6, 5, 4}&nbsp;&nbsp;&nbsp;&nbsp;{3, 2, 1}
+            </p>
+            <p>
+                k = 5&nbsp;&nbsp;&nbsp;&nbsp;[3, 4, 5, 6, 7, 1, 2]&nbsp;&nbsp;<->&nbsp;&nbsp;[7, 6, 5, 4, 3, 2, 1]
+                &nbsp;&nbsp;<->&nbsp;&nbsp;{7, 6, 5, 4, 3}&nbsp;&nbsp;&nbsp;&nbsp;{2, 1}
+            </p>
+            <p>
+                k = 6&nbsp;&nbsp;&nbsp;&nbsp;[2, 3, 4, 5, 6, 7, 1]&nbsp;&nbsp;<->&nbsp;&nbsp;[7, 6, 5, 4, 3, 2, 1]
+                &nbsp;&nbsp;<->&nbsp;&nbsp;{7, 6, 5, 4, 3, 2}&nbsp;&nbsp;&nbsp;&nbsp;{1}
+            </p>
+            <p>k = 0，数组不做旋转操作，[1, 2, 3, 4, 5, 6, 7]</p>
+            <p></p>
+
+        </div>
+    </div>
+</div>
+<script>
+    class LeetCode_189_1034 {
+        constructor() {
+
+        }
+
+        renderArray(nums, root) {
+            let parent = document.createElement('div');
+            parent.classList.add('my-grid-row');
+            for (let num of nums) {
+                let child = document.createElement('div');
+                child.innerText = num;
+                child.classList.add('my-grid-cell');
+                parent.appendChild(child);
+            }
+            return root.appendChild(parent);
+        }
+
+        rotate(nums, k) {
+            k %= nums.length;
+            if (nums.length < 2 || k === 0) {
+                return;
+            }
+            this.reverseArray(nums, 0, nums.length - 1);
+            this.reverseArray(nums, 0, k - 1);
+            this.reverseArray(nums, k, nums.length - 1);
+        }
+
+        reverseArray(array, begin, end) {
+            while (begin < end) {
+                array[begin] ^= array[end];
+                array[end] ^= array[begin];
+                array[begin++] ^= array[end--];
+            }
+        }
+    }
+</script>
+</body>
+</html>
