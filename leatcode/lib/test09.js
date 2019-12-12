@@ -163,6 +163,7 @@ class LeetCode_189_1034 {
     constructor() {
 
     }
+
     reverse(begin, end, nums) {
         while (begin < end) {
             nums[begin] ^= nums[end];
@@ -170,6 +171,7 @@ class LeetCode_189_1034 {
             nums[begin++] ^= nums[end--];
         }
     }
+
     /**
      * 题目：189.旋转数组（https://leetcode-cn.com/problems/rotate-array/）
      * 学号：1034（五期一班三组）
@@ -196,4 +198,34 @@ class LeetCode_189_1034 {
  */
 const rotate = function (nums, k) {
     new LeetCode_189_1034().rotate(nums, k);
+};
+
+
+// 给定 n 个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。
+// 求在该柱状图中，能够勾勒出来的矩形的最大面积。
+// 以上是柱状图的示例，其中每个柱子的宽度为 1，给定的高度为 [2,1,5,6,2,3]。
+// 图中阴影部分为所能勾勒出的最大矩形面积，其面积为 10 个单位。
+// 示例:
+// 输入: [2,1,5,6,2,3]
+// 输出: 10
+// Related Topics 栈 数组
+/**
+ * 题目：84.柱状图中最大的矩形
+ * 标签：栈 数组
+ * @param {number[]} heights
+ * @return {number}
+ */
+const largestRectangleArea = function (heights) {
+    const getArrayLast = (array) => array[array.length - 1];
+    let stack = [-1], maxArea = 0;
+    for (let i = 0; i < heights.length; i++) {
+        while (getArrayLast(stack) > -1 && heights[getArrayLast(stack)] >= heights[i]) {
+            maxArea = Math.max(maxArea, heights[stack.pop()] * (i - getArrayLast(stack) - 1));
+        }
+        stack.push(i);
+    }
+    while (getArrayLast(stack) > -1) {
+        maxArea = Math.max(maxArea, heights[stack.pop()] * (heights.length - getArrayLast(stack) - 1));
+    }
+    return maxArea;
 };
