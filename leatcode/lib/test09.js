@@ -209,23 +209,33 @@ const rotate = function (nums, k) {
 // 输入: [2,1,5,6,2,3]
 // 输出: 10
 // Related Topics 栈 数组
+class Stack extends Array {
+    constructor(any) {
+        super();
+        this.push(any);
+    }
+
+    peek() {
+        return this.length > 0 ? this[this.length - 1] : null;
+    }
+}
+
 /**
- * 题目：84.柱状图中最大的矩形
+ * 题目：84.柱状图中的最大矩形（https://leetcode-cn.com/problems/largest-rectangle-in-histogram/）
  * 标签：栈 数组
  * @param {number[]} heights
  * @return {number}
  */
 const largestRectangleArea = function (heights) {
-    const getArrayLast = (array) => array[array.length - 1];
-    let stack = [-1], maxArea = 0;
+    let stack = new Stack(-1), maxArea = 0;
     for (let i = 0; i < heights.length; i++) {
-        while (getArrayLast(stack) > -1 && heights[getArrayLast(stack)] >= heights[i]) {
-            maxArea = Math.max(maxArea, heights[stack.pop()] * (i - getArrayLast(stack) - 1));
+        while (stack.peek() > -1 && heights[stack.peek()] >= heights[i]) {
+            maxArea = Math.max(maxArea, heights[stack.pop()] * (i - stack.peek() - 1));
         }
         stack.push(i);
     }
-    while (getArrayLast(stack) > -1) {
-        maxArea = Math.max(maxArea, heights[stack.pop()] * (heights.length - getArrayLast(stack) - 1));
+    while (stack.peek() > -1) {
+        maxArea = Math.max(maxArea, heights[stack.pop()] * (heights.length - stack.peek() - 1));
     }
     return maxArea;
 };
