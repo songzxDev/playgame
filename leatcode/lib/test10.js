@@ -174,3 +174,46 @@ const preorder = function (root) {
     helper(root, res);
     return res;
 };
+
+//给定一个 N 叉树，返回其节点值的后序遍历。
+//
+// 例如，给定一个 3叉树 :
+//
+//
+//
+//
+//
+//
+//
+// 返回其后序遍历: [5,6,3,2,4,1].
+//
+//
+//
+// 说明: 递归法很简单，你可以使用迭代法完成此题吗? Related Topics 树
+
+
+
+//leetcode submit region begin(Prohibit modification and deletion)
+/**
+ * 题目：590.N叉树的后续遍历（https://leetcode-cn.com/problems/n-ary-tree-postorder-traversal/）
+ * 学号：1034（五期一班三组）
+ * 标签：树
+ * @param {Node} root
+ * @return {number[]}
+ */
+const postorder = function(root) {
+    const helper = (tree, res) => {
+        if (tree) {
+            if (tree.children) {
+                for (let child of tree.children) {
+                    helper(child,res);
+                }
+            }
+            res.push(tree.val);
+        }
+    };
+    let res = [];
+    helper(root, res);
+    return res;
+};
+//leetcode submit region end(Prohibit modification and deletion)
