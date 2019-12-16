@@ -135,4 +135,42 @@ const largestRectangleArea = function (heights) {
     }
     return maxArea;
 };
+
 //leetcode submit region end(Prohibit modification and deletion)
+
+class Node {
+    constructor(val, children) {
+        this.val = val;
+        this.children = children;
+    }
+}
+
+//给定一个 N 叉树，返回其节点值的前序遍历。
+//
+// 例如，给定一个 3叉树 :
+//
+// 返回其前序遍历: [1,3,5,6,2,4]。
+//
+// 说明: 递归法很简单，你可以使用迭代法完成此题吗? Related Topics 树
+/**
+ * 题目：589.N叉树的前序遍历（https://leetcode-cn.com/problems/n-ary-tree-preorder-traversal/）
+ * 标签：树
+ * 学号：1034（五期一班三组）
+ * @param {Node} root
+ * @return {number[]}
+ */
+const preorder = function (root) {
+    const helper = (tree, res) => {
+        if (tree) {
+            res.push(tree.val);
+            if (tree.children) {
+                for (let child of tree.children) {
+                    helper(child, res);
+                }
+            }
+        }
+    };
+    let res = [];
+    helper(root, res);
+    return res;
+};
