@@ -239,3 +239,49 @@ const largestRectangleArea = function (heights) {
     }
     return maxArea;
 };
+
+class TreeNode {
+    constructor(val) {
+        this.val = val;
+        this.left = null;
+        this.right = null;
+    }
+}
+//给定一个二叉树，返回它的中序 遍历。
+//
+// 示例:
+//
+// 输入: [1,null,2,3]
+//   1
+//    \
+//     2
+//    /
+//   3
+//
+//输出: [1,3,2]
+//
+// 进阶: 递归算法很简单，你可以通过迭代算法完成吗？
+// Related Topics 栈 树 哈希表
+/**
+ * 94.二叉树的中序遍历（https://leetcode-cn.com/problems/binary-tree-inorder-traversal/）
+ * 学员：1034（五期一班三组）
+ * 标签：树 栈
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+const inorderTraversal = function(root) {
+    const helper = (root, res) => {
+        if (root) {
+            if (root.left) {
+                helper(root.left, res);
+            }
+            res.push(root.val);
+            if (root.right) {
+                helper(root.right, res);
+            }
+        }
+    };
+    let res = [];
+    helper(root, res);
+    return res;
+};
