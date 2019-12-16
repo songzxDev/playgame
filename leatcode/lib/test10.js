@@ -263,3 +263,43 @@ const levelOrder = function (root) {
     return res;
 };
 //leetcode submit region end(Prohibit modification and deletion)
+
+//给出 n 代表生成括号的对数，请你写出一个函数，使其能够生成所有可能的并且有效的括号组合。
+//
+// 例如，给出 n = 3，生成结果为：
+//
+// [
+//  "((()))",
+//  "(()())",
+//  "(())()",
+//  "()(())",
+//  "()()()"
+//]
+//
+// Related Topics 字符串 回溯算法
+//leetcode submit region begin(Prohibit modification and deletion)
+/**
+ * 题目：22.括号生成（https://leetcode-cn.com/problems/generate-parentheses/）
+ * 学号：1034（五期一班三组）
+ * 标签：树 递归
+ * @param {number} n
+ * @return {string[]}
+ */
+const generateParenthesis = function (n) {
+    const helper = (left, right, n, s, res) => {
+        if (left === n && right === n) {
+            res.push(s);
+            return;
+        }
+        if (left < n) {
+            helper(left + 1, right, n, s.concat('('), res);
+        }
+        if (left > right) {
+            helper(left, right + 1, n, s.concat(')'), res);
+        }
+    };
+    let res = [];
+    helper(0, 0, n, '', res);
+    return res;
+};
+//leetcode submit region end(Prohibit modification and deletion)
