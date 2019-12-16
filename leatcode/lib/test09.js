@@ -285,3 +285,43 @@ const inorderTraversal = function(root) {
     helper(root, res);
     return res;
 };
+
+//给定一个二叉树，返回它的 前序 遍历。
+//
+// 示例:
+//
+// 输入: [1,null,2,3]
+//   1
+//    \
+//     2
+//    /
+//   3
+//
+//输出: [1,2,3]
+//
+//
+// 进阶: 递归算法很简单，你可以通过迭代算法完成吗？
+// Related Topics 栈 树
+/**
+ * 144.二叉树的前序遍历（https://leetcode-cn.com/problems/binary-tree-preorder-traversal/）
+ * 学员：1034（五期一班三组）
+ * 标签：树 栈
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+const preorderTraversal = function(root) {
+    const helper = (tree, res) => {
+        if (tree) {
+            res.push(tree.val);
+            if (tree.left) {
+                helper(tree.left, res);
+            }
+            if (tree.right) {
+                helper(tree.right, res);
+            }
+        }
+    };
+    let res = [];
+    helper(root, res);
+    return res;
+};
