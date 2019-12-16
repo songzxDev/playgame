@@ -192,7 +192,6 @@ const preorder = function (root) {
 // 说明: 递归法很简单，你可以使用迭代法完成此题吗? Related Topics 树
 
 
-
 //leetcode submit region begin(Prohibit modification and deletion)
 /**
  * 题目：590.N叉树的后续遍历（https://leetcode-cn.com/problems/n-ary-tree-postorder-traversal/）
@@ -201,12 +200,12 @@ const preorder = function (root) {
  * @param {Node} root
  * @return {number[]}
  */
-const postorder = function(root) {
+const postorder = function (root) {
     const helper = (tree, res) => {
         if (tree) {
             if (tree.children) {
                 for (let child of tree.children) {
-                    helper(child,res);
+                    helper(child, res);
                 }
             }
             res.push(tree.val);
@@ -214,6 +213,53 @@ const postorder = function(root) {
     };
     let res = [];
     helper(root, res);
+    return res;
+};
+//leetcode submit region end(Prohibit modification and deletion)
+
+//给定一个 N 叉树，返回其节点值的层序遍历。 (即从左到右，逐层遍历)。
+//
+// 例如，给定一个 3叉树 :
+//
+// 返回其层序遍历:
+//
+// [
+//     [1],
+//     [3,2,4],
+//     [5,6]
+//]
+//
+// 说明:
+//
+// 树的深度不会超过 1000。
+// 树的节点总数不会超过 5000。
+// Related Topics 树 广度优先搜索
+//leetcode submit region begin(Prohibit modification and deletion)
+/**
+ * 题目：429.N叉树的层序遍历（https://leetcode-cn.com/problems/n-ary-tree-level-order-traversal/）
+ * 标签：树
+ * 学号：1034（五期一班三组）
+ * @param {Node} root
+ * @return {number[][]}
+ */
+const levelOrder = function (root) {
+    const helper = (tree, level, res) => {
+        if (tree) {
+            let dep = res.length > level ? res[level] : [];
+            dep.push(tree.val);
+            if (res.length <= level) {
+                res.push(dep);
+            }
+            if (tree.children) {
+                for (let child of tree.children) {
+                    helper(child, level + 1, res);
+                }
+            }
+
+        }
+    };
+    let res = [];
+    helper(root, 0, res);
     return res;
 };
 //leetcode submit region end(Prohibit modification and deletion)
