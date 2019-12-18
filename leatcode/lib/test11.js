@@ -53,7 +53,7 @@ const isValidBST = function (root) {
         if (!tree) {
             return true;
         }
-        if (tree && helper(tree.left)) {
+        if (helper(tree.left)) {
             if (last < tree.val) {
                 last = tree.val;
                 return helper(tree.right);
