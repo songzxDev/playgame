@@ -48,7 +48,7 @@ class TreeNode {
  * @return {boolean}
  */
 const isValidBST = function (root) {
-    let last = -Number.MAX_SAFE_INTEGER - 1;
+    let last = -Math.pow(2, 53);
     const helper = (tree) => {
         if (!tree) {
             return true;
