@@ -61,3 +61,45 @@ const isValidBST = function (root) {
     return helper(root, min, max);
 };
 //leetcode submit region end(Prohibit modification and deletion)
+
+//给定两个整数 n 和 k，返回 1 ... n 中所有可能的 k 个数的组合。
+//
+// 示例:
+//
+// 输入: n = 4, k = 2
+//输出:
+//[
+//  [2,4],
+//  [3,4],
+//  [2,3],
+//  [1,2],
+//  [1,3],
+//  [1,4],
+//]
+// Related Topics 回溯算法
+//leetcode submit region begin(Prohibit modification and deletion)
+/**
+ * 题目：77.组合（https://leetcode-cn.com/problems/combinations/）
+ * 标签：递归 回溯算法
+ * 学员：1034（五期一班三组）
+ * @param {number} n
+ * @param {number} k
+ * @return {number[][]}
+ */
+const combine = function (n, k) {
+    const helper = (combs, comb, a, n, k) => {
+        if (k === 0) {
+            combs.push(Array.from(comb));
+            return;
+        }
+        for (let i = a; i <= n; i++) {
+            comb.push(i);
+            helper(combs, comb, i + 1, n, k - 1);
+            comb.pop();
+        }
+    };
+    let combs = [];
+    helper(combs, [], 1, n, k);
+    return combs;
+};
+//leetcode submit region end(Prohibit modification and deletion)
