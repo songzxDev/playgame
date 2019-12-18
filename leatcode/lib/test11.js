@@ -48,19 +48,16 @@ class TreeNode {
  * @return {boolean}
  */
 const isValidBST = function (root) {
-    let last = -Math.pow(2, 53);
-    const helper = (tree) => {
+    const helper = (tree, min, max) => {
         if (!tree) {
             return true;
         }
-        if (helper(tree.left)) {
-            if (last < tree.val) {
-                last = tree.val;
-                return helper(tree.right);
-            }
+        if (tree.val <= min || tree.val >= max) {
+            return false;
         }
-        return false;
+        return helper(tree.left, min, tree.val) && helper(tree.right, tree.val, max);
     };
-    return helper(root);
+    let [min, max] = [-Math.pow(2, 53), Math.pow(2, 53) - 1];
+    return helper(root, min, max);
 };
 //leetcode submit region end(Prohibit modification and deletion)
