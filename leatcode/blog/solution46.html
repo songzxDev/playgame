@@ -99,7 +99,7 @@
                         tmpList.push(num);
                         renderText(showSolution, `tmpList.push(${num}), tmpList => ${JSON.stringify([...tmpList])}`, 'list-push');
                         renderText(showSolution,
-                            `helper(${JSON.stringify([...resList])},${JSON.stringify([...tmpList])}, ${JSON.stringify([...nums])});`
+                            `helper(resList=${JSON.stringify([...resList])}, tmpList=${JSON.stringify([...tmpList])}, nums=${JSON.stringify([...nums])});`
                             , 'list-backtrack');
                         helper(resList, tmpList, nums);
                         renderText(showSolution, `tmpList => ${JSON.stringify([...tmpList])}, tmpList.pop() => delete ${tmpList.pop()}, tmpList => ${JSON.stringify([...tmpList])}`, 'list-pop');
