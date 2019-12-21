@@ -71,7 +71,7 @@ console.log(JSON.stringify(subtract(10), null, 4));
 1. 阅读递归算法类的代码，可以将整体代码拆分为：递归语句调用前和递归语句调用后两个部分
 2. 理解源码顺序可以尝试从：递归终止逻辑 -> 递归语句调用后的逻辑 -> 递归语句调用前的逻辑去理解
 3. 单一的从递归函数执行顺序去理解整个函数逻辑的话面对一些相对复杂(*我这种小白来讲*)的题目，会容易陷入思路的死循环，例如：[题目：46.全排列](https://leetcode-cn.com/problems/permutations/)   
-[参考国际站大佬](https://leetcode.com/problems/permutations/discuss/18239/A-general-approach-to-backtracking-questions-in-Java-(Subsets-Permutations-Combination-Sum-Palindrome-Partioning))改写的javascript版本   
+[参考国际站大佬](https://leetcode.com/problems/permutations/discuss/18239/A-general-approach-to-backtracking-questions-in-Java-(Subsets-Permutations-Combination-Sum-Palindrome-Partioning)) 改写的javascript版本，[自己尝试梳理的执行步骤](https://songzxdev.github.io/playgame/leatcode/blog/solution46.html)  
 ```javascript
 /**
    * 题目：46.全排列（https://leetcode-cn.com/problems/permutations/）
@@ -98,4 +98,3 @@ console.log(JSON.stringify(subtract(10), null, 4));
       return helper([], [], nums);
   };
 ```
-[自己尝试梳理的执行步骤](https://songzxdev.github.io/playgame/leatcode/blog/solution46.html)
