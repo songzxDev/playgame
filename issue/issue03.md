@@ -1,4 +1,4 @@
-# 递归之浅解
+# 递归算法学习收获
 ## 观察一段简单的递归代码
 ### 函数定义
 [覃超老师提供的递归代码模版](https://shimo.im/docs/DjqqGCT3xqDYwPyY/read)   
@@ -67,3 +67,35 @@ console.log(JSON.stringify(subtract(10), null, 4));
 3. 递归函数中必须包含可以终止递归调用的语句来避免死循环
 4. 对比观察后得出 calling 中越靠后的语句在 execution 中越靠前，这有点类似一种数据结构：__栈__
     + 可以尝试将递归调用理解为：入栈和出栈操作，函数按照调用顺序依次入栈，入栈操作结束后(*递归终止*)，开始进行关键逻辑调用就是出栈操作，出栈顺序：先入后出
+## 本周收获
+1. 阅读递归算法类的代码，可以将整体代码拆分为：递归语句调用前和递归语句调用后两个部分
+2. 理解源码顺序可以尝试从：递归终止逻辑 -> 递归语句调用后的逻辑 -> 递归语句调用前的逻辑去理解
+3. 单一的从递归函数执行顺序去理解整个函数逻辑的话面对一些相对复杂(*我这种小白来讲*)的题目，会容易陷入思路的死循环，例如：[题目：46.全排列](https://leetcode-cn.com/problems/permutations/)   
+[参考国际站大佬改造的 javascript 版本](https://leetcode.com/problems/permutations/discuss/18239/A-general-approach-to-backtracking-questions-in-Java-(Subsets-Permutations-Combination-Sum-Palindrome-Partioning))    
+[自己尝试梳理的执行步骤](https://songzxdev.github.io/playgame/leatcode/blog/solution46.html) 
+```javascript
+/**
+   * 题目：46.全排列（https://leetcode-cn.com/problems/permutations/）
+   * 学号：1034（五期一班三组）
+   * 标签：递归 回溯算法
+   * @param {number[]} nums
+   * @return {number[][]}
+   */
+  const permute = function (nums) {
+      const helper = (res, tempList, nums) => {
+          if (tempList.length === nums.length) {
+              res.push(Array.from(tempList));
+              return res;
+          }
+          for (let i = 0; i < nums.length; i++) {
+              if (!tempList.includes(nums[i])) {
+                  tempList.push(nums[i]);
+                  helper(res, tempList, nums);
+                  tempList.pop();
+              }
+          }
+          return res;
+      };
+      return helper([], [], nums);
+  };
+```
