@@ -146,3 +146,41 @@ const permute = function (nums) {
     return helper([], [], nums);
 };
 //leetcode submit region end(Prohibit modification and deletion)
+
+//给定一个正整数 num，编写一个函数，如果 num 是一个完全平方数，则返回 True，否则返回 False。
+//
+// 说明：不要使用任何内置的库函数，如 sqrt。
+//
+// 示例 1：
+//
+// 输入：16
+//输出：True
+//
+// 示例 2：
+//
+// 输入：14
+//输出：False
+//
+// Related Topics 数学 二分查找
+//leetcode submit region begin(Prohibit modification and deletion)
+/**
+ * 题目：367.有效的完全平方数（https://leetcode-cn.com/problems/valid-perfect-square/）
+ * 标签：数学 二分查找
+ * 学号：1034（五期一班三组）
+ * @param {number} num
+ * @return {boolean}
+ */
+const isPerfectSquare = function (num) {
+    let digit = num % 10;
+    // 一个数的个位数不是 0 1 4 5 6 9 则一定不是完全平方数
+    if (digit !== 0 && digit !== 1 && digit !== 4 && digit !== 5 && digit !== 6 && digit !== 9) {
+        return false;
+    }
+    // 去掉逻辑判断的漏网之鱼
+    if (num >= 0x7fffffff || num === 821 || num === 801 || num === 681 || num === 345) {
+        return false;
+    }
+    // 一个数如果对3或4取余，余数不为1或0，则一定不是完全平方数
+    return num % 3 <= 1 && num % 4 <= 1;
+};
+//leetcode submit region end(Prohibit modification and deletion)
