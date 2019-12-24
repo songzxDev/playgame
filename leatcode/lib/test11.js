@@ -184,3 +184,54 @@ const isPerfectSquare = function (num) {
     return num % 3 <= 1 && num % 4 <= 1;
 };
 //leetcode submit region end(Prohibit modification and deletion)
+
+//给定一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？找出所有满足条件且不重复的三元组。
+//
+// 注意：答案中不可以包含重复的三元组。
+//
+// 例如, 给定数组 nums = [-1, 0, 1, 2, -1, -4]，
+//
+//满足要求的三元组集合为：
+//[
+//  [-1, 0, 1],
+//  [-1, -1, 2]
+//]
+//
+// Related Topics 数组 双指针
+//leetcode submit region begin(Prohibit modification and deletion)
+/**
+ * 题目：15.三数之和（https://leetcode-cn.com/problems/3sum/）
+ * 标签：数组 双指针
+ * 学号：1034（五期一班三组）
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+const threeSum = function (nums) {
+    let res = [];
+    if (nums && nums.length > 2) {
+        nums.sort((a, b) => a - b);
+        if (nums[0] <= 0) {
+            for (let i = 0; i < nums.length - 2; i++) {
+                if (i === 0 || nums[i] > nums[i - 1]) {
+                    let j = i + 1, k = nums.length - 1;
+                    while (j < k) {
+                        let add = nums[i] + nums[j] + nums[k];
+                        if (add === 0) {
+                            res.push([nums[i], nums[j], nums[k]]);
+                            while (j < k && nums[j] === nums[++j]) {
+                            }
+                            while (j < k && nums[k] === nums[--k]) {
+                            }
+                        } else if (add < 0) {
+                            j++;
+                        } else {
+                            k--;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return res;
+};
+//leetcode submit region end(Prohibit modification and deletion)
