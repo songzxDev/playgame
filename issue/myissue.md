@@ -1,6 +1,7 @@
 ## 观察5段js和python代码的写法
 ### 遍历一个数组并修改值
-+ 示例1 数组：[1, 3, 4, 5, 6]，每个数组元素依次加1
++ 示例1 数组：[1, 3, 4, 5, 6]，每个数组元素依次加1    
+   
 __javascript 示例代码__   
 ```javascript
 let nums = [1, 3, 4, 5, 6];
@@ -15,7 +16,8 @@ nums = [1, 2, 3, 4, 5, 6]
 nums = map(lambda x: x + 1, nums)
 ``` 
 可以看出遍历修改数组的值的写法，js和python使用了同名 __map()__ 函数，语法也很相似      
-+ 示例2 找出数组中的所有偶数元素，[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
++ 示例2 找出数组中的所有偶数元素，[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]      
+   
 __javascript 示例代码__   
 ```javascript
 let nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -27,8 +29,9 @@ nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 nums = filter(lambda x: x % 2 == 0, nums)
 ```
 可以看出遍历过滤数组中特定元素数组的值的写法，js和python使用了同名 __filter()__ 函数，语法也很相似  
-+ 示例3 一行代码为多个元素初始化赋值
-__javascript 示例代码__   
++ 示例3 一行代码为多个元素初始化赋值  
+         
+__javascript 示例代码__    
 ```javascript
 let [a, b, c, d, e, f] = [1, 2, 3, 4, 5, 6];
 ```
@@ -38,7 +41,8 @@ a, b, c, d, e, f = 1, 2, 3, 4, 5, 6
 ```
 可以看出二者多变量赋值写法很相像   
 + 示例4 数组转换成Set集合   
-__javascript 示例代码__   
+  
+__javascript 示例代码__       
 ```javascript
 let array = ['a', 'b', 'c', 'd', 'e', 'f', 'g'];
 let mySet = new Set(array);
@@ -49,6 +53,7 @@ array = ['a', 'b', 'c', 'd', 'e', 'f', 'g']
 myset = set(array)
 ```
 + 示例5 数字集合字典等类型 if else 逻辑判断写法   
+
 __javascript 示例代码__   
 ```javascript
 let [a, b] = [0, null];
