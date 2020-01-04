@@ -184,3 +184,75 @@ const letterCombinations = function (digits) {
     return [];
 };
 //leetcode submit region end(Prohibit modification and deletion)
+
+//反转一个单链表。
+//
+// 示例:
+//
+// 输入: 1->2->3->4->5->NULL
+//输出: 5->4->3->2->1->NULL
+//
+// 进阶:
+//你可以迭代或递归地反转链表。你能否用两种方法解决这道题？
+// Related Topics 链表
+//leetcode submit region begin(Prohibit modification and deletion)
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+
+function ListNode(val) {
+    this.val = val;
+    this.next = null;
+}
+
+/**
+ * 题目：206.反转链表（https://leetcode-cn.com/problems/reverse-linked-list/）
+ * 学号：1034（五期一班三组）
+ * 标签：递归 遍历 链表
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+const reverseList = function (head) {
+    const helper = (node) => {
+        if (!node || !node.next) {
+            return node;
+        }
+        let prev = helper(node.next);
+        console.log(`before prev-${prev.val} -> ${JSON.stringify(prev)}`);
+        console.log(`before node-${node.val} -> ${JSON.stringify(node)}`);
+        console.log('----------------------------------------------------------------------------');
+        node.next.next = node;
+        node.next = null;
+        console.log(`after node-${node.val} -> ${JSON.stringify(node)}`);
+        console.log(`after prev-${prev.val} -> ${JSON.stringify(prev)}`);
+        console.log(`head -> ${JSON.stringify(head)}`);
+        console.log('');
+        console.log('============================================================================');
+        console.log('');
+        return prev;
+    };
+    return helper(head);
+};
+
+let head = {
+    val: 1,
+    next: {
+        val: 2,
+        next: {
+            val: 3,
+            next: {
+                val: 4,
+                next: {
+                    val: 5,
+                    next: null
+                }
+            }
+        }
+    }
+};
+reverseList(head);
+//leetcode submit region end(Prohibit modification and deletion)
