@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>题目：206.反转链表</title>
+    <link rel="stylesheet" href="../highlight/styles/monokai-sublime.css">
+    <script src="../highlight/highlight.pack.js"></script>
+</head>
+<body>
+<div id="showRunStep" style="display: flex;">
+    <div style="width: 60%;"></div>
+    <div style="width: 40%;">
+<pre>
+<code style="font-size: 15px;">
+/**
+ * 题目：206.反转链表（https://leetcode-cn.com/problems/reverse-linked-list/）
+ * 学号：1034（五期一班三组）
+ * 标签：递归 遍历 链表
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+const reverseList = function (head) {
+    const helper = (node) => {
+        if (!node || !node.next) {
+            return node;
+        }
+        let prev = helper(node.next);
+        console.log(`before prev-${prev.val} -> ${JSON.stringify(prev)}`);
+        console.log(`before node-${node.val} -> ${JSON.stringify(node)}`);
+        console.log('----------------------------------------------------------------------------');
+        node.next.next = node;
+        node.next = null;
+        console.log(`after node-${node.val} -> ${JSON.stringify(node)}`);
+        console.log(`after prev-${prev.val} -> ${JSON.stringify(prev)}`);
+        console.log(`head -> ${JSON.stringify(head)}`);
+        console.log('');
+        console.log('============================================================================');
+        console.log('');
+        return prev;
+    };
+    return helper(head);
+};
+
+let head = {
+    val: 1,
+    next: {
+        val: 2,
+        next: {
+            val: 3,
+            next: {
+                val: 4,
+                next: {
+                    val: 5,
+                    next: null
+                }
+            }
+        }
+    }
+};
+reverseList(head);
+</code>
+</pre>
+    </div>
+</div>
+<script>
+    let renderText = (parent, desc) => {
+        let p = document.createElement('p');
+        p.innerText = desc || '';
+        return parent.appendChild(p);
+    };
+    let showRunStep = document.getElementById('showRunStep').firstElementChild;
+    /**
+     * 题目：206.反转链表（https://leetcode-cn.com/problems/reverse-linked-list/）
+     * 学号：1034（五期一班三组）
+     * 标签：递归 遍历 链表
+     * @param {ListNode} head
+     * @return {ListNode}
+     */
+    const reverseList = function (head) {
+        const helper = (node) => {
+            if (!node || !node.next) {
+                return node;
+            }
+            let prev = helper(node.next);
+            renderText(showRunStep, `before prev-${prev.val} -> ${JSON.stringify(prev)}`);
+            renderText(showRunStep, `before node-${node.val} -> ${JSON.stringify(node)}`);
+            renderText(showRunStep, '----------------------------------------------------------------------------');
+            node.next.next = node;
+            node.next = null;
+            renderText(showRunStep, `after node-${node.val} -> ${JSON.stringify(node)}`);
+            renderText(showRunStep, `after prev-${prev.val} -> ${JSON.stringify(prev)}`);
+            renderText(showRunStep, `head -> ${JSON.stringify(head)}`);
+            renderText(showRunStep, '');
+            renderText(showRunStep, '============================================================================');
+            renderText(showRunStep, '');
+            return prev;
+        };
+        return helper(head);
+    };
+
+    let head = {
+        val: 1,
+        next: {
+            val: 2,
+            next: {
+                val: 3,
+                next: {
+                    val: 4,
+                    next: {
+                        val: 5,
+                        next: null
+                    }
+                }
+            }
+        }
+    };
+
+    document.addEventListener('DOMContentLoaded', evt => {
+        document.querySelectorAll('pre code').forEach((block) => {
+            hljs.highlightBlock(block);
+        });
+        reverseList(head);
+    });
+
+</script>
+</body>
+</html>
