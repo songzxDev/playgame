@@ -77,25 +77,29 @@ if a and b:  # 等价于 a > 0 and b is not None
 __背景：__ 某项目页面上需要提供 N 叉树的数据    
 + 已实现的javascript版本       
 ```javascript
-let sources = [
+let deptInfo = [
     {deptname: '一级部门-1', deptlevel: 0, parentid: 0, detpid: 1},
     {deptname: '二级部门-1', deptlevel: 1, parentid: 1, detpid: 2},
     {deptname: '二级部门-2', deptlevel: 1, parentid: 1, detpid: 3},
 ];
-function getTreeNodes(root, idKey, pidKey, sources) {
-    const helper = (tree, children, idKey, pidKey, sources) => {
-        if ((sources || []).length > 0 && tree) {
-            children = sources.filter(need => need[pidKey] === tree[idKey]);
-            for(let child of children) {
-                helper(child, [], idKey, pidKey, sources);
-            }
+const changeArrayToTree = (root, sources,childrenKey, idKey, parentKey) => {
+    const helper = (tree, childrenKey, idKey, parentKey, sources) => {
+        if (!tree) {
+            return tree;
         }
-        tree['children'] = children;
+        tree[childrenKey] = sources.filter(sc=> sc[parentKey] === tree[idKey]) || [];
+        for (let child of tree[childrenKey]) {
+            helper(child, childrenKey, idKey, parentKey, sources);
+        }
         return tree;
     };
-    return helper(root, [], idKey, pidKey, sources);
-}
-console.log(getTreeNodes(sources[0], 'detpid', 'parentid', sources));
+    return helper(root, childrenKey, idKey, parentKey, sources);
+};
+
+
+let tree = changeArrayToTree(deptInfo[0], deptInfo, 'children', 'deptid', 'parentid');
+
+console.log(JSON.stringify(tree, null, 4));
 ```
 + 仿照js版本实现的python版本       
 ```python
