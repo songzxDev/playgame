@@ -139,6 +139,7 @@ if __name__ == '__main__':
     with open('F:\\mytest\\test.json', 'w') as jsonfile:
         json.dump(helper(tests[0], [], 'projectid', 'parentid', tests), jsonfile, ensure_ascii=False)
 ```
+__python 示例代码执行结果__      
 ```json
 {
 	"projectid": "1",
