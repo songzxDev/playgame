@@ -139,6 +139,44 @@ if __name__ == '__main__':
     with open('F:\\mytest\\test.json', 'w') as jsonfile:
         json.dump(helper(tests[0], [], 'projectid', 'parentid', tests), jsonfile, ensure_ascii=False)
 ```
+```json
+{
+	"projectid": "1",
+	"children": [{
+		"projectid": "2",
+		"children": [{
+			"projectid": "4",
+			"children": [],
+			"projectname": "测试子级项目节点-A-1",
+			"parentid": "2"
+		}, {
+			"projectid": "5",
+			"children": [],
+			"projectname": "测试子级项目节点-A-2",
+			"parentid": "2"
+		}],
+		"projectname": "测试【A】级项目节点-1-1",
+		"parentid": "1"
+	}, {
+		"projectid": "3",
+		"children": [{
+			"projectid": "6",
+			"children": [],
+			"projectname": "测试子级项目节点-B-1",
+			"parentid": "3"
+		}, {
+			"projectid": "7",
+			"children": [],
+			"projectname": "测试子级项目节点-B-2",
+			"parentid": "3"
+		}],
+		"projectname": "测试【B】级项目节点-1-1",
+		"parentid": "1"
+	}],
+	"projectname": "测试父级项目节点-1",
+	"parentid": "0"
+}
+```
 ### 尝试寻找相似性  
 观察两段代码，可以发现除了在过滤子节点处python使用了高效遍历 [itertools wiki 链接](https://docs.python.org/2/library/itertools.html) 库中api之外，其他写法很相似   
 ********
