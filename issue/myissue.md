@@ -78,9 +78,9 @@ __背景：__ 某项目页面上需要提供 N 叉树的数据
 + 已实现的javascript版本       
 ```javascript
 let deptInfo = [
-    {deptname: '一级部门-1', deptlevel: 0, parentid: 0, detpid: 1},
-    {deptname: '二级部门-1', deptlevel: 1, parentid: 1, detpid: 2},
-    {deptname: '二级部门-2', deptlevel: 1, parentid: 1, detpid: 3},
+    {deptname: '一级部门-1', deptlevel: 0, parentid: 0, deptid: 1},
+    {deptname: '二级部门-1', deptlevel: 1, parentid: 1, deptid: 2},
+    {deptname: '二级部门-2', deptlevel: 1, parentid: 1, deptid: 3},
 ];
 const changeArrayToTree = (root, sources,childrenKey, idKey, parentKey) => {
     const helper = (tree, childrenKey, idKey, parentKey, sources) => {
