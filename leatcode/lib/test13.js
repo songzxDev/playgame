@@ -166,7 +166,7 @@ const longestCommonSubsequence = function (text1, text2) {
  * @param {number[]} nums
  * @return {number[][]}
  */
-const threeSum = function(nums) {
+const threeSum = function (nums) {
     let res = [];
     if (nums && nums.length > 2) {
         nums.sort((a, b) => a - b);
@@ -181,13 +181,59 @@ const threeSum = function(nums) {
                         k--;
                     } else {
                         res.push([nums[i], nums[j], nums[k]]);
-                        while (j < k && nums[j] === nums[++j]) {}
-                        while (j < k && nums[k] === nums[--k]) {}
+                        while (j < k && nums[j] === nums[++j]) {
+                        }
+                        while (j < k && nums[k] === nums[--k]) {
+                        }
                     }
                 }
             }
         }
     }
     return res;
+};
+//leetcode submit region end(Prohibit modification and deletion)
+
+
+//给你一个字符串 S、一个字符串 T，请在字符串 S 里面找出：包含 T 所有字母的最小子串。
+//
+// 示例：
+//
+// 输入: S = "ADOBECODEBANC", T = "ABC"
+//输出: "BANC"
+//
+// 说明：
+//
+//
+// 如果 S 中不存这样的子串，则返回空字符串 ""。
+// 如果 S 中存在这样的子串，我们保证它是唯一的答案。
+//
+// Related Topics 哈希表 双指针 字符串 Sliding Window
+//leetcode submit region begin(Prohibit modification and deletion)
+/**
+ * @param {string} s
+ * @param {string} t
+ * @return {string}
+ */
+const minWindow = function (s, t) {
+    if (!s || !t || s.length < t.length) return '';
+    let [i, j, start, found, minLen, tMap, winds] = [0, 0, 0, 0, 0x7fffffff, new Array(256).fill(0), new Array(256).fill(0)];
+    for (let k = 0; k < t.length; k++) tMap[t.charCodeAt(k)]++;
+    while (j < s.length) {
+        if (found < t.length) {
+            let fast = s.charCodeAt(j++);
+            if (tMap[fast] > 0) {
+                if (++winds[fast] <= tMap[fast]) found++;
+            }
+        }
+        while (found === t.length) {
+            if (j - i < minLen) [start, minLen] = [i, j - i];
+            let slow = s.charCodeAt(i++);
+            if (tMap[slow] > 0) {
+                if (--winds[slow] < tMap[slow]) found--;
+            }
+        }
+    }
+    return minLen === 0x7fffffff ? '' : s.substr(start, minLen);
 };
 //leetcode submit region end(Prohibit modification and deletion)
