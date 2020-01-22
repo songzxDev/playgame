@@ -217,23 +217,25 @@ const threeSum = function (nums) {
  */
 const minWindow = function (s, t) {
     if (!s || !t || s.length < t.length) return '';
-    let [i, j, start, found, minLen, tMap, winds] = [0, 0, 0, 0, 0x7fffffff, new Array(256).fill(0), new Array(256).fill(0)];
-    for (let k = 0; k < t.length; k++) tMap[t.charCodeAt(k)]++;
+    let i = 0, j = 0, begin = 0, found = 0, minLen = 0x7fffffff, tCache = [...t].reduce((all, n) => {
+        all[`${n}`.charCodeAt(0)]++;
+        return all;
+    }, new Array(256).fill(0)), winds = new Array(256).fill(0);
     while (j < s.length) {
         if (found < t.length) {
-            let fast = s.charCodeAt(j++);
-            if (tMap[fast] > 0) {
-                if (++winds[fast] <= tMap[fast]) found++;
+            let first = s.charCodeAt(j++);
+            if (tCache[first] > 0) {
+                if (++winds[first] <= tCache[first]) found++;
             }
         }
         while (found === t.length) {
-            if (j - i < minLen) [start, minLen] = [i, j - i];
-            let slow = s.charCodeAt(i++);
-            if (tMap[slow] > 0) {
-                if (--winds[slow] < tMap[slow]) found--;
+            if (j - i < minLen) [begin, minLen] = [i, j - i];
+            let second = s.charCodeAt(i++);
+            if (tCache[second] > 0) {
+                if (--winds[second] < tCache[second]) found--;
             }
         }
     }
-    return minLen === 0x7fffffff ? '' : s.substr(start, minLen);
+    return minLen === 0x7fffffff ? '' : s.substr(begin, minLen);
 };
 //leetcode submit region end(Prohibit modification and deletion)
