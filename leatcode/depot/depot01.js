@@ -116,3 +116,44 @@ const permute = function(nums) {
 };
 //leetcode submit region end(Prohibit modification and deletion)
 
+//给定一组不含重复元素的整数数组 nums，返回该数组所有可能的子集（幂集）。
+//
+// 说明：解集不能包含重复的子集。
+//
+// 示例:
+//
+// 输入: nums = [1,2,3]
+//输出:
+//[
+//  [3],
+//  [1],
+//  [2],
+//  [1,2,3],
+//  [1,3],
+//  [2,3],
+//  [1,2],
+//  []
+//]
+// Related Topics 位运算 数组 回溯算法
+//leetcode submit region begin(Prohibit modification and deletion)
+/**
+ * 题目：78.子集（https://leetcode-cn.com/problems/subsets/）
+ * 学号：1034（五期一班三组）
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+const subsets = function(nums) {
+    const helper = (res, sub, level, nums) => {
+        if (level === nums.length) {
+            res.push([...sub]);
+            return res;
+        }
+        helper(res, sub, level + 1, nums);
+        sub.push(nums[level]);
+        helper(res, sub, level + 1, nums);
+        sub.pop();
+        return res;
+    };
+    return helper([], [], 0, nums);
+};
+//leetcode submit region end(Prohibit modification and deletion)
