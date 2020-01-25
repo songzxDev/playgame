@@ -188,8 +188,8 @@ const subsets = function (nums) {
 const rob = function (nums) {
     if (!nums || nums.length === 0) return 0;
     let n = nums.length, a = [[0, nums[0]]];
-    for (let i = 1; i < n; i++) a.push([0, 0]);
     for (let i = 1; i < n; i++) {
+        a.push([0, 0]);
         a[i][0] = Math.max(a[i - 1][0], a[i - 1][1]);
         a[i][1] = a[i - 1][0] + nums[i];
     }
