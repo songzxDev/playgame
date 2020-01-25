@@ -40,3 +40,37 @@ const minWindow = function (s, t) {
     return minLen === 0x7fffffff ? '' : s.substr(start, minLen);
 };
 //leetcode submit region end(Prohibit modification and deletion)
+
+//给出 n 代表生成括号的对数，请你写出一个函数，使其能够生成所有可能的并且有效的括号组合。
+//
+// 例如，给出 n = 3，生成结果为：
+//
+// [
+//  "((()))",
+//  "(()())",
+//  "(())()",
+//  "()(())",
+//  "()()()"
+//]
+//
+// Related Topics 字符串 回溯算法
+//leetcode submit region begin(Prohibit modification and deletion)
+/**
+ * 题目：22.括号生成（https://leetcode-cn.com/problems/generate-parentheses/）
+ * 学号：1034（五期一班三组）
+ * @param {number} n
+ * @return {string[]}
+ */
+const generateParenthesis = function(n) {
+    const helper = (left, right, res, s, n) => {
+        if (left + right === (n << 1)) {
+            res.push(s);
+            return res;
+        }
+        if (left < n) helper(left + 1, right, res, s + '(', n);
+        if (right < left) helper(left, right + 1, res, s + ')', n);
+        return res;
+    };
+    return helper(0, 0, [], '', n);
+};
+//leetcode submit region end(Prohibit modification and deletion)
