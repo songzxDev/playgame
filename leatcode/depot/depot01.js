@@ -328,10 +328,10 @@ const longestValidParentheses = (s) => {
     for (let k = 0; k < s.length; k++) {
         dp.push(0);
         if (s.charAt(k) === '(') {
-            left++
+            left++;
         } else if (left > 0) {
             dp[k] = dp[k - 1] + 2;
-            dp[k] += (k - dp[k]) >= 0 ? dp[k - dp[k]]: 0;
+            dp[k] += (k - dp[k]) >= 0 ? dp[k - dp[k]] : 0;
             res = Math.max(res, dp[k]);
             left--;
         }
