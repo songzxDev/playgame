@@ -196,3 +196,36 @@ const rob = function (nums) {
     return Math.max(a[n - 1][0], a[n - 1][1]);
 };
 //leetcode submit region end(Prohibit modification and deletion)
+
+//给定一个整数数组 nums ，找出一个序列中乘积最大的连续子序列（该序列至少包含一个数）。
+//
+// 示例 1:
+//
+// 输入: [2,3,-2,4]
+//输出: 6
+//解释: 子数组 [2,3] 有最大乘积 6。
+//
+//
+// 示例 2:
+//
+// 输入: [-2,0,-1]
+//输出: 0
+//解释: 结果不能为 2, 因为 [-2,-1] 不是子数组。
+// Related Topics 数组 动态规划
+//leetcode submit region begin(Prohibit modification and deletion)
+/**
+ * 题目：152.乘积最大子序列（https://leetcode-cn.com/problems/maximum-product-subarray/）
+ * 学号：1034（五期一班三组）
+ * @param {number[]} nums
+ * @return {number}
+ */
+const maxProduct = function (nums) {
+    let max = -0x80000000, iMax = 1, iMin = 1;
+    for (let num of nums) {
+        if (num < 0) [iMax, iMin] = [iMin, iMax];
+        [iMax, iMin] = [Math.max(iMax * num, num), Math.min(iMin * num, num)];
+        max = Math.max(max, iMax);
+    }
+    return max;
+};
+//leetcode submit region end(Prohibit modification and deletion)
