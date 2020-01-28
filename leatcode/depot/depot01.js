@@ -298,3 +298,44 @@ class LeetCode_213_1034 {
         return Math.max(include, exclude);
     }
 }
+
+
+//给定一个只包含 '(' 和 ')' 的字符串，找出最长的包含有效括号的子串的长度。
+//
+// 示例 1:
+//
+// 输入: "(()"
+//输出: 2
+//解释: 最长有效括号子串为 "()"
+//
+//
+// 示例 2:
+//
+// 输入: ")()())"
+//输出: 4
+//解释: 最长有效括号子串为 "()()"
+//
+// Related Topics 字符串 动态规划
+//leetcode submit region begin(Prohibit modification and deletion)
+/**
+ * 题目：32.最长有效括号（https://leetcode-cn.com/problems/longest-valid-parentheses/）
+ * 学号：1034（五期一班三组）
+ * @param {string} s
+ * @return {number}
+ */
+const longestValidParentheses = (s) => {
+    let dp = [], res = 0, left = 0;
+    for (let k = 0; k < s.length; k++) {
+        dp.push(0);
+        if (s.charAt(k) === '(') {
+            left++
+        } else if (left > 0) {
+            dp[k] = dp[k - 1] + 2;
+            dp[k] += (k - dp[k]) >= 0 ? dp[k - dp[k]]: 0;
+            res = Math.max(res, dp[k]);
+            left--;
+        }
+    }
+    return res;
+};
+//leetcode submit region end(Prohibit modification and deletion)
