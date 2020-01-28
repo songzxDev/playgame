@@ -366,13 +366,13 @@ const longestValidParentheses = (s) => {
 const minPathSum = function (grid) {
     if (!grid || grid.length < 1) return 0;
     let m = grid[0].length, n = grid.length;
-    for (let k = 0; k < n; k++) {
-        for (let p = 0; p < m; p++) {
-            if (k > 0 && p > 0) grid[k][p] += Math.min(grid[k - 1][p], grid[k][p - 1]);
-            if (k === 0 && p > 0) grid[k][p] += grid[k][p - 1];
-            if (k > 0 && p === 0) grid[k][p] += grid[k - 1][p];
+    for (let p = n - 1; p >= 0; p--) {
+        for (let k = m - 1; k >= 0; k--) {
+            if (p === n - 1 && k < m - 1) grid[p][k] += grid[p][k + 1];
+            if (p < n - 1 && k === m - 1) grid[p][k] += grid[p + 1][k];
+            if (p < n - 1 && k < m - 1) grid[p][k] += Math.min(grid[p][k + 1], grid[p + 1][k]);
         }
     }
-    return grid[n - 1][m - 1];
+    return grid[0][0];
 };
 //leetcode submit region end(Prohibit modification and deletion)
