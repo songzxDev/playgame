@@ -376,3 +376,62 @@ const minPathSum = function (grid) {
     return grid[0][0];
 };
 //leetcode submit region end(Prohibit modification and deletion)
+
+//给定两个单词 word1 和 word2，计算出将 word1 转换成 word2 所使用的最少操作数 。
+//
+// 你可以对一个单词进行如下三种操作：
+//
+//
+// 插入一个字符
+// 删除一个字符
+// 替换一个字符
+//
+//
+// 示例 1:
+//
+// 输入: word1 = "horse", word2 = "ros"
+//输出: 3
+//解释:
+//horse -> rorse (将 'h' 替换为 'r')
+//rorse -> rose (删除 'r')
+//rose -> ros (删除 'e')
+//
+//
+// 示例 2:
+//
+// 输入: word1 = "intention", word2 = "execution"
+//输出: 5
+//解释:
+//intention -> inention (删除 't')
+//inention -> enention (将 'i' 替换为 'e')
+//enention -> exention (将 'n' 替换为 'x')
+//exention -> exection (将 'n' 替换为 'c')
+//exection -> execution (插入 'u')
+//
+// Related Topics 字符串 动态规划
+//leetcode submit region begin(Prohibit modification and deletion)
+/**
+ * 题目：72.编辑距离（https://leetcode-cn.com/problems/edit-distance/solution/bian-ji-ju-chi-by-leetcode/）
+ * 学号：1034（五期一班三组）
+ * @param {string} word1
+ * @param {string} word2
+ * @return {number}
+ */
+const minDistance = (word1, word2) => {
+    let m = word1.length, n = word2.length, cost = [];
+    for (let i = 0; i <= m; i++) cost.push(new Array(n + 1).fill(0));
+    for (let k = 0; k <= m; k++) cost[k][0] = k;
+    for (let p = 1; p <= n; p++) cost[0][p] = p;
+    for (let i = 0; i < m; i++) {
+        for (let j = 0; j < n; j++) {
+            if (word1.charAt(i) === word2.charAt(j)) {
+                cost[i + 1][j + 1] = cost[i][j];
+            } else {
+                let [a, b, c] = [cost[i][j], cost[i][j + 1], cost[i + 1][j]];
+                cost[i + 1][j + 1] = 1 + (a < b ? Math.min(a, c) : Math.min(b, c));
+            }
+        }
+    }
+    return cost[m][n];
+};
+//leetcode submit region end(Prohibit modification and deletion)
