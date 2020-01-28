@@ -263,4 +263,38 @@ const coinChange = function (coins, amount) {
     }
     return dp[amount] > amount ? -1 : dp[amount];
 };
+
 //leetcode submit region end(Prohibit modification and deletion)
+
+class LeetCode_213_1034 {
+    /**
+     * 题目：213.打家劫舍II（https://leetcode-cn.com/problems/house-robber-ii/）
+     * 学号：1034（五期一班三组）
+     * @param nums
+     * @returns {*}
+     */
+    robDp(nums) {
+        if (nums.length === 1) return nums[0];
+        let n = nums.length, a = new Array(n + 1).fill(0), b = new Array(n + 1).fill(0);
+        for (let i = 2; i <= n; i++) {
+            a[i] = Math.max(a[i - 1], a[i - 2] + nums[i - 2]);
+            b[i] = Math.max(b[i - 1], b[i - 2] + nums[i - 1]);
+        }
+        return Math.max(a[n], b[n]);
+    }
+
+    rob(nums) {
+        if (nums.length === 1) return nums[0];
+        return Math.max(this.robRange(nums, 0, nums.length - 2),
+            this.robRange(nums, 1, nums.length - 1));
+    }
+
+    robRange(nums, lower, high) {
+        let include = 0, exclude = 0;
+        for (let k = lower; k <= high; k++) {
+            let [inc, exc] = [include, exclude];
+            [include, exclude] = [exc + nums[k], Math.max(exc, inc)];
+        }
+        return Math.max(include, exclude);
+    }
+}
