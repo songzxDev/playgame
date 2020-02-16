@@ -297,6 +297,8 @@ const minWindow = function (s, t) {
 // Related Topics 数学 字符串
 //leetcode submit region begin(Prohibit modification and deletion)
 /**
+ * 题目：8.字符串转整数（atoi） 学号：1034（五期一班三组）
+ * https://leetcode-cn.com/problems/string-to-integer-atoi/
  * @param {string} str
  * @return {number}
  */
