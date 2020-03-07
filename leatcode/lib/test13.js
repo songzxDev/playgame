@@ -312,3 +312,46 @@ const myAtoi = (str) => {
     return Math.max(-0x80000000, Math.min(0x7fffffff, sign * ans));
 };
 //leetcode submit region end(Prohibit modification and deletion)
+
+//给定一个由 '1'（陆地）和 '0'（水）组成的的二维网格，计算岛屿的数量。一个岛被水包围，并且它是通过水平方向或垂直方向上相邻的陆地连接而成的。你可以假设
+//网格的四个边均被水包围。
+//
+// 示例 1:
+//
+// 输入:
+//11110
+//11010
+//11000
+//00000
+//
+//输出: 1
+//
+//
+// 示例 2:
+//
+// 输入:
+//11000
+//11000
+//00100
+//00011
+//
+//输出: 3
+//
+// Related Topics 深度优先搜索 广度优先搜索 并查集
+//leetcode submit region begin(Prohibit modification and deletion)
+/**
+ * 题目：200.岛屿数量（https://leetcode-cn.com/problems/number-of-islands/）
+ * @param {string[][]} grid
+ * @return {number}
+ */
+const numIslands = function (grid) {
+    let lands = 0, vd = [0, 1, 0, -1, 0], sink = (grid, m, n) => {
+        if (m < 0 || m === grid.length || n < 0 || n === grid[m].length || grid[m][n] === '0') return 0;
+        grid[m][n] = '0';
+        for (let k = 0; k < vd.length - 1; k++) sink(grid, m + vd[k], n + vd[k + 1]);
+        return 1;
+    };
+    for (let i = 0; i < grid.length; i++) for (let j = 0; j < grid[i].length; j++) lands += sink(grid, i, j);
+    return lands;
+};
+//leetcode submit region end(Prohibit modification and deletion)
