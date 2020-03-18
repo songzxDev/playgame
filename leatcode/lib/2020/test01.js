@@ -43,18 +43,16 @@
  */
 const countCharacters = (words, chars) => {
     if (!words || words.length === 0 || !chars) return 0;
-    let ans = 0, chrCount = new Array(26).fill(0);
-    for (let k = 0; k < chars.length; k++) chrCount[chars.charCodeAt(k) - 97]++;
-    for (let wd of words) {
-        let isAdd = true, tmp = [...chrCount];
-        for (let w of wd) {
-            if (tmp[w.charCodeAt(0) - 97]-- === 0) {
-                isAdd = false;
-                break;
-            }
+    let isKnowWord = (word, chrCount) => {
+        let wordCount = new Array(26).fill(0);
+        for (let i = 0; i < word.length; i++) {
+            let wd = word.charCodeAt(i) - 97;
+            if (wordCount[wd]++ === chrCount[wd]) return false;
         }
-        if (isAdd) ans += wd.length;
-    }
+        return true;
+    }, ans = 0, chrCount = new Array(26).fill(0);
+    for (let k = 0; k < chars.length; k++) chrCount[chars.charCodeAt(k) - 97]++;
+    for (let word of words) if (isKnowWord(word, chrCount)) ans += word.length;
     return ans;
 };
 //leetcode submit region end(Prohibit modification and deletion)
