@@ -43,22 +43,17 @@
  */
 const countCharacters = (words, chars) => {
     if (!words || words.length === 0 || !chars) return 0;
-    const getCharCount = (str) => {
-        let cache = new Array(26).fill(0);
-        for (let k = 0; k < str.length; k++) cache[str.charCodeAt(k) - 97]++;
-        return cache;
-    };
-    let ans = 0, chrCount = getCharCount(chars);
+    let ans = 0, chrCount = new Array(26).fill(0);
+    for (let k = 0; k < chars.length; k++) chrCount[chars.charCodeAt(k) - 97]++;
     for (let wd of words) {
-        let isAdd = true, wdCount = getCharCount(wd);
+        let isAdd = true, tmp = [...chrCount];
         for (let w of wd) {
-            let idx = w.charCodeAt(0) - 97;
-            if (chrCount[idx] === 0 || chrCount[idx] < wdCount[idx]) {
+            if (tmp[w.charCodeAt(0) - 97]-- === 0) {
                 isAdd = false;
                 break;
             }
         }
-        ans += isAdd ? wd.length : 0;
+        if (isAdd) ans += wd.length;
     }
     return ans;
 };
