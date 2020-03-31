@@ -150,10 +150,13 @@ const uniquePathsWithObstacles = (obstacleGrid) => {
  */
 const sortArray = (nums) => {
     if (nums.length <= 1) return nums;
-    let pivot = nums[Math.random() * nums.length | 0];
-    let lt = nums.filter(n => n < pivot), eq = nums.filter(n => n === pivot), gt = nums.filter(n => n > pivot);
+    let pivot = nums[Math.random() * nums.length | 0], lt = [], eq = [], gt = [];
+    for (let n of nums) {
+        if (n === pivot) eq.push(n);
+        if (n > pivot) gt.push(n);
+        if (n < pivot) lt.push(n);
+    }
     return [...sortArray(lt), ...eq, ...sortArray(gt)];
 };
 //leetcode submit region end(Prohibit modification and deletion)
 
-console.log(sortArray([99, 89, 0, 1, 9, 7, -1]));
