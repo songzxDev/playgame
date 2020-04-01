@@ -143,14 +143,11 @@ const uniquePathsWithObstacles = (obstacleGrid) => {
 //
 //
 //leetcode submit region begin(Prohibit modification and deletion)
-/**
- * 题目-912：排序数组 https://leetcode-cn.com/problems/sort-an-array/
- * @param {number[]} nums
- * @return {number[]}
- */
-const sortArray = (nums) => {
-    if (nums.length < 2) return nums;
-    const partition = (array, begin, end) => {
+class MySortMethod {
+    constructor() {
+    }
+
+    partition(array, begin, end) {
         let pivot = end, counter = begin;
         for (let i = begin; i < end; i++) {
             if (array[i] < array[pivot]) {
@@ -160,13 +157,24 @@ const sortArray = (nums) => {
         }
         [array[pivot], array[counter]] = [array[counter], array[pivot]];
         return counter;
-    }, quickSort = (array, begin, end) => {
+    }
+
+    quickSort(array, begin, end) {
         if (end <= begin) return;
-        let pivot = partition(array, begin, end);
-        quickSort(array, begin, pivot - 1);
-        quickSort(array, pivot + 1, end);
-    };
-    quickSort(nums, 0, nums.length - 1);
+        let pivot = this.partition(array, begin, end);
+        this.quickSort(array, begin, pivot - 1);
+        this.quickSort(array, pivot + 1, end);
+    }
+}
+
+/**
+ * 题目-912：排序数组 https://leetcode-cn.com/problems/sort-an-array/
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+const sortArray = (nums) => {
+    if (nums.length < 2) return nums;
+    new MySortMethod().quickSort(nums, 0, nums.length - 1);
     return nums;
 };
 //leetcode submit region end(Prohibit modification and deletion)
