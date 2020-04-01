@@ -149,14 +149,26 @@ const uniquePathsWithObstacles = (obstacleGrid) => {
  * @return {number[]}
  */
 const sortArray = (nums) => {
-    if (nums.length <= 1) return nums;
-    let pivot = nums[Math.random() * nums.length | 0], lt = [], eq = [], gt = [];
-    for (let n of nums) {
-        if (n === pivot) eq.push(n);
-        if (n > pivot) gt.push(n);
-        if (n < pivot) lt.push(n);
-    }
-    return [...sortArray(lt), ...eq, ...sortArray(gt)];
+    if (nums.length < 2) return nums;
+    const partition = (array, begin, end) => {
+        let pivot = end, counter = begin;
+        for (let i = begin; i < end; i++) {
+            if (array[i] < array[pivot]) {
+                [array[i], array[counter]] = [array[counter], array[i]];
+                counter++;
+            }
+        }
+        [array[pivot], array[counter]] = [array[counter], array[pivot]];
+        return counter;
+    }, quickSort = (array, begin, end) => {
+        if (end <= begin) return;
+        let pivot = partition(array, begin, end);
+        quickSort(array, begin, pivot - 1);
+        quickSort(array, pivot + 1, end);
+    };
+    quickSort(nums, 0, nums.length - 1);
+    return nums;
 };
 //leetcode submit region end(Prohibit modification and deletion)
 
+console.log(sortArray([999, 0, 9, -98, 76, 35, 2, 1, 4]));
