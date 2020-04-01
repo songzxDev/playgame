@@ -147,7 +147,7 @@ class MySortMethod {
     constructor() {
     }
 
-    partition(array, begin, end) {
+    static partition(array, begin, end) {
         let pivot = end, counter = begin;
         for (let i = begin; i < end; i++) {
             if (array[i] < array[pivot]) {
@@ -159,7 +159,7 @@ class MySortMethod {
         return counter;
     }
 
-    quickSort(array, begin, end) {
+    static quickSort(array, begin, end) {
         if (end <= begin) return;
         let pivot = this.partition(array, begin, end);
         this.quickSort(array, begin, pivot - 1);
@@ -174,7 +174,7 @@ class MySortMethod {
  */
 const sortArray = (nums) => {
     if (nums.length < 2) return nums;
-    new MySortMethod().quickSort(nums, 0, nums.length - 1);
+    MySortMethod.quickSort(nums, 0, nums.length - 1);
     return nums;
 };
 //leetcode submit region end(Prohibit modification and deletion)
