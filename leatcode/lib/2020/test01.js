@@ -216,9 +216,9 @@ const threeSum = (nums) => {
                     while (j < k && nums[j] === nums[++j]) {}
                     while (j < k && nums[k] === nums[--k]) {}
                 } else if (add < 0) {
-                    j++;
+                    while (j < k && nums[j] === nums[++j]) {}
                 } else {
-                    k--;
+                    while (j < k && nums[k] === nums[--k]) {}
                 }
             }
         }
