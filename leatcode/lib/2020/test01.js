@@ -147,6 +147,10 @@ class MySortMethod {
     constructor() {
     }
 
+    static isEmptyArray(array) {
+        return !Array.isArray(array) || array.length === 0;
+    }
+
     static partition(array, begin, end) {
         let pivot = end, counter = begin;
         for (let i = begin; i < end; i++) {
@@ -167,17 +171,20 @@ class MySortMethod {
     }
 
     static countSort(array) {
-        if (!array || array.length < 2) return;
-        /*由于 -50000 <= A[i] <= 50000
-        因此"桶" 的大小为 50000 - (-50000) = 10_0000
-        并且设置偏移 OFFSET = 50000，目的是让每一个数都能够大于等于 0
-        这样就可以作为 count 数组的下标，查询这个数的计数*/
-        const maxNum = Math.max.apply(null, array), minNum = Math.min.apply(null, array),
-            size = maxNum - minNum + 1, len = array.length, counts = new Array(size).fill(0);
-        for (let arr of array) counts[arr - minNum]++;
-        for (let i = 1; i < size; i++) counts[i] += counts[i - 1];
+        if (this.isEmptyArray(array) || array.length < 2) return;
+        let len = array.length, minNum = array[0], maxNum = array[0];
+        for (let i = 1; i < len; i++) {
+            if (array[i] > maxNum) maxNum = array[i];
+            else if (array[i] < minNum) minNum = array[i];
+        }
+        const size = maxNum - minNum + 1, count = new Array(size).fill(0);
+        for (let num of array) count[num - minNum]++;
+        for (let i = 1; i < size; i++) count[i] += count[i - 1];
         let temp = [...array];
-        for (let j = len - 1; j >= 0; j--) array[--counts[temp[j] - minNum]] = temp[j];
+        for (let j = len - 1; j >= 0; j--) {
+            let k = --count[temp[j] - minNum];
+            array[k] = temp[j];
+        }
     }
 }
 
