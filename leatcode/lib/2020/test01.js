@@ -253,3 +253,20 @@ const threeSum = (nums) => {
     return res;
 };
 //leetcode submit region end(Prohibit modification and deletion)
+
+/**
+ *
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+const countSort = (nums) => {
+    if (!nums || nums.length < 2) return nums;
+    let first = nums[0], minNum = first, maxNum = first, len = nums.length;
+    for (let num of nums) [minNum, maxNum] = [Math.min(num, minNum), Math.max(num, maxNum)];
+    const size = maxNum - minNum + 1, count = new Array(size).fill(0);
+    for (let num of nums) count[num - minNum]++;
+    for (let i = 1; i < size; i++) count[i] += count[i - 1];
+    let copied = [...nums];
+    for (let j = len - 1; j >= 0; j--) nums[--count[copied[j] - minNum]] = copied[j];
+    return nums;
+};
