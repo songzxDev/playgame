@@ -146,6 +146,9 @@ const uniquePathsWithObstacles = (obstacleGrid) => {
 class MySortMethod {
     constructor() {
     }
+    static get offset() {
+        return 50000;
+    }
 
     static partition(array, begin, end) {
         let pivot = end, counter = begin;
@@ -165,6 +168,19 @@ class MySortMethod {
         this.quickSort(array, begin, pivot - 1);
         this.quickSort(array, pivot + 1, end);
     }
+
+    static countSort(array) {
+        if (!array || array.length < 2) return;
+        let len = array.length, size = 100000, count = new Array(size).fill(0);
+        for (let num of array) count[num + this.offset]++;
+        for (let i = 1; i < size; i++) count[i] += count[i - 1];
+        let temp = [...array];
+        for (let j = len - 1; j >= 0; j--) {
+            let k = count[temp[j] + this.offset] - 1;
+            array[k] = temp[j];
+            count[temp[j] + this.offset]--;
+        }
+    }
 }
 
 /**
@@ -174,9 +190,11 @@ class MySortMethod {
  */
 const sortArray = (nums) => {
     if (nums.length < 2) return nums;
-    MySortMethod.quickSort(nums, 0, nums.length - 1);
+    // MySortMethod.quickSort(nums, 0, nums.length - 1);
+    MySortMethod.countSort(nums);
     return nums;
 };
+// console.log(sortArray([-1, 0, 1, 2, -1, -4]));
 //leetcode submit region end(Prohibit modification and deletion)
 
 //给你一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？请你找出所有满足条件且不重复
@@ -213,12 +231,16 @@ const threeSum = (nums) => {
                 const add = nums[i] + nums[j] + nums[k];
                 if (add === 0) {
                     res.push([nums[i], nums[j], nums[k]]);
-                    while (j < k && nums[j] === nums[++j]) {}
-                    while (j < k && nums[k] === nums[--k]) {}
+                    while (j < k && nums[j] === nums[++j]) {
+                    }
+                    while (j < k && nums[k] === nums[--k]) {
+                    }
                 } else if (add < 0) {
-                    while (j < k && nums[j] === nums[++j]) {}
+                    while (j < k && nums[j] === nums[++j]) {
+                    }
                 } else {
-                    while (j < k && nums[k] === nums[--k]) {}
+                    while (j < k && nums[k] === nums[--k]) {
+                    }
                 }
             }
         }
