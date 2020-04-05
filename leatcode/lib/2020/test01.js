@@ -146,9 +146,6 @@ const uniquePathsWithObstacles = (obstacleGrid) => {
 class MySortMethod {
     constructor() {
     }
-    static get OFFSET() {
-        return 50000;
-    }
 
     static partition(array, begin, end) {
         let pivot = end, counter = begin;
@@ -175,19 +172,12 @@ class MySortMethod {
         因此"桶" 的大小为 50000 - (-50000) = 10_0000
         并且设置偏移 OFFSET = 50000，目的是让每一个数都能够大于等于 0
         这样就可以作为 count 数组的下标，查询这个数的计数*/
-        const LEN = array.length, SIZE = this.OFFSET << 1, count = new Array(SIZE).fill(0);
-        // 计算计数数组
-        for (let num of array) count[num + this.OFFSET]++;
-        // 把 count 数组变成前缀和数组
-        for (let i = 1; i < SIZE; i++) count[i] += count[i - 1];
-        // 先把原始数组赋值到一个临时数组里，然后回写数据
+        const maxNum = Math.max.apply(null, array), minNum = Math.min.apply(null, array),
+            size = maxNum - minNum + 1, len = array.length, counts = new Array(size).fill(0);
+        for (let arr of array) counts[arr - minNum]++;
+        for (let i = 1; i < size; i++) counts[i] += counts[i - 1];
         let temp = [...array];
-        // 为了保证稳定性，从后向前赋值
-        for (let j = LEN - 1; j >= 0; j--) {
-            let k = count[temp[j] + this.OFFSET] - 1;
-            array[k] = temp[j];
-            count[temp[j] + this.OFFSET]--;
-        }
+        for (let j = len - 1; j >= 0; j--) array[--counts[temp[j] - minNum]] = temp[j];
     }
 }
 
