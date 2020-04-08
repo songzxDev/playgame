@@ -270,3 +270,58 @@ const countSort = (nums) => {
     for (let j = len - 1; j >= 0; j--) nums[--count[copied[j] - minNum]] = copied[j];
     return nums;
 };
+
+
+//给定一个二叉树，返回其节点值自底向上的层次遍历。 （即按从叶子节点所在层到根节点所在的层，逐层从左向右遍历）
+//
+// 例如：
+//给定二叉树 [3,9,20,null,null,15,7],
+//
+//     3
+//   / \
+//  9  20
+//    /  \
+//   15   7
+//
+//
+// 返回其自底向上的层次遍历为：
+//
+// [
+//  [15,7],
+//  [9,20],
+//  [3]
+//]
+//
+// Related Topics 树 广度优先搜索
+//leetcode submit region begin(Prohibit modification and deletion)
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * 题目：107.二叉树的层次遍历II
+ * https://leetcode-cn.com/problems/binary-tree-level-order-traversal-ii/
+ * @param {TreeNode} root
+ * @return {number[][]}
+ */
+const levelOrderBottom = function (root) {
+    if (!root) return [];
+    let res = [], queue = [root];
+    while (queue.length > 0) {
+        let f = queue.length, tmp = [], children = [], rem = null;
+        for (let i = 0; i < f; i++) {
+             if ((rem = queue[i])) {
+                 tmp.push(rem.val);
+                 if (rem.left) children.push(rem.left);
+                 if (rem.right) children.push(rem.right);
+             }
+        }
+        res.unshift(tmp);
+        queue = children;
+    }
+    return res;
+};
+//leetcode submit region end(Prohibit modification and deletion)
