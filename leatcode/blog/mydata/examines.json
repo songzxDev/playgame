@@ -23,6 +23,9 @@
     "https://leetcode-cn.com/problems/trapping-rain-water/": "42. 接雨水"
   },
   {
+    "https://shimo.im/docs/3xvghYh3JJPKwdvt/read": "分治代码模板",
+    "https://shimo.im/docs/DjqqGCT3xqDYwPyY/read": "递归代码模板",
+    "https://visualgo.net/zh/bst?slide=1": "二叉搜索树 Demo",
     "https://leetcode-cn.com/problems/valid-anagram/description/": "242. 有效的字母异位词",
     "https://leetcode-cn.com/problems/group-anagrams/": "49. 字母异位词分组",
     "https://leetcode-cn.com/problems/two-sum/description/": "1. 两数之和",
@@ -44,6 +47,8 @@
     "https://leetcode-cn.com/problems/permutations-ii/": "47. 全排列 II"
   },
   {
+    "https://shimo.im/docs/hjQqRQkGgwd9g36J/read": "二分查找代码模板",
+    "https://www.beyond3d.com/content/articles/8/": "Fast InvSqrt() 扩展阅读",
     "https://leetcode-cn.com/problems/powx-n/": "50. Pow(x, n)",
     "https://leetcode-cn.com/problems/subsets/": "78. 子集",
     "https://leetcode-cn.com/problems/majority-element/description/": "169. 多数元素",
@@ -130,6 +135,8 @@
     "https://leetcode-cn.com/problems/minimum-genetic-mutation/": "433. 最小基因变化",
     "https://leetcode-cn.com/problems/shortest-path-in-binary-matrix/": "1091. 二进制矩阵中的最短路径",
     "https://leetcode-cn.com/problems/sliding-puzzle/": "773. 滑动谜题",
-    "https://en.wikipedia.org/wiki/Self-balancing_binary_search_tree": "平衡树"
+    "https://en.wikipedia.org/wiki/Self-balancing_binary_search_tree": "平衡树",
+    "https://time.geekbang.org/column/article/68638": "红黑树（上）",
+    "https://time.geekbang.org/column/article/68976": "红黑树（下）"
   }
 ]
