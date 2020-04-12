@@ -3,10 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <title>练习题目</title>
+    <style lang="css">
+        .week {
+            position: relative;
+            margin: 10px;
+        }
+
+        .arrowRight:before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-top: 1px solid #656565;
+            border-right: 1px solid #656565;
+            transform: rotate(45deg);
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+
+        .arrowDown:before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-top: 1px solid #656565;
+            border-right: 1px solid #656565;
+            transform: rotate(135deg);
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+    </style>
 </head>
 <body>
-<div id="week01" style="margin: 10px;">
-    <p>week01：数组、链表、栈、队列</p>
+<div id="week01" class="week">
+    <p class="arrowRight" data-arrow="">week01：数组、链表、栈、队列</p>
     <ul id="week01-list" style="display: none;">
     </ul>
 </div>
@@ -23,9 +53,13 @@
                 weekDiv.style.cursor = 'pointer';
                 weekDiv.addEventListener('click', evt => {
                     if (weekUl.style.display === 'none') {
+                        weekDiv.classList.remove('arrowRight');
+                        weekDiv.classList.add('arrowDown');
                         weekUl.style.display = 'block';
                     } else {
                         weekUl.style.display = 'none';
+                        weekDiv.classList.remove('arrowDown');
+                        weekDiv.classList.add('arrowRight');
                     }
                     evt.stopPropagation();
                 });
