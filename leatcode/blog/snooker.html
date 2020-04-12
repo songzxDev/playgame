@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>练习题目</title>
+</head>
+<body>
+<div id="week01" style="margin: 10px;">
+    <p>week01：数组、链表、栈、队列</p>
+    <ul id="week01-list" style="display: none;">
+    </ul>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', evt => {
+        let oReq = new XMLHttpRequest();
+        oReq.overrideMimeType("application/json;charset=utf-8");
+        oReq.addEventListener('load', evt => {
+            let questions = oReq.response;
+            for (let i = 0; i < questions.length; i++) {
+                let weekNum = (i + 1) < 9 ? '0' + (i + 1) : i + 1;
+                let ques = questions[i], weekUl = document.getElementById(`week${weekNum}-list`),
+                    weekDiv = document.getElementById(`week${weekNum}`).firstElementChild;
+                weekDiv.style.cursor = 'pointer';
+                weekDiv.addEventListener('click', evt => {
+                    if (weekUl.style.display === 'none') {
+                        weekUl.style.display = 'block';
+                    } else {
+                        weekUl.style.display = 'none';
+                    }
+                    evt.stopPropagation();
+                });
+                Object.getOwnPropertyNames(ques).forEach(function (key) {
+                    let li = document.createElement('li'), a = document.createElement('a');
+                    [a.target, a.href, a.textContent] = ['_blank', key, ques[key]];
+                    li.appendChild(a);
+                    weekUl.appendChild(li);
+                });
+
+            }
+        });
+        oReq.open("GET", "./mydata/examines.json");
+        oReq.responseType = 'json';
+        oReq.send();
+    });
+</script>
+</body>
+</html>
