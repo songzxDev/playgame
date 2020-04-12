@@ -106,5 +106,30 @@
     "https://leetcode-cn.com/problems/palindromic-substrings/": "647. 回文子串",
     "https://leetcode-cn.com/problems/minimum-window-substring/": "76. 最小覆盖子串",
     "https://leetcode-cn.com/problems/burst-balloons/": "312. 戳气球"
+  },
+  {
+    "https://shimo.im/docs/Pk6vPY3HJ9hKkh33/read": "Trie 树代码模板",
+    "https://shimo.im/docs/ydPCH33xDhK9YwWR/read": "并查集代码模板",
+    "https://shimo.im/docs/ddgwCccJQKxkrcTq/read": "DFS 代码模板",
+    "https://shimo.im/docs/P8TqKHGKt3ytkYYd/read": "BFS 代码模板",
+    "https://shimo.im/docs/CXvjHyWhpQcxXjcw/read": "A*代码模板",
+    "https://dataaspirant.com/2015/04/11/five-most-popular-similarity-measures-implementation-in-python/": "相似度测量方法",
+    "https://leetcode.com/problems/shortest-path-in-binary-matrix/discuss/313347/A*-search-in-Python": "二进制矩阵中的最短路径的 A* 解法",
+    "https://zxi.mytechroad.com/blog/searching/8-puzzles-bidirectional-astar-vs-bidirectional-bfs/": "8 puzzles 解法比较",
+    "https://leetcode-cn.com/problems/implement-trie-prefix-tree/#/description": "208. 实现 Trie (前缀树)",
+    "https://leetcode-cn.com/problems/word-search-ii/": "212. 单词搜索 II",
+    "https://leetcode-cn.com/problems/binary-tree-level-order-traversal/": "102. 二叉树的层序遍历",
+    "https://leetcode-cn.com/problems/number-of-islands/": "200. 岛屿数量",
+    "https://leetcode-cn.com/problems/surrounded-regions/": "130. 被围绕的区域",
+    "https://leetcode-cn.com/problems/climbing-stairs/": "70. 爬楼梯",
+    "https://leetcode-cn.com/problems/generate-parentheses/": "22. 括号生成",
+    "https://leetcode-cn.com/problems/n-queens": "51. N皇后",
+    "https://leetcode-cn.com/problems/valid-sudoku/description/": "36. 有效的数独",
+    "https://leetcode-cn.com/problems/sudoku-solver/#/description": "37. 解数独",
+    "https://leetcode-cn.com/problems/word-ladder/": "127. 单词接龙",
+    "https://leetcode-cn.com/problems/minimum-genetic-mutation/": "433. 最小基因变化",
+    "https://leetcode-cn.com/problems/shortest-path-in-binary-matrix/": "1091. 二进制矩阵中的最短路径",
+    "https://leetcode-cn.com/problems/sliding-puzzle/": "773. 滑动谜题",
+    "https://en.wikipedia.org/wiki/Self-balancing_binary_search_tree": "平衡树"
   }
 ]
