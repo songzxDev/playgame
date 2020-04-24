@@ -104,25 +104,25 @@ const sortArray = (nums) => {
 const ladderLength = function (beginWord, endWord, wordList) {
     let wordSet = new Set(wordList);
     if (!wordSet.has(endWord)) return 0;
-    let beginSet = new Set([beginWord]), endSet = new Set([endWord]), steps = 1;
     wordSet.delete(beginWord);
     wordSet.delete(endWord);
-    while (beginSet.size > 0 && endSet.size > 0) {
-        ++steps;
+    let steps = 1, beginSet = new Set([beginWord]), endSet = new Set([endWord]);
+    while (beginSet.size > 0 && beginSet.size > 0) {
+        steps++;
         let nextSet = new Set();
         for (let word of beginSet) {
-            for (let w = 0; w < word.length; w++) {
-                for (let i = 97; i < 123; i++) {
-                    const c = String.fromCharCode(i);
-                    if (c !== word.charAt(w)) {
-                        let target = word.slice(0, w) + c + word.slice(w + 1);
-                        if (endSet.has(target)) return steps;
-                        if (wordSet.has(target)) {
-                            nextSet.add(target);
-                            wordSet.delete(target);
-                        }
+            for (let i = 0; i < word.length; i++) {
+                for (let j = 97; j < 123; j++) {
+                    let c = String.fromCharCode(j);
+                    if (word.charAt(i) === c) continue;
+                    let target = word.slice(0, i) + c + word.slice(i + 1);
+                    if (endSet.has(target)) return steps;
+                    if (wordSet.has(target)) {
+                        nextSet.add(target);
+                        wordSet.delete(target);
                     }
                 }
+
             }
         }
         beginSet = nextSet.size < endSet.size ? nextSet : endSet;
