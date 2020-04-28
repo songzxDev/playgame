@@ -101,18 +101,17 @@ const sortArray = (nums) => {
  * @param {string[]} wordList
  * @return {number}
  */
-const ladderLength = function (beginWord, endWord, wordList) {
-    if (wordList.length === 0 || wordList.indexOf(endWord) === -1) return 0;
-    let wordSet = new Set(wordList), beginSet = new Set([beginWord]), endSet = new Set([endWord]);
-    let steps = 1;
+const ladderLength = (beginWord, endWord, wordList) => {
+    if (wordList.length === 0 || !wordList.includes(endWord)) return 0;
+    let wordSet = new Set(wordList), beginSet = new Set([beginWord]), endSet = new Set([endWord]), steps = 1;
     while (beginSet.size > 0) {
         if (beginSet.size > endSet.size) [beginSet, endSet] = [endSet, beginSet];
         let nextSet = new Set();
         for (let word of beginSet) {
             for (let i = 0; i < word.length; i++) {
                 const prefix = word.slice(0, i), postfix = word.slice(i + 1);
-                for (let j = 97; j < 123; j++) {
-                    const target = prefix + String.fromCharCode(j) + postfix;
+                for (const c of "abcdefghijklmnopqrstuvwxyz") {
+                    const target = prefix + c + postfix;
                     if (endSet.has(target)) return steps + 1;
                     if (wordSet.has(target)) {
                         wordSet.delete(target);
