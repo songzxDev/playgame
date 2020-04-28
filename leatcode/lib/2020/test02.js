@@ -102,31 +102,27 @@ const sortArray = (nums) => {
  * @return {number}
  */
 const ladderLength = function (beginWord, endWord, wordList) {
-    let wordSet = new Set(wordList);
-    if (!wordSet.has(endWord)) return 0;
-    wordSet.delete(beginWord);
-    wordSet.delete(endWord);
-    let steps = 1, beginSet = new Set([beginWord]), endSet = new Set([endWord]);
-    while (beginSet.size > 0 && beginSet.size > 0) {
-        steps++;
+    if (wordList.length === 0 || wordList.indexOf(endWord) === -1) return 0;
+    let wordSet = new Set(wordList), beginSet = new Set([beginWord]), endSet = new Set([endWord]);
+    let steps = 1;
+    while (beginSet.size > 0) {
+        if (beginSet.size > endSet.size) [beginSet, endSet] = [endSet, beginSet];
         let nextSet = new Set();
         for (let word of beginSet) {
             for (let i = 0; i < word.length; i++) {
+                const prefix = word.slice(0, i), postfix = word.slice(i + 1);
                 for (let j = 97; j < 123; j++) {
-                    let c = String.fromCharCode(j);
-                    if (word.charAt(i) === c) continue;
-                    let target = word.slice(0, i) + c + word.slice(i + 1);
-                    if (endSet.has(target)) return steps;
+                    const target = prefix + String.fromCharCode(j) + postfix;
+                    if (endSet.has(target)) return steps + 1;
                     if (wordSet.has(target)) {
-                        nextSet.add(target);
                         wordSet.delete(target);
+                        nextSet.add(target);
                     }
                 }
-
             }
         }
-        beginSet = nextSet.size < endSet.size ? nextSet : endSet;
-        endSet = beginSet.size < endSet.size ? endSet : nextSet;
+        beginSet = nextSet;
+        steps++;
     }
     return 0;
 };
