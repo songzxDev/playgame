@@ -156,4 +156,14 @@ const sortArrayByQuick = function (nums) {
     return nums;
 };
 //leetcode submit region end(Prohibit modification and deletion)
-console.log(sortArrayByQuick([1, 88, 99, 3, -98, 271]));
+
+function getRandomIntInclusive(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min; //含最大值，含最小值
+}
+
+let randomArray = [];
+for (let i = 0; i < 10000; i++) randomArray.push(getRandomIntInclusive(0, 10000));
+
+console.log(sortArrayByQuick(randomArray));
