@@ -126,3 +126,34 @@ const ladderLength = (beginWord, endWord, wordList) => {
     return 0;
 };
 //leetcode submit region end(Prohibit modification and deletion)
+
+const partition = (nums, begin, end) => {
+    let pivot = end, counter = begin;
+    for (let i = begin; i < end; i++) {
+        if (nums[i] < nums[pivot]) {
+            [nums[i], nums[counter]] = [nums[counter], nums[i]];
+            counter++;
+        }
+    }
+    [nums[pivot], nums[counter]] = [nums[counter], nums[pivot]];
+    return counter;
+};
+const quickSort = (nums, begin, end) => {
+    if (begin >= end) return;
+    let pivot = partition(nums, begin, end);
+    quickSort(nums, begin, pivot - 1);
+    quickSort(nums, pivot + 1, end);
+};
+
+//leetcode submit region begin(Prohibit modification and deletion)
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+const sortArrayByQuick = function (nums) {
+    if (!nums || nums.length < 2) return nums;
+    quickSort(nums, 0, nums.length - 1);
+    return nums;
+};
+//leetcode submit region end(Prohibit modification and deletion)
+console.log(sortArrayByQuick([1, 88, 99, 3, -98, 271]));
