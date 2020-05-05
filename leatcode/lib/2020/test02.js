@@ -155,6 +155,7 @@ const sortArrayByQuick = function (nums) {
     quickSort(nums, 0, nums.length - 1);
     return nums;
 };
+
 //leetcode submit region end(Prohibit modification and deletion)
 
 function getRandomIntInclusive(min, max) {
@@ -167,3 +168,22 @@ let randomArray = [];
 for (let i = 0; i < 10000; i++) randomArray.push(getRandomIntInclusive(0, 10000));
 
 console.log(sortArrayByQuick(randomArray));
+
+/**
+ * @param {string[]} strs
+ * @return {string[][]}
+ */
+const groupAnagrams = function (strs) {
+    if (!strs || strs.length === 0) return [];
+    const primes = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101];
+    const getNumKey = (str) => {
+        let numKey = 1;
+        for (let i = 0; i < str.length; i++) numKey *= primes[str.charCodeAt(i) - 97];
+        return numKey;
+    }, countMap = new Map();
+    strs.forEach(str => {
+        const numKey = getNumKey(str);
+        countMap.has(numKey) ? countMap.get(numKey).push(str) : countMap.set(numKey, [str]);
+    });
+    return [...countMap.values()];
+};
