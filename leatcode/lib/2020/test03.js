@@ -1,3 +1,7 @@
+function getRandomInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
+}
+
 /**
  * 将数组转换为一个链表
  * @param {Array} array
@@ -37,8 +41,11 @@ const mergeTwoLists = function (l1, l2) {
     }
 };
 
-let a = [-9, -2, -1, 0, 1, 2, 4, 7], b = [2, 5, 8, 11, 19, 21];
-
+let a = [], b = [];
+for (let i = 0; i < 99; i++) a.push(getRandomInt(99));
+for (let i = 0; i < 101; i++) b.push(getRandomInt(101));
+a.sort((x, y) => x - y);
+b.sort((x, y) => x - y);
 let node1 = getLinkNodeFromArray(a), node2 = getLinkNodeFromArray(b);
 let afterMerge = mergeTwoLists(node1, node2);
 console.log(JSON.stringify(afterMerge));
