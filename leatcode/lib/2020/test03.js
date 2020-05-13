@@ -49,3 +49,23 @@ b.sort((x, y) => x - y);
 let node1 = getLinkNodeFromArray(a), node2 = getLinkNodeFromArray(b);
 let afterMerge = mergeTwoLists(node1, node2);
 console.log(JSON.stringify(afterMerge));
+
+class SortArrayUtil {
+    constructor () {}
+    static countSort(nums) {
+        if (!nums || nums.length < 2) return nums;
+        let minNum = 0, maxNum = 0;
+        for (let n of nums) [minNum, maxNum] = [Math.min(minNum, n), Math.max(maxNum, n)];
+        let countSize = maxNum - minNum + 1, countArray = new Array(countSize).fill(0);
+        for (let n of nums) countArray[n - minNum]++;
+        for (let i = 1; i < countSize; i++) countArray[i] += countArray[i - 1];
+        let copied = [...nums];
+        for (let f = nums.length - 1; f >= 0; f--) {
+            let k = --countArray[copied[f] - minNum];
+            nums[k] = copied[f];
+        }
+        return nums;
+    }
+}
+
+console.log(SortArrayUtil.countSort([99, -1, 37, 46, 85, 2, 9, 17]));
