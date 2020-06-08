@@ -109,15 +109,15 @@ function TreeNode(val) {
  * @return {TreeNode}
  */
 const buildTree = function (preorder, inorder) {
-    const inMap = inorder.reduce((act, cur, idx) => act.set(cur, idx), new Map());
+    const inorderMap = inorder.reduce((act, cur, idx) => act.set(cur, idx), new Map());
     const buildHelper = (preLeft, preRight, inLeft, inRight) => {
         if (preLeft > preRight || inLeft > inRight) return null;
-        let leftSize = inMap.get(preorder[preLeft]) - inLeft, rootIdx = inMap.get(preorder[preLeft]);
-        let curRoot = new TreeNode(preorder[preLeft]);
-        curRoot.left = buildHelper(preLeft + 1, preLeft + leftSize, inLeft, rootIdx - 1);
-        curRoot.right = buildHelper(preLeft + leftSize + 1, preRight, rootIdx + 1, inRight);
+        const inRootIdx = inorderMap.get(preorder[preLeft]), preLeftPivot = inRootIdx - inLeft + preLeft;
+        const curRoot = new TreeNode(preorder[preLeft]);
+        curRoot.left = buildHelper(preLeft + 1, preLeftPivot, inLeft, inRootIdx - 1);
+        curRoot.right = buildHelper(preLeftPivot + 1, preRight, inRootIdx + 1, inRight);
         return curRoot;
-    }
+    };
     return buildHelper(0, preorder.length - 1, 0, inorder.length - 1);
 };
 //leetcode submit region end(Prohibit modification and deletion)
