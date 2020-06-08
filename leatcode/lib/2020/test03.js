@@ -51,7 +51,9 @@ let afterMerge = mergeTwoLists(node1, node2);
 console.log(JSON.stringify(afterMerge));
 
 class SortArrayUtil {
-    constructor () {}
+    constructor() {
+    }
+
     static countSort(nums) {
         if (!nums || nums.length < 2) return nums;
         let minNum = 0, maxNum = 0;
@@ -68,4 +70,54 @@ class SortArrayUtil {
     }
 }
 
-console.log(SortArrayUtil.countSort([99, -1, 37, 46, 85, 2, 9, 17]));
+//根据一棵树的前序遍历与中序遍历构造二叉树。
+//
+// 注意:
+//你可以假设树中没有重复的元素。
+//
+// 例如，给出
+//
+// 前序遍历 preorder = [3,9,20,15,7]
+//中序遍历 inorder = [9,3,15,20,7]
+//
+// 返回如下的二叉树：
+//
+//     3
+//   / \
+//  9  20
+//    /  \
+//   15   7
+// Related Topics 树 深度优先搜索 数组
+
+
+//leetcode submit region begin(Prohibit modification and deletion)
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+function TreeNode(val) {
+    this.val = val;
+    this.left = this.right = null;
+}
+
+/**
+ * @param {number[]} preorder
+ * @param {number[]} inorder
+ * @return {TreeNode}
+ */
+const buildTree = function (preorder, inorder) {
+    const inMap = inorder.reduce((act, cur, idx) => act.set(cur, idx), new Map());
+    const buildHelper = (preLeft, preRight, inLeft, inRight) => {
+        if (preLeft > preRight || inLeft > inRight) return null;
+        let leftSize = inMap.get(preorder[preLeft]) - inLeft, rootIdx = inMap.get(preorder[preLeft]);
+        let curRoot = new TreeNode(preorder[preLeft]);
+        curRoot.left = buildHelper(preLeft + 1, preLeft + leftSize, inLeft, rootIdx - 1);
+        curRoot.right = buildHelper(preLeft + leftSize + 1, preRight, rootIdx + 1, inRight);
+        return curRoot;
+    }
+    return buildHelper(0, preorder.length - 1, 0, inorder.length - 1);
+};
+//leetcode submit region end(Prohibit modification and deletion)
