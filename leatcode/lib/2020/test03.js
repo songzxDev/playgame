@@ -112,10 +112,10 @@ const buildTree = function (preorder, inorder) {
     const inorderMap = inorder.reduce((act, cur, idx) => act.set(cur, idx), new Map());
     const buildHelper = (preLeft, preRight, inLeft, inRight) => {
         if (preLeft > preRight || inLeft > inRight) return null;
-        const inRootIdx = inorderMap.get(preorder[preLeft]), leftSubtreeLen = inRootIdx - inLeft;
+        const inRootIdx = inorderMap.get(preorder[preLeft]), prePivot = inRootIdx - inLeft + preLeft;
         const curRoot = new TreeNode(preorder[preLeft]);
-        curRoot.left = buildHelper(preLeft + 1, preLeft + leftSubtreeLen, inLeft, inRootIdx - 1);
-        curRoot.right = buildHelper(preLeft + leftSubtreeLen + 1, preRight, inRootIdx + 1, inRight);
+        curRoot.left = buildHelper(preLeft + 1, prePivot, inLeft, inRootIdx - 1);
+        curRoot.right = buildHelper(prePivot + 1, preRight, inRootIdx + 1, inRight);
         return curRoot;
     };
     return buildHelper(0, preorder.length - 1, 0, inorder.length - 1);
