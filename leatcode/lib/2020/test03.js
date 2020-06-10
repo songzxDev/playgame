@@ -23,24 +23,6 @@ const getLinkNodeFromArray = (array) => {
     return node;
 };
 
-/**
- * 题目21.合并两个有序链表 https://leetcode-cn.com/problems/merge-two-sorted-lists/
- * @param {ListNode} l1
- * @param {ListNode} l2
- * @return {ListNode}
- */
-const mergeTwoLists = function (l1, l2) {
-    if (l1 === null) return l2;
-    if (l2 === null) return l1;
-    if (l1.val < l2.val) {
-        l1.next = mergeTwoLists(l1.next, l2);
-        return l1;
-    } else {
-        l2.next = mergeTwoLists(l1, l2.next);
-        return l2;
-    }
-};
-
 let a = [], b = [];
 for (let i = 0; i < 99; i++) a.push(getRandomInt(99));
 for (let i = 0; i < 101; i++) b.push(getRandomInt(101));
@@ -201,5 +183,102 @@ const minWindow = function (s, t) {
         }
     }
     return minLen === 0x7fffffff ? "" : s.substr(start, minLen);
+};
+//leetcode submit region end(Prohibit modification and deletion)
+//给定一个排序数组，你需要在 原地 删除重复出现的元素，使得每个元素只出现一次，返回移除后数组的新长度。
+//
+// 不要使用额外的数组空间，你必须在 原地 修改输入数组 并在使用 O(1) 额外空间的条件下完成。
+//
+//
+//
+// 示例 1:
+//
+// 给定数组 nums = [1,1,2],
+//
+//函数应该返回新的长度 2, 并且原数组 nums 的前两个元素被修改为 1, 2。
+//
+//你不需要考虑数组中超出新长度后面的元素。
+//
+// 示例 2:
+//
+// 给定 nums = [0,0,1,1,1,2,2,3,3,4],
+//
+//函数应该返回新的长度 5, 并且原数组 nums 的前五个元素被修改为 0, 1, 2, 3, 4。
+//
+//你不需要考虑数组中超出新长度后面的元素。
+//
+//
+//
+//
+// 说明:
+//
+// 为什么返回数值是整数，但输出的答案是数组呢?
+//
+// 请注意，输入数组是以「引用」方式传递的，这意味着在函数里修改输入数组对于调用者是可见的。
+//
+// 你可以想象内部操作如下:
+//
+// // nums 是以“引用”方式传递的。也就是说，不对实参做任何拷贝
+//int len = removeDuplicates(nums);
+//
+//// 在函数里修改输入数组对于调用者是可见的。
+//// 根据你的函数返回的长度, 它会打印出数组中该长度范围内的所有元素。
+//for (int i = 0; i < len; i++) {
+//    print(nums[i]);
+//}
+//
+// Related Topics 数组 双指针
+
+
+//leetcode submit region begin(Prohibit modification and deletion)
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+const removeDuplicates = function(nums) {
+    let r = 0;
+    for (let i = 0; i < nums.length; i++) {
+        if (i === 0 || nums[i - 1] < nums[i]) {
+            nums[r++] = nums[i];
+        }
+    }
+    return r;
+};
+//leetcode submit region end(Prohibit modification and deletion)
+//将两个升序链表合并为一个新的 升序 链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。
+//
+//
+//
+// 示例：
+//
+// 输入：1->2->4, 1->3->4
+//输出：1->1->2->3->4->4
+//
+// Related Topics 链表
+
+
+//leetcode submit region begin(Prohibit modification and deletion)
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} l1
+ * @param {ListNode} l2
+ * @return {ListNode}
+ */
+const mergeTwoLists = function(l1, l2) {
+    if (!l1) return l2;
+    if (!l2) return l1;
+    if (l1.val < l2.val) {
+        l1.next = mergeTwoLists(l1.next, l2);
+        return l1;
+    } else {
+        l2.next = mergeTwoLists(l1, l2.next);
+        return l2;
+    }
 };
 //leetcode submit region end(Prohibit modification and deletion)
