@@ -112,12 +112,53 @@ const buildTree = function (preorder, inorder) {
     const inorderMap = inorder.reduce((act, cur, idx) => act.set(cur, idx), new Map());
     const buildHelper = (preLeft, preRight, inLeft, inRight) => {
         if (preLeft > preRight || inLeft > inRight) return null;
-        const inRootIdx = inorderMap.get(preorder[preLeft]), prePivot = inRootIdx - inLeft + preLeft;
+        const inRootIdx = inorderMap.get(preorder[preLeft]), leftSubtreeLen = inRootIdx - 1 - inLeft + 1;
         const curRoot = new TreeNode(preorder[preLeft]);
-        curRoot.left = buildHelper(preLeft + 1, prePivot, inLeft, inRootIdx - 1);
-        curRoot.right = buildHelper(prePivot + 1, preRight, inRootIdx + 1, inRight);
+        curRoot.left = buildHelper(preLeft + 1, preLeft + leftSubtreeLen, inLeft, inRootIdx - 1);
+        curRoot.right = buildHelper(preLeft + leftSubtreeLen + 1, preRight, inRootIdx + 1, inRight);
         return curRoot;
     };
     return buildHelper(0, preorder.length - 1, 0, inorder.length - 1);
+};
+//leetcode submit region end(Prohibit modification and deletion)
+//给定一个字符串数组，将字母异位词组合在一起。字母异位词指字母相同，但排列不同的字符串。
+//
+// 示例:
+//
+// 输入: ["eat", "tea", "tan", "ate", "nat", "bat"]
+//输出:
+//[
+//  ["ate","eat","tea"],
+//  ["nat","tan"],
+//  ["bat"]
+//]
+//
+// 说明：
+//
+//
+// 所有输入均为小写字母。
+// 不考虑答案输出的顺序。
+//
+// Related Topics 哈希表 字符串
+
+
+//leetcode submit region begin(Prohibit modification and deletion)
+/**
+ * @param {string[]} strs
+ * @return {string[][]}
+ */
+const groupAnagrams = function (strs) {
+    if (!strs || strs.length === 0) return [];
+    const PRIMES = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101];
+    const groupMap = new Map(), getNumKey = (stt) => {
+        let numKey = 1;
+        for (let i = 0; i < stt.length; i++) numKey *= PRIMES[stt.charCodeAt(i) - 97];
+        return numKey;
+    };
+    strs.forEach(stt => {
+        const numKey = getNumKey(stt);
+        groupMap.has(numKey) ? groupMap.get(numKey).push(stt) : groupMap.set(numKey, [stt]);
+    });
+    return [...groupMap.values()];
 };
 //leetcode submit region end(Prohibit modification and deletion)
