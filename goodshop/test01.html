@@ -59,6 +59,16 @@
             text.innerText = child.innerText;
         }, {passive: false});
     }
+
+    const oReq = new XMLHttpRequest();
+    oReq.responseType = "json";
+    oReq.addEventListener("load", function () {
+        console.log(typeof oReq.response);
+        console.log(oReq.response);
+    });
+    oReq.open('GET', 'http://127.0.0.1:8999/stats/requests');
+    oReq.setRequestHeader('Authorization', 'Basic ODE4OmF1dG9ob21l');
+    oReq.send();
 </script>
 </body>
 </html>
