@@ -66,9 +66,10 @@
         console.log(typeof oReq.response);
         console.log(oReq.response);
     });
-    oReq.open('GET', 'http://127.0.0.1:8999/stats/requests');
-    oReq.setRequestHeader('Authorization', 'Basic ODE4OmF1dG9ob21l');
-    oReq.send();
+    oReq.open('GET', 'http://49.233.19.214:8089/stats/requests?_t=' + Date.now());
+    oReq.setRequestHeader("Cache-Control", "no-cache");
+    oReq.setRequestHeader("Access-Control-Allow-Origin", "*");
+    oReq.send(null);
 </script>
 </body>
 </html>
