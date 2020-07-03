@@ -47,3 +47,29 @@ const sortArray = function (nums) {
     return nums;
 };
 //leetcode submit region end(Prohibit modification and deletion)
+//leetcode submit region begin(Prohibit modification and deletion)
+/**
+ * @param {string} s
+ * @param {string} t
+ * @return {string}
+ */
+const minWindow = function (s, t) {
+    if (!s || !t || s.length < t.length) return "";
+    let i = 0, j = 0, start = 0, found = 0, minLen = 0x7fffffff, winds = [], tMap = [], sLen = s.length,
+        tLen = t.length;
+    for (let i = 0; i < 256; i++) winds.push(tMap.push(0) & 0);
+    for (let i = 0; i < tLen; i++) tMap[t.charCodeAt(i)]++;
+    while (j < sLen) {
+        if (found < tLen) {
+            let before = s.charCodeAt(j++);
+            if (tMap[before] > 0) if (++winds[before] <= tMap[before]) found++;
+        }
+        while (found === tLen) {
+            if (j - i < minLen) [start, minLen] = [i, j - i];
+            let after = s.charCodeAt(i++);
+            if (tMap[after] > 0) if (--winds[after] < tMap[after]) found--;
+        }
+    }
+    return minLen === 0x7fffffff ? "" : s.substr(start, minLen);
+};
+//leetcode submit region end(Prohibit modification and deletion)
