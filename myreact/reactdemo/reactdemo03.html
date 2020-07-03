@@ -16,16 +16,28 @@
     class HelloComponent extends React.Component {
         constructor(props) {
             super(props);
+            this.state = {isToggleOn: true};
+        }
+
+        handleClick() {
+            this.setState(state => ({
+                isToggleOn: !state.isToggleOn
+            }));
         }
 
         render() {
             return (
                 <div>
-                    {
-                        this.props.names.map(name => {
-                            return <div key={name}>Hello, {name}</div>;
-                        })
-                    }
+                    <div>
+                        {
+                            this.props.names.map(name => {
+                                return <div key={name}>Hello, {name}</div>;
+                            })
+                        }
+                    </div>
+                    <button onClick={this.handleClick.bind(this)}>
+                        {this.state.isToggleOn ? 'ON' : 'OFF'}
+                    </button>
                 </div>
             );
         }
