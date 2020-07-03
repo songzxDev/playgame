@@ -73,3 +73,23 @@ const minWindow = function (s, t) {
     return minLen === 0x7fffffff ? "" : s.substr(start, minLen);
 };
 //leetcode submit region end(Prohibit modification and deletion)
+//leetcode submit region begin(Prohibit modification and deletion)
+/**
+ * @param {string[]} strs
+ * @return {string[][]}
+ */
+const groupAnagrams = function (strs) {
+    if (!strs || strs.length === 0) return [];
+    const PRIMES = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101];
+    const groupMap = new Map(), getNumKey = (stt) => {
+        let numKey = 1;
+        for (let i = 0; i < stt.length; i++) numKey *= PRIMES[stt.charCodeAt(i) - 97];
+        return numKey
+    }
+    for (const stt of strs) {
+        const numKey = getNumKey(stt);
+        groupMap.has(numKey) ? groupMap.get(numKey).push(stt) : groupMap.set(numKey, [stt]);
+    }
+    return [...groupMap.values()];
+};
+//leetcode submit region end(Prohibit modification and deletion)
