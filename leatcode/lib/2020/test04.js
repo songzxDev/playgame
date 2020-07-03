@@ -93,3 +93,32 @@ const groupAnagrams = function (strs) {
     return [...groupMap.values()];
 };
 //leetcode submit region end(Prohibit modification and deletion)
+//leetcode submit region begin(Prohibit modification and deletion)
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+const threeSum = function (nums) {
+    if (!nums || nums.length < 3) return [];
+    nums.sort((a, b) => a - b);
+    const isRun = nums[0] <= 0, n = nums.length, res = [];
+    for (let i = 0; isRun && i < n - 2; i++) {
+        if (i === 0 || nums[i - 1] < nums[i]) {
+            let j = i + 1, k = n - 1;
+            while (j < k) {
+                let add = nums[i] + nums[j] + nums[k];
+                if (add === 0) {
+                    res.push([nums[i], nums[j], nums[k]]);
+                    while (j < k && nums[j] === nums[++j]) {}
+                    while (j < k && nums[k] === nums[--k]) {}
+                } else if (add < 0) {
+                    j++
+                } else {
+                    k--
+                }
+            }
+        }
+    }
+    return res;
+};
+//leetcode submit region end(Prohibit modification and deletion)
