@@ -109,8 +109,10 @@ const threeSum = function (nums) {
                 let add = nums[i] + nums[j] + nums[k];
                 if (add === 0) {
                     res.push([nums[i], nums[j], nums[k]]);
-                    while (j < k && nums[j] === nums[++j]) {}
-                    while (j < k && nums[k] === nums[--k]) {}
+                    while (j < k && nums[j] === nums[++j]) {
+                    }
+                    while (j < k && nums[k] === nums[--k]) {
+                    }
                 } else if (add < 0) {
                     j++
                 } else {
@@ -120,5 +122,30 @@ const threeSum = function (nums) {
         }
     }
     return res;
+};
+
+//leetcode submit region end(Prohibit modification and deletion)
+function TreeNode(val) {
+    this.val = val;
+    this.left = this.right = null;
+}
+
+//leetcode submit region begin(Prohibit modification and deletion)
+/**
+ * @param {number[]} preorder
+ * @param {number[]} inorder
+ * @return {TreeNode}
+ */
+const buildTree = function (preorder, inorder) {
+    const inorderMap = inorder.reduce((act, cur, idx) => act.set(cur, idx), new Map());
+    const buildHelper = (preLeft, preRight, inLeft, inRight) => {
+        if (preLeft > preRight || inLeft > inRight) return null;
+        const inRootIdx = inorderMap.get(preorder[preLeft]), leftSubtreeLen = inRootIdx - 1 - inLeft + 1;
+        const currRoot = new TreeNode(preorder[preLeft]);
+        currRoot.left = buildHelper(preLeft + 1, preLeft + leftSubtreeLen, inLeft, inRootIdx - 1);
+        currRoot.right = buildHelper(preLeft + leftSubtreeLen + 1, preRight, inRootIdx + 1, inRight);
+        return currRoot;
+    };
+    return buildHelper(0, preorder.length - 1, 0, inorder.length - 1);
 };
 //leetcode submit region end(Prohibit modification and deletion)
