@@ -149,3 +149,42 @@ const buildTree = function (preorder, inorder) {
     return buildHelper(0, preorder.length - 1, 0, inorder.length - 1);
 };
 //leetcode submit region end(Prohibit modification and deletion)
+
+//leetcode submit region begin(Prohibit modification and deletion)
+/**
+ * @param {number} n
+ * @return {string[][]}
+ */
+const solveNQueens = function (n) {
+    if (n < 1) return [];
+    const lie = new Set(), pie = new Set(), na = new Set(), res = [], array = [];
+    const convertBoards = (array, n) => {
+        return array.reduce((act, cur) => {
+            let boards = [];
+            for (let i = 0; i < n; i++) boards.push(cur === i ? 'Q' : '.');
+            act.push(boards.join(''));
+            return act;
+        }, []);
+    };
+    const dfsNQueens = (row, n) => {
+        if (row >= n) {
+            res.push(convertBoards(array, n));
+            return;
+        }
+        for (let i = 0; i < n; i++) {
+            if (lie.has(i) || pie.has(row + i) || na.has(row - i)) continue;
+            array.push(i);
+            lie.add(i);
+            pie.add(row + i);
+            na.add(row - i);
+            dfsNQueens(row + 1, n);
+            array.pop();
+            lie.delete(i);
+            pie.delete(row + i);
+            na.delete(row - i);
+        }
+    };
+    dfsNQueens(0, n);
+    return res;
+};
+//leetcode submit region end(Prohibit modification and deletion)
