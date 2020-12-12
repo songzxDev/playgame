@@ -1,0 +1,163 @@
+/*skinOne*/
+.t-navbar .ticonfont-logo.ticonfont-tplusdec,
+.t-navbar .ticonfont-logo.ticonfont-tplusdech{
+    color: #3788ff;
+}
+.t-navbar{
+    border-bottom: 1px solid #e5e5e5;
+}
+.t-accordionbar-bg,
+.t-sidebar-bg,
+#leftmenubar{
+    background-color: #364150;
+}
+.t-nav-logo{
+    background-color: #3788ff;
+    height: 50px;
+}
+.newML{
+    background: none;
+}
+.t-bg1 a,
+.t-bg1 .ticon,
+.t-bg1 .ticonfont{
+    color: #fff;
+}
+
+.ticon{
+    color: #666;
+}
+.t-menu .newML:hover .menu-text,
+.t-menu .newML:hover .ticon{
+    color: #fff;
+}
+.t-menu li.current {
+    background-color: #212b37;
+}
+.t-menu .ticon{
+    color: #c2c6cc;
+}
+.menu-text {
+    color: #c2c6cc;
+}
+.t-nav-notify li:hover .ticon{
+    color: #3788ff;
+}
+
+#navbar {
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+}
+
+.newML {
+    background-color: #364150;
+    /*border-top: 1px solid #3d4957;*/
+}
+
+#sidebar .nav-list li.current {
+    background-color: #3788FF;
+}
+
+.t-nav-notify > li > a {
+    color: #c6cfda;
+}
+
+.t-nav-notify .show-name {
+    color: #333;
+}
+.t-user:hover .show-name{
+    color: #3788ff;
+}
+.searchContainer, .func-zone {
+    background-color: #2d394a;
+}
+.func-zone_click .func-zone-float {
+    background-color: #2b3643;
+}
+.searchContainer .ticon:hover{
+    color: #fff;
+}
+.circleNum {
+    background-color: #fc5c5e;
+}
+.serviceTOpen {
+    background-color: #ddd;
+}
+.t-user:hover .ticonfont{
+    color: #3788ff;
+}
+.t-user-info{
+	color: #666;
+}
+
+.t-add-bg{
+    box-shadow: 0 0 10px rgba(55, 136, 255, 0.6);
+    -webkit-box-shadow: 0 0 10px rgba(55, 136, 255, 0.6);
+    -moz-box-shadow: 0 0 10px rgba(55, 136, 255, 0.6);
+}
+/*层级菜单*/
+.portal-accordion-menu ul li a{
+        color: #dbdbdb;
+}
+.portal-accordion-menu > ul > li.active > a {
+    background: #2b3643;
+}
+.portal-accordion-menu ul ul.submenu li:hover > a {
+    background: #8da1b8;
+}
+/*end*/
+/*tab区域背景色*/
+#tabs,
+#tabs a{
+    background-color: #f2f6fd;
+}
+/*内容区域颜色*/
+.t-container{
+    background-color: #f2f6fd;
+}
+/*menu 滚动条*/
+#scrollbar .portalScrollbar,
+#scrollbar .portalScrollbar.mouseOver {
+    background-color: #c3c6cb;
+}
+
+#scrollbar .portalScrollbar #portalScrollbar_scrollDiv_scroll,
+#scrollbar .portalScrollbar.mouseOver #portalScrollbar_scrollDiv_scroll,
+#scrollbar .portalScrollbar.mouseOver #portalScrollbar_scrollDiv_scroll:hover {
+    background-color: #7d7d7d;
+}
+.portalScrollbar .scrollTop,
+.portalScrollbar .scrollBot{
+    background-color: #c3c6cb;
+    color: #666;
+}
+.scrollTop:hover,
+.portalScrollbar .scrollBot:hover{
+    background-color: #c3c6cb;
+    color: #fff;
+}
+/*menu 滚动条 end*/
+.ac_results{
+    box-shadow: 2px 2px 3px rgba(51,64,84,0.2) !important;
+    -webkit-box-shadow: 2px 2px 3px rgba(51,64,84,0.2) !important;
+}
+
+/*层级菜单*/
+.portal-accordion-menu > ul > li.active > a {
+    /*color: #fff;*/
+    background: #2b3643;
+}
+.portal-accordion-menu .submenu a {
+    color: #303030;
+    /*background-color: #becbdb;*/
+    background-color: #f2f6fd;
+}
+.portal-accordion-menu ul ul.submenu li:hover > a {
+    background: #8da1b8;
+}
+.portal-accordion-menu > ul > li > a {
+    border-bottom: #364150;
+}
+.portal-accordion-menu > ul > li > a:hover {
+    background: #2b3643;
+}

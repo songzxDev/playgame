@@ -188,3 +188,22 @@ const solveNQueens = function (n) {
     return res;
 };
 //leetcode submit region end(Prohibit modification and deletion)
+
+
+let aaa = [{id: 'a-1', pid: null, label: 'a-1'}, {id: 'a-1-1', pid: 'a-1', label: 'a-1-1'}, {
+    id: 'b-1',
+    pid: null,
+    label: 'b-1'
+}, {id: 'b-1-1', pid: 'b-1', label: 'b-1-1'}];
+const treeHelper = (node) => {
+    if (!node) return node;
+    node.children = aaa.filter(a => a.pid === node.id);
+    for (let child of node.children) treeHelper(child);
+    return node;
+}
+let bbb = aaa.filter(a => !a.pid).reduce((act, cur) => {
+    act.push(treeHelper(cur));
+    return act;
+}, []);
+console.log(JSON.stringify(bbb));
+console.log(JSON.stringify(aaa));
